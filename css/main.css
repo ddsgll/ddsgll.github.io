@@ -401,6 +401,8 @@ Left Menu
 .courses ul li:active {
   background: #cbe86b;
   box-shadow: 0px 0px 0px #b4b4b4;
+  top: 0px;
+  left: 0px;
 }
 .courses ul li.error::after {
   width: 8px;
@@ -415,7 +417,6 @@ Left Menu
 .table_title {
   margin: 8px 0px;
   padding: 0px 0px;
-  background: #efefef;
 }
 .table_title .time {
   width: 48px;
@@ -430,13 +431,15 @@ Left Menu
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
 }
 .table_pairs {
-  background: #eee;
+  border-bottom: 1px solid #efefef;
+  border-top: 1px solid #efefef;
+  height: 95%;
 }
 .table_pairs_row {
+  background: rgba(0, 0, 0, 0.05);
   position: relative;
   min-height: 128px;
   margin: 8px 0px;
-  background: #dedede;
 }
 .table_pairs_row .time {
   position: absolute;
