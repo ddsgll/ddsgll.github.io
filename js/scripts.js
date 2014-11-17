@@ -30,9 +30,8 @@ $(document).ready(function() {
 	});
 	
 	TweenMax.staggerFrom( $("nav li"), 1.5, {
-		right: -60,
 		opacity: 0,
-		ease:Elastic.easeOut
+		ease:Quint.easeOut
 	}, .05);
 
 	/*
