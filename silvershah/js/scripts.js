@@ -1,8 +1,11 @@
 $(document).ready(function() {
 
-	//Меню категорий на главной
-	//////////////////////////////////////////////////////////////////////////////////////
-	$(".categories").hide();
+	$(".categories").hide(); //Прячем подменю категорий
+	$(".cart-section").hide(); //Прячем корзину
+
+	$(".cart").click(function() {
+		$(".cart-section").slideToggle(1000); 
+	});
 
 	$("nav.menu .item").on('click', function() {
 		var curcent = $(this).offset().left + $(this).width()/2;

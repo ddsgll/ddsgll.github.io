@@ -459,6 +459,129 @@ nav.narrow ul a:hover::before {
     display: none;
   }
 }
+.cart-section {
+  width: 100%;
+  margin: 0px;
+  padding: 3em 0px;
+  overflow: hidden;
+}
+.cart-section h1 {
+  text-transform: uppercase;
+  font-size: 30px;
+  color: #191919;
+  margin-bottom: .5em;
+}
+.cart-section .counter {
+  width: 15%;
+  text-align: right;
+  display: inline-block;
+}
+@media screen and (max-width: 960px) {
+  .cart-section .counter {
+    width: 100%;
+    float: none;
+    text-align: left;
+  }
+  .cart-section .counter input {
+    max-width: 400px;
+  }
+}
+.cart-section .counter span {
+  font-size: 14px;
+  display: block;
+}
+.cart-section .counter span.num,
+.cart-section .counter span.sum {
+  font-size: 24px;
+}
+.cart-section .counter input {
+  width: 100%;
+  margin: 1em 0;
+  padding: 1em;
+  text-transform: uppercase;
+  background: #191919;
+  color: #ffc954;
+  text-align: center;
+  border: 1px solid #191919;
+  box-shadow: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.cart-section .counter input:hover {
+  -webkit-animation: none;
+  -moz-animation: none;
+  -ms-animation: none;
+  -o-animation: none;
+  animation: none;
+  color: #191919;
+  background: #ffc954;
+}
+.cart-section .table {
+  width: 80%;
+  float: right;
+  display: inline-block;
+  margin: 0 0 3em 0;
+}
+@media screen and (max-width: 960px) {
+  .cart-section .table {
+    width: 100%;
+    float: none;
+  }
+}
+.cart-section table {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  text-align: left;
+}
+.cart-section table tr:nth-child(2n+1) {
+  background-color: #fff1d4;
+}
+.cart-section table td {
+  padding: 1em .2em;
+  text-align: center;
+  vertical-align: middle;
+}
+@media screen and (max-width: 640px) {
+  .cart-section table td {
+    font-size: 10px;
+  }
+}
+.cart-section table td img {
+  max-width: 100%;
+  min-width: 64px;
+}
+.cart-section table td input {
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid #ccc;
+}
+.cart-section table td:nth-child(1) {
+  width: 20%;
+}
+.cart-section table td:nth-child(2) {
+  font-size: 12px;
+  width: 10%;
+}
+.cart-section table td:nth-child(3) {
+  width: 25%;
+}
+.cart-section table td:nth-child(4) {
+  width: 5%;
+}
+.cart-section table td:nth-child(5),
+.cart-section table td:nth-child(6) {
+  width: 15%;
+}
+.cart-section table td:nth-child(7) {
+  width: 5%;
+}
 /*
 ==============================================================================
 Main-menu
