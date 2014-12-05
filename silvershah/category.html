@@ -146,231 +146,64 @@
             </div>
         </section>
 
-
-        <!-- Slider -->
-        <section id="slider">
+        <!-- Filter -->
+        <section class="filter">
             <div class="container">
 
-                <!-- Блок слайдера -->
-                <div id="slideshow" class="slider">
-                    
-                    <!-- Слайд -->
-                    <div class="slide">
-                        
-                        <!-- Картинка слайда, позиционируется абсолютно, в верхний правый угол-->
-                        <img src="img/slides/1.png" />
-                        
-                        <!-- Информация слайда -->
-                        <div class="inf">
-                            <!-- Название товара -->
-                            <h1>Винный сервиз из серебра</h1>
-                            <!-- Цена -->
-                            <span class="slide-price">384 000,-</span>
-                            <!-- Информация -->
-                            <div class="info">Информация о товаре (уточнить формат)</div>
-                        </div>
-                    </div>
-
-                    <div class="slide">
-                        <div class="inf">
-                            <img src="img/slides/1.png" />
-                            <h1>Винный сервиз из золота</h1>
-                            <span class="slide-price">569 800,-</span>
-                            <div class="info">Информация о товаре (уточнить формат)</div>
-                        </div>
-                    </div>
-
-                    <div class="slide">
-                        <div class="inf">
-                            <img src="img/slides/1.png" />
-                            <h1>Винный сервиз из межпространственного вакуума</h1>
-                            <span class="slide-price">-58 000,-</span>
-                            <div class="info">Информация о товаре (уточнить формат)</div>
-                        </div>
-                    </div>
-
-                    <div id="prev"></div>
-                    <div id="next"></div>
-
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Категории товара -->
-        <section class="category">
-            <div class="container">
                 <div class="title">
-                    <div class="icon gift"></div>
-                    <h1>Название категории</h1>
+                    <span>Серебряная посуда</span><span>Стаканы</span>
                 </div>
-                <div class="items">
 
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
+                <form action="">
+
+                    <div class="search">
+                        <label for="">Поиск</label>
+                        <input type="text">
                     </div>
                     
-                    <div class="item">
-                        <img src="img/photos/2.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
+                    <div class="price">
+                        <label for="">Цена</label>
+                        <div class="range-slider" data-range_min="10000" data-range_max="200000" 
+                       data-cur_min="25000"    data-cur_max="175000">           
+                            <!-- <div class="bgbar"></div> -->
+                            <div class="bar"></div>
+                            <div class="lg"></div>
+                            <div class="rg"></div>
                         </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/2.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара длиной в три строки</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
+
+                        <input class="range range-price-min" name="min" type="text">
+                        &#8211;
+                        <input class="range range-price-max" name="max" type="text">
+
+                        <div class="ch up"></div>
+                        <div class="ch down"></div>
+
+                        <input type="submit" value="Показать">
                     </div>
 
-                </div>
+                </form>
+
             </div>
         </section>
 
         <!-- Категории товара -->
         <section class="category">
             <div class="container">
-                <div class="title">
-                    <div class="icon pos"></div>
-                    <h1>Название категории</h1>
-                </div>
                 <div class="items">
-
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
                     
-                    <div class="item">
-                        <img src="img/photos/2.png" alt="">
+                    <div class="item big left">
+                        <img src="img/photos/03.jpg" alt="">
                         <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/2.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара длиной в три строки</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Категории товара -->
-        <section class="category">
-            <div class="container">
-                <div class="title">
-                    <div class="icon serv"></div>
-                    <h1>Название категории</h1>
-                </div>
-                <div class="items">
-
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/2.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/2.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара длиной в три строки</span>
+                        <div class="price">58 600</div>
                         <div class="hov">
                             Подробнее
                         </div>
                     </div>  
 
                     <div class="item">
-                        <img src="img/photos/2.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара длиной в три строки</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
                         <img src="img/photos/1.png" alt="">
                         <span>Название товара</span>
+                        <div class="price">58 600</div>
                         <div class="hov">
                             Подробнее
                         </div>
@@ -379,38 +212,16 @@
                     <div class="item">
                         <img src="img/photos/2.png" alt="">
                         <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара длиной в три строки</span>
+                        <div class="price">58 600</div>
                         <div class="hov">
                             Подробнее
                         </div>
                     </div>  
 
                     <div class="item">
-                        <img src="img/photos/2.png" alt="">
-                        <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара длиной в три строки</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
                         <img src="img/photos/1.png" alt="">
                         <span>Название товара</span>
+                        <div class="price">58 600</div>
                         <div class="hov">
                             Подробнее
                         </div>
@@ -419,30 +230,133 @@
                     <div class="item">
                         <img src="img/photos/2.png" alt="">
                         <span>Название товара</span>
-                        <div class="hov">
-                            Подробнее
-                        </div>
-                    </div>
-                    
-                    <div class="item">
-                        <img src="img/photos/1.png" alt="">
-                        <span>Название товара длиной в три строки</span>
+                        <div class="price">58 600</div>
                         <div class="hov">
                             Подробнее
                         </div>
                     </div>  
 
                     <div class="item">
-                        <img src="img/photos/2.png" alt="">
+                        <img src="img/photos/1.png" alt="">
                         <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="img/photos/1.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
                         <div class="hov">
                             Подробнее
                         </div>
                     </div>
                     
                     <div class="item">
+                        <img src="img/photos/2.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>  
+
+                    <div class="item">
                         <img src="img/photos/1.png" alt="">
-                        <span>Название товара в две строки</span>
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>
+                    
+                    <div class="item big right">
+                        <img src="img/photos/01.jpg" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>  
+
+                    <div class="item">
+                        <img src="img/photos/1.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <img src="img/photos/2.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>  
+
+                    <div class="item">
+                        <img src="img/photos/1.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <img src="img/photos/2.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>  
+
+                    <div class="item">
+                        <img src="img/photos/1.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <img src="img/photos/2.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>  
+
+                    <div class="item">
+                        <img src="img/photos/1.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <img src="img/photos/2.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
+                        <div class="hov">
+                            Подробнее
+                        </div>
+                    </div>  
+
+                    <div class="item">
+                        <img src="img/photos/1.png" alt="">
+                        <span>Название товара</span>
+                        <div class="price">58 600</div>
                         <div class="hov">
                             Подробнее
                         </div>

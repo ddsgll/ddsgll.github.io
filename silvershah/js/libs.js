@@ -9205,3 +9205,3167 @@ function(a){"use strict";a.extend(a.fn.cycle.defaults,{next:"> .cycle-next",next
 function(a){"use strict";a.extend(a.fn.cycle.defaults,{progressive:!1}),a(document).on("cycle-pre-initialize",function(b,c){if(c.progressive){var d,e,f=c.API,g=f.next,h=f.prev,i=f.prepareTx,j=a.type(c.progressive);if("array"==j)d=c.progressive;else if(a.isFunction(c.progressive))d=c.progressive(c);else if("string"==j){if(e=a(c.progressive),d=a.trim(e.html()),!d)return;if(/^(\[)/.test(d))try{d=a.parseJSON(d)}catch(k){return void f.log("error parsing progressive slides",k)}else d=d.split(new RegExp(e.data("cycle-split")||"\n")),d[d.length-1]||d.pop()}i&&(f.prepareTx=function(a,b){var e,f;return a||0===d.length?void i.apply(c.API,[a,b]):void(b&&c.currSlide==c.slideCount-1?(f=d[0],d=d.slice(1),c.container.one("cycle-slide-added",function(a,b){setTimeout(function(){b.API.advanceSlide(1)},50)}),c.API.add(f)):b||0!==c.currSlide?i.apply(c.API,[a,b]):(e=d.length-1,f=d[e],d=d.slice(0,e),c.container.one("cycle-slide-added",function(a,b){setTimeout(function(){b.currSlide=1,b.API.advanceSlide(-1)},50)}),c.API.add(f,!0)))}),g&&(f.next=function(){var a=this.opts();if(d.length&&a.currSlide==a.slideCount-1){var b=d[0];d=d.slice(1),a.container.one("cycle-slide-added",function(a,b){g.apply(b.API),b.container.removeClass("cycle-loading")}),a.container.addClass("cycle-loading"),a.API.add(b)}else g.apply(a.API)}),h&&(f.prev=function(){var a=this.opts();if(d.length&&0===a.currSlide){var b=d.length-1,c=d[b];d=d.slice(0,b),a.container.one("cycle-slide-added",function(a,b){b.currSlide=1,b.API.advanceSlide(-1),b.container.removeClass("cycle-loading")}),a.container.addClass("cycle-loading"),a.API.add(c,!0)}else h.apply(a.API)})}})}(jQuery),/*! tmpl plugin for Cycle2;  version: 20121227 */
 function(a){"use strict";a.extend(a.fn.cycle.defaults,{tmplRegex:"{{((.)?.*?)}}"}),a.extend(a.fn.cycle.API,{tmpl:function(b,c){var d=new RegExp(c.tmplRegex||a.fn.cycle.defaults.tmplRegex,"g"),e=a.makeArray(arguments);return e.shift(),b.replace(d,function(b,c){var d,f,g,h,i=c.split(".");for(d=0;d<e.length;d++)if(g=e[d]){if(i.length>1)for(h=g,f=0;f<i.length;f++)g=h,h=h[i[f]]||c;else h=g[c];if(a.isFunction(h))return h.apply(g,e);if(void 0!==h&&null!==h&&h!=c)return h}return c})}})}(jQuery);
 //# sourceMappingURL=jquery.cycle2.js.map
+
+/*! Nestoria Slider - v1.0.8 - 2014-10-27
+* http://lokku.github.io/jquery-nstslider/
+* Copyright (c) 2014 Lokku Ltd.; Licensed MIT */
+(function($) {
+    /* 
+     * These are used for user interaction. This plugin assumes the user can
+     * interact with one control at a time. For this reason it's safe to keep
+     * these global.
+     */
+    var _$current_slider;
+    var _is_mousedown;
+    var _original_mousex;
+
+    // both for keyboard and mouse interaction
+    var _is_left_grip;
+
+    // for keyboard interaction only
+    var _before_keydown_value;
+    var _before_keydown_pixel;
+    var _before_keyup_value;
+    var _before_keyup_pixel;
+
+    var _methods = {
+         'getSliderValuesAtPositionPx' : function (leftPx, rightPx) {
+              var $this = this,
+                  leftPxInValue, rightPxInValue,
+                  pixel_to_value_mapping_func = $this.data('pixel_to_value_mapping');
+
+              if (typeof pixel_to_value_mapping_func !== 'undefined') {
+                  leftPxInValue = pixel_to_value_mapping_func(leftPx);
+                  rightPxInValue = pixel_to_value_mapping_func(rightPx);
+              }
+              else {
+                  var w = _methods.getSliderWidthPx.call($this) - $this.data('left_grip_width');
+                  leftPxInValue = _methods.inverse_rangemap_0_to_n.call($this, leftPx, w);
+                  rightPxInValue = _methods.inverse_rangemap_0_to_n.call($this, rightPx, w);
+              }
+
+              return [leftPxInValue, rightPxInValue];
+         },
+         /*
+          *  Move slider grips to the specified position. This method is
+          *  designed to run within the user interaction lifecycle. Only call
+          *  this method if the user has interacted with the sliders
+          *  actually...
+          *
+          *  First the desired positions are validated. If values are ok, the
+          *  move is performed, otherwise it's just ignored because weird
+          *  values have been passed.
+          */
+         'validateAndMoveGripsToPx' : function (nextLeftGripPositionPx, nextRightGripPositionPx) {
+             var $this = this;
+             var draggableAreaLengthPx = _methods.getSliderWidthPx.call($this) - $this.data('left_grip_width');
+
+             //
+             // Validate & Move
+             //
+             if (nextRightGripPositionPx <= draggableAreaLengthPx && 
+                 nextLeftGripPositionPx >= 0 &&
+                 nextLeftGripPositionPx <= draggableAreaLengthPx && 
+                 (!$this.data('has_right_grip') || nextLeftGripPositionPx <= nextRightGripPositionPx) ) {
+
+                 var prevMin = $this.data('cur_min'),                        
+                     prevMax = $this.data('cur_max');       
+
+                 // note: also stores new cur_min, cur_max
+                 _methods.set_position_from_px.call($this, nextLeftGripPositionPx, nextRightGripPositionPx);
+
+                 // set the style of the grips according to the highlighted range
+                 _methods.refresh_grips_style.call($this);
+
+                 _methods.notify_changed_implicit.call($this, 'drag_move', prevMin, prevMax);
+             }
+
+             return $this;
+         },
+         /*
+          * Update aria attributes of the slider based on the current
+          * configuration of the slider.
+          */
+         'updateAriaAttributes' : function () {
+            var $this = this,
+                settings = $this.data('settings'),
+                $leftGrip = $this.find(settings.left_grip_selector);
+
+            //
+            // double grips sliders is probably the most common case...
+            // ... also, the values to be set in the two cases are quite
+            // different.
+            //
+            if ($this.data('has_right_grip')) {
+
+                var $rightGrip = $this.find(settings.right_grip_selector);
+
+                //
+                // grips are mutually binding their max/min values when 2 grips
+                // are present. For example, we should imagine the left grip as
+                // being constrained between [ rangeMin, valueMax ]
+                //
+                $leftGrip
+                    .attr('aria-valuemin', $this.data('range_min'))
+                    .attr('aria-valuenow', methods.get_current_min_value.call($this))
+                    .attr('aria-valuemax', methods.get_current_max_value.call($this));
+
+                $rightGrip
+                    .attr('aria-valuemin', methods.get_current_min_value.call($this))
+                    .attr('aria-valuenow', methods.get_current_max_value.call($this))
+                    .attr('aria-valuemax', $this.data('range_max'));
+            }
+            else {
+                $leftGrip
+                    .attr('aria-valuemin', $this.data('range_min'))
+                    .attr('aria-valuenow', methods.get_current_min_value.call($this))
+                    .attr('aria-valuemax', $this.data('range_max'));
+            }
+
+            return $this;
+         },
+         /*
+          * Return the width in pixels of the slider bar, i.e., the maximum
+          * number of pixels the user can slide the slider over. This function
+          * should always be used internally to obtain the width of the
+          * slider in pixels!
+          */
+         'getSliderWidthPx' : function () {
+            var $this = this;
+
+            //
+            // .width() can actually return a floating point number! see
+            // jquery docs!
+            //
+            return Math.round($this.width());
+         },
+         /*
+          * Return the position of a given grip in pixel in integer format.
+          * Use this method internally if you are literally going to get the
+          * left CSS property from the provided grip.
+          *
+          * This method assumes a certain grip exists and will have the left
+          * property.
+          *
+          * This is generally safe for the left grip, because it is basically
+          * guaranteed to exist. But for the right grip you should be really
+          * using getRightGripPositionPx instead.
+          *
+          */
+         'getGripPositionPx' : function ($grip) {
+            return parseInt($grip.css('left').replace('px',''), 10);
+         },
+         /*
+          * Just the same as getGripPositionPx, but there is no need to provide
+          * the $slider.
+          */
+         'getLeftGripPositionPx' : function () {
+            var $this = this,
+                settings = $this.data('settings'),
+                $leftGrip = $this.find(settings.left_grip_selector);
+
+            return _methods.getGripPositionPx.call($this, $leftGrip);
+         },
+         /*
+          * Return the position of the right Grip if it exists or return the
+          * current position if not. Even if the right grip doesn't exist, its
+          * position should be defined, as it determines the position of the 
+          * bar.
+          */
+         'getRightGripPositionPx' : function () {
+            var $this = this,
+                settings = $this.data('settings');
+
+                if ($this.data('has_right_grip')) {
+                    return _methods.getGripPositionPx.call($this,
+                        $this.find(settings.right_grip_selector)
+                    );
+                }
+
+                // default
+                var sliderWidthPx = _methods.getSliderWidthPx.call($this) - $this.data('left_grip_width');
+                return _methods.rangemap_0_to_n.call($this, $this.data('cur_max'), sliderWidthPx);
+         },
+         /*
+          * Return the width of the left grip.  Like getSliderWidthPx, this
+          * method deals with .width() returning a floating point number. All
+          * the code in this plugin assumes an integer here!
+          */
+         'getLeftGripWidth' : function () {
+            var $this = this,
+                settings = $this.data('settings'),
+                $leftGrip = $this.find(settings.left_grip_selector);
+
+            return Math.round($leftGrip.width());
+         },
+         /*
+          * Return the width of the right grip. The calling method should
+          * check that the right grip actually exists. This method assumes it
+          * does.
+          */
+         'getRightGripWidth' : function () {
+            var $this = this,
+                settings = $this.data('settings'),
+                $rightGrip = $this.find(settings.right_grip_selector);
+
+            return Math.round($rightGrip.width());
+         },
+         /*
+          * Perform binary search to find searchElement into a generic array.
+          * It uses a customized compareFunc to perform the comparison between
+          * two elements of the array and a getElement function to pick the
+          * element from the array (e.g., in case we want to pick a field of an
+          * array of objects)
+          */
+         'binarySearch' : function(array, searchElement, getElementFunc, compareFunc) {
+              var minIndex = 0;
+              var maxIndex = array.length - 1;
+              var currentIndex;
+              var currentElement;
+
+              while (minIndex <= maxIndex) {
+                  currentIndex = (minIndex + maxIndex) / 2 | 0;
+                  currentElement = getElementFunc(array, currentIndex);
+
+                  // lt = -1 (searchElement < currentElement)
+                  // eq = 0 
+                  // gt = 1  (searchElement > currentElement)
+                  var lt_eq_gt = compareFunc(searchElement, array, currentIndex);
+
+                  if (lt_eq_gt > 0) {
+                      minIndex = currentIndex + 1;
+                  }
+                  else if (lt_eq_gt < 0) {
+                      maxIndex = currentIndex - 1;
+                  }
+                  else {
+                      return currentIndex;
+                  }
+              }
+
+              return -1;
+        },
+        /*
+         * Returns true if this slider has limit, false otherwise. There can be
+         * an upper limit and a lower limit for the sliders.
+         * The lower/upper limits are values that are out of the slider range,
+         * but that can be selected by the user when he moves a slider all the
+         * way down the minimum and up to the maximum value.
+         */
+        'haveLimits' : function () {
+            var $this = this,
+                lowerLimit = $this.data('lower-limit'),
+                upperLimit = $this.data('upper-limit'),
+                haveLimits = false;
+
+            if (typeof lowerLimit !== 'undefined' && 
+                typeof upperLimit !== 'undefined') {
+                
+                haveLimits = true;
+            }
+
+            return haveLimits;
+        },
+        /*
+         * This method is called whenever the style of the grips needs to get
+         * updated.
+         */
+        'refresh_grips_style' : function () {
+            var $this = this,
+            settings = $this.data('settings');
+
+            // Skip refreshing grips style if no hihglight is specified in
+            // construction
+            if (typeof settings.highlight === 'undefined') {
+                return;
+            }
+
+            var highlightedRangeMin = $this.data('highlightedRangeMin');
+
+            if (typeof highlightedRangeMin === 'undefined') {
+                return;
+            }
+
+            var $leftGrip = $this.find(settings.left_grip_selector),
+                $rightGrip = $this.find(settings.right_grip_selector),
+                highlightedRangeMax = $this.data('highlightedRangeMax'),
+                curMin = $this.data('cur_min'),
+                curMax = $this.data('cur_max'),
+                highlightGripClass = settings.highlight.grip_class;
+
+            // curmin is within the highlighted range
+            if (curMin < highlightedRangeMin || curMin > highlightedRangeMax) {
+                // de-highlight grip
+                $leftGrip.removeClass(highlightGripClass);
+            }
+            else {
+                // highlight grip
+                $leftGrip.addClass(highlightGripClass);
+            }
+
+            // time to highlight right grip
+            if (curMax < highlightedRangeMin || curMax > highlightedRangeMax) {
+                // de-highlight grip
+                $rightGrip.removeClass(highlightGripClass);
+            }
+            else {
+                // highlight grip
+                $rightGrip.addClass(highlightGripClass);
+            }
+        },
+        /* 
+         *  Set left and right handle at the right position on the screen (pixels) 
+         *  given the desired position in currency.
+         * 
+         *  e.g., _methods.set_position_from_val.call($this, 10000, 100000);
+         *        
+         *        may set the left handle at 100px and the right handle at
+         *        200px;
+         *   
+         */
+        'set_position_from_val' : function (cur_min, cur_max) {
+            var $this = this;
+            // 
+            // We need to understand how much pixels cur_min and cur_max
+            // correspond.
+            //
+            var range_min = $this.data('range_min'),
+                range_max = $this.data('range_max');
+
+            //
+            // (safety) constrain the cur_min or the cur_max value between the
+            // max/min ranges allowed for this slider.
+            //
+            if (cur_min < range_min) { cur_min = range_min; }
+            if (cur_min > range_max) { cur_min = range_max; }
+
+            if ($this.data('has_right_grip')) {
+                if (cur_max > range_max) { cur_max = range_max; }
+                if (cur_max < range_min) { cur_max = range_min; }
+            }
+            else {
+                cur_max = $this.data('cur_max');
+            }
+
+            var leftPx = methods.value_to_px.call($this, cur_min),
+                rightPx = methods.value_to_px.call($this, cur_max);
+
+            _methods.set_handles_at_px.call($this, leftPx, rightPx);
+
+            // save this position
+            $this.data('cur_min', cur_min);
+
+            if ($this.data('has_right_grip')) {
+                $this.data('cur_max', cur_max);
+            }
+
+            return $this;
+        },
+        /*
+         * Set the position of the handles at the specified pixel points (taking
+         * the whole slider width as a maximum point).
+         */
+        'set_position_from_px' : function (leftPx, rightPx) {
+            var $this = this;
+
+            //
+            // we need to find a value from the given value in pixels
+            //
+
+            // now set the position as requested...
+            _methods.set_handles_at_px.call($this, leftPx, rightPx);
+
+            var valueLeftRight = _methods.getSliderValuesAtPositionPx.call($this, leftPx, rightPx),
+                leftPxInValue = valueLeftRight[0],
+                rightPxInValue = valueLeftRight[1];
+
+            // ... and save the one we've found.
+            $this.data('cur_min', leftPxInValue);
+
+            if ($this.data('has_right_grip')) {
+                $this.data('cur_max', rightPxInValue);
+            }
+
+            return $this;
+        },
+        'set_handles_at_px' : function (leftPx, rightPx) {
+            var $this = this;
+            var settings = $this.data('settings');
+
+            var left_grip_selector = settings.left_grip_selector,
+                right_grip_selector = settings.right_grip_selector,
+                value_bar_selector = settings.value_bar_selector;
+
+            var handleWidth = $this.data('left_grip_width'),
+                innerBarDeltaPx = handleWidth/2;
+
+            // set here
+            if ($this.data('has_right_grip')) {
+                $this.find(value_bar_selector)
+                    .css('left', (leftPx + innerBarDeltaPx) + 'px')
+                    .css('width', (rightPx - leftPx + innerBarDeltaPx) + 'px');
+
+                $this.find(left_grip_selector).css('left', leftPx + 'px');
+            }
+            else {
+                if (leftPx < rightPx) {
+                    $this.find(value_bar_selector)
+                        .css('left', (leftPx + innerBarDeltaPx) + 'px')
+                        .css('width', (rightPx - leftPx + innerBarDeltaPx) + 'px');
+                }
+                else {
+                    $this.find(value_bar_selector)
+                        .css('left', (rightPx + innerBarDeltaPx) + 'px')
+                        .css('width', (leftPx - rightPx + innerBarDeltaPx) + 'px');
+                }
+
+                $this.find(left_grip_selector).css('left', leftPx + 'px');
+            }
+
+            $this.find(right_grip_selector).css('left', rightPx + 'px');
+
+            return $this;
+            
+        },
+        'drag_start_func_touch' : function (e, settings, $left_grip, $right_grip, is_touch) {
+            var $this = this,
+                original_event = e.originalEvent,
+                touch = original_event.touches[0];
+
+            // for touch devices we need to make sure we allow the user to scroll
+            // if the click was too far from the slider.
+            var curY = touch.pageY,
+                curX = touch.pageX;
+
+            // is the user allowed to grab if he/she tapped too far from the
+            // slider?
+            var ydelta = Math.abs($this.offset().top - curY),
+                slider_left = $this.offset().left,
+                xldelta = slider_left - curX,
+                xrdelta = curX - (slider_left + $this.width());
+
+            if (ydelta > settings.touch_tolerance_value_bar_y  ||
+                xldelta > settings.touch_tolerance_value_bar_x ||
+                xrdelta > settings.touch_tolerance_value_bar_x ) {
+
+                return;
+            }
+
+            original_event.preventDefault();
+            _original_mousex = touch.pageX;
+
+            // true : is touch event
+            _methods.drag_start_func.call($this, touch, settings, $left_grip, 
+                $right_grip, is_touch);
+        },
+        'drag_start_func' : function (e, settings, $leftGrip, $rightGrip, 
+                is_touch) {
+
+            var $this = this;
+
+            $this.find(settings.left_grip_selector + 
+                ',' + settings.value_bar_selector + 
+                ',' + settings.right_grip_selector).removeClass(
+
+                settings.animating_css_class
+            );
+            
+            if (!methods.is_enabled.call($this)) { return; }
+        
+            //
+            // if the user used the finger, he/she is allowed to touch anywhere.
+            // but if the mouse is used, we want to enable the logic only for
+            // left grip, right grip, bar/panel elements.
+            //
+            var $target = $(e.target);
+
+            // ... if the highlight range was enabled we should check wether
+            // the user has tapped or clicked the highlight panel...
+            var targetIsPanelSelector = false;
+            if (typeof settings.highlight === 'object') {
+                targetIsPanelSelector = $target.is(settings.highlight.panel_selector);
+            }
+
+            if (is_touch === false && 
+                !$target.is(settings.left_grip_selector) &&
+                !$target.is(settings.right_grip_selector) && 
+                !$target.is(settings.value_bar_selector) &&
+                !targetIsPanelSelector &&
+                !$target.is($this) ) {
+
+                return;
+            }
+
+            // - - - -
+            // the following logic finds the nearest slider grip and starts
+            // dragging it.
+            // - - - -
+            
+            _$current_slider = $this;
+
+            var leftGripPositionPx = _methods.getGripPositionPx.call($this, $leftGrip),
+                sliderWidthPx = _methods.getSliderWidthPx.call($this) - $this.data('left_grip_width'),
+                lleft = $leftGrip.offset().left,
+                rleft, // don't compute this yet (maybe not needed if 1 grip)
+                curX,
+                ldist,
+                rdist,
+                ldelta,
+                rdelta;
+
+            var rightGripPositionPx = _methods.getRightGripPositionPx.call($this);
+
+            //
+            // We need to do as if the click happened a bit more on the left.
+            // That's because we will be setting the left CSS property at the
+            // point where the click happened, meaning the slider grip will be
+            // spanning to the right.
+            //
+            curX = e.pageX - ($this.data('left_grip_width') / 2);
+
+            // calculate deltas from left and right grip
+            ldist = Math.abs(lleft - curX);
+            ldelta = curX - lleft;
+
+            if ($this.data('has_right_grip')) {
+                rleft = $rightGrip.offset().left;
+                rdist = Math.abs(rleft - curX);
+                rdelta = curX - rleft;
+            }
+            else {
+                // no right grip... we make the right slider
+                // unreachable!
+                rdist = ldist * 2;
+                rdelta = ldelta * 2;
+            }
+            
+            // notify the beginning of a dragging...
+            settings.user_drag_start_callback.call($this, e);
+
+            if (ldist === rdist) {
+
+                if (curX < lleft) {
+                    // move the left grip
+                    leftGripPositionPx += ldelta;
+                    _is_left_grip = true;
+                }
+                else {
+                    // move the right grip
+                    rightGripPositionPx += rdelta;
+                    _is_left_grip = false;
+                }
+            }
+            else if (ldist < rdist) {
+
+                // move the left grip
+                leftGripPositionPx += ldelta;
+                _is_left_grip = true;
+            }
+            else {
+                // move the right grip
+                rightGripPositionPx += rdelta;
+                _is_left_grip = false;
+            }
+
+            //
+            // Limit the right grip to the maximum allowed - as the user can
+            // actually click beyond it!
+            //
+            // ...............
+            //               ^-- maximum clickable
+            //              ^--- maximum allowed (i.e., sliderWidth - gripWidth)
+            //
+            // if user clicks at sliderWidth, we will be setting CSS left of
+            // right handle having:
+            //
+            // ...............R  <-- out of bound :-(
+            //               ^-- maximum clickable
+            //              ^--- maximum allowed (i.e., sliderWidth - gripWidth)
+            //
+            // but we want:
+            //
+            // ..............R <-- within bound :-)
+            //               ^-- maximum clickable
+            //              ^--- maximum allowed (i.e., sliderWidth - gripWidth)
+            //
+            // Hence we limit.
+            //
+
+            if ($this.data('has_right_grip')) {
+                // here we check the right handle only, because it should
+                // always be the one that gets moved if the user clicks towards
+                // the right extremity!
+                if (rightGripPositionPx > sliderWidthPx) {
+                    rightGripPositionPx = sliderWidthPx;
+                }
+            }
+            else {
+                // in case we have one handle only, we will be moving the left
+                // handle instead of the right one... hence we need to perform
+                // this check on the left handle as well!
+                if (leftGripPositionPx > sliderWidthPx) {
+                    leftGripPositionPx = sliderWidthPx;
+                }
+            }
+
+            // this can happen because the user can click on the left handle!
+            // (which is out of the left boundary)
+            if (leftGripPositionPx < 0) {
+                leftGripPositionPx = 0;
+            }
+            
+            _is_mousedown = true;
+
+            var prev_min = $this.data('cur_min'),
+                prev_max = $this.data('cur_max');
+
+            _methods.set_position_from_px.call($this, leftGripPositionPx, rightGripPositionPx);
+
+            // set the style of the grips according to the highlighted range
+            _methods.refresh_grips_style.call($this);
+
+            _methods.notify_changed_implicit.call($this, 'drag_start', prev_min, prev_max);
+
+            e.preventDefault();
+        },
+        'drag_move_func_touch' : function (e) {
+            if (_is_mousedown === true) {
+                var original_event = e.originalEvent;
+                original_event.preventDefault();
+                var touch = original_event.touches[0];
+                _methods.drag_move_func(touch);
+            }
+        },
+        'drag_move_func' : function (e) {
+            if (_is_mousedown) {
+                // our slider element.
+                var $this = _$current_slider,
+                    sliderWidthPx = _methods.getSliderWidthPx.call($this) - $this.data('left_grip_width'),
+                    leftGripPositionPx = _methods.getLeftGripPositionPx.call($this);
+
+                var rightGripPositionPx = _methods.getRightGripPositionPx.call($this);
+
+                //
+                // Here we are going to set the position in pixels based on
+                // where the user has moved the mouse cursor. We obtain the
+                // position of the mouse cursors via e.pageX, which returns the
+                // absolute position of the mouse on the screen.
+                //
+                var absoluteMousePosition = e.pageX;
+
+                //
+                // Compute the delta (in px) for the slider movement. It is the
+                // difference between the new position of the cursor and the
+                // old position of the cursor.
+                //
+                // Based on the delta we decide how to move the dragged handle.
+                //
+                // 0 : no movement
+                // -delta: move left
+                // +delta: move right
+                //
+                var delta = absoluteMousePosition - _original_mousex;
+
+                //
+                // User cannot drag the handles outside the slider bar area.
+                //
+
+                // 1) calculate the area within which the movement is
+                //    considered to be valid.
+                var drag_area_start = $this.offset().left + $this.data('left_grip_width'),
+                    drag_area_end = drag_area_start + sliderWidthPx;
+ 
+                // 2) by default we accept to move the slider according to both
+                // the deltas (i.e., left or right)
+                var ignore_positive_delta = 0,
+                    ignore_negative_delta = 0;
+ 
+                // 3) but if the user is moving the mouse beyond the draggable
+                // area, we should only accept a movement in one direction.
+                if (absoluteMousePosition < drag_area_start) { 
+                    ignore_positive_delta = 1;
+                    ignore_negative_delta = 0;
+                }
+                if (absoluteMousePosition > drag_area_end) {
+                    ignore_negative_delta = 1;
+                    ignore_positive_delta = 0;
+                }
+
+                //
+                // Here we decide whether to invert the grip being moved.
+                //
+                if ($this.data('has_right_grip')) {
+                    if (_is_left_grip) {
+
+                        // ... if we are using the left grip
+                        if (rightGripPositionPx <= sliderWidthPx) {
+
+                            // the inversion logic should only be active when the
+                            // slider is not at the extremity
+                            if (leftGripPositionPx + delta > rightGripPositionPx) {
+
+                                _is_left_grip = false;
+
+                                // TWEAK: keep the position of the left handle fixed
+                                // at the one of the right handle as the user may
+                                // have moved the mouse too fast, thus giving
+                                // leftGripPositionPx > rightGripPositionPx.
+                                //
+                                // Basically here we avoid:
+                                // 
+                                // Initial State:
+                                //
+                                // ------L-R------  (leftGripPositionPx < rightGripPositionPx)
+                                //
+                                // Fast Mouse Move:
+                                //
+                                // --------R--L---  (leftGripPositionPx + delta)
+                                // --------R-L----  (leftGripPositionPx [ still > rightGripPositionPx! ])
+                                //
+                                // _is_left_grip becomes false (this code)
+                                // 
+                                leftGripPositionPx = rightGripPositionPx;
+                            }
+                        }
+                    }
+                    else {
+                        // ... converse logic
+                        if (leftGripPositionPx >= 0) {
+                            if (rightGripPositionPx + delta < leftGripPositionPx) {
+
+                                // current_max = current_min;
+                                _is_left_grip = true;
+
+                                rightGripPositionPx = leftGripPositionPx;
+                            }
+                        }
+                    }
+                }
+
+                //
+                // Decide the position of the new handles.
+                //
+                var nextLeftGripPositionPx = leftGripPositionPx,
+                    nextRightGripPositionPx = rightGripPositionPx;
+
+                if ((delta > 0 && !ignore_positive_delta) || 
+                    (delta < 0 && !ignore_negative_delta)) {
+
+                    if (_is_left_grip) {
+                        nextLeftGripPositionPx += delta;
+                    }
+                    else {
+                        nextRightGripPositionPx += delta;
+                    }
+                }
+
+                _methods.validateAndMoveGripsToPx.call($this, nextLeftGripPositionPx, nextRightGripPositionPx);
+ 
+                // prepare for next movement
+                _original_mousex = absoluteMousePosition;
+
+                e.preventDefault();
+            }
+        },
+        'drag_end_func_touch' : function (e) {
+            var original_event = e.originalEvent;
+            original_event.preventDefault();
+            var touch = original_event.touches[0];
+            _methods.drag_end_func(touch);
+        },
+        'drag_end_func' : function (/* e */) {
+            var $this = _$current_slider;
+            if (typeof $this !== 'undefined') {
+                _is_mousedown = false;
+                _original_mousex = undefined;
+
+                _methods.notify_mouse_up_implicit.call($this, _is_left_grip);
+
+                // require another click on a handler before going into here again!
+                _$current_slider = undefined;
+
+                // put back the class once user finished dragging
+                var settings = $this.data('settings');
+                $this.find(settings.left_grip_selector + 
+                    ',' + settings.value_bar_selector + 
+                    ',' + settings.right_grip_selector).addClass(
+
+                    settings.animating_css_class
+                );
+            }
+        },
+        'get_rounding_for_value' : function (v) {
+            var $this = this;
+            var rounding = $this.data('rounding');
+            var rounding_ranges = $this.data('rounding_ranges');
+
+            if (typeof rounding_ranges === 'object') {
+
+                // then it means the rounding is not fixed, we should find the
+                // value in the roundings_array.
+                var roundingIdx  = _methods.binarySearch.call($this, rounding_ranges, v, 
+                    // pick an element from the array
+                    function (array, index) { return array[index].range; },
+
+                    // compare search element with current element
+                    // < 0 search < current
+                    // 0   equals
+                    // > 0 search > current
+                    function (search, array, currentIdx) {
+
+                        // first check if this is our element
+
+                        // this is our element if the search value is:
+                        if (search < array[currentIdx].range) {
+
+                            // we can have a match or search in the left half
+                            if (currentIdx > 0) {
+                                if (search >= array[currentIdx - 1].range) {
+                                    return 0;
+                                }
+                                else {
+                                    // go left
+                                    return -1;
+                                }
+                            }
+                            else {
+                                return 0;
+                            }
+                        }
+                        else {
+                            // we must search in the next half
+                            return 1;
+                        }
+                    }
+                );
+
+                rounding = 1;
+                if (roundingIdx > -1) {
+                    rounding = parseInt(rounding_ranges[roundingIdx].value, 10);
+                }
+                else {
+                    var lastIdx = rounding_ranges.length - 1;
+                    if (v >= rounding_ranges[lastIdx].range) {
+                        rounding = rounding_ranges[lastIdx].value;
+                    }
+                }
+            }
+            return rounding;
+        },
+        /*
+         * Calls the user mouseup callback with the right parameters. Relies on
+         * $data('beforestart_min/max') in addition to the isLeftGrip parameter.
+         *
+         * NOTE: saves the new beforestart_min and begforestart_max as well.
+         */
+        'notify_mouse_up_implicit' : function(isLeftGrip) {
+            var $this = this,
+                current_min_value = methods.get_current_min_value.call($this),
+                current_max_value = methods.get_current_max_value.call($this),
+                didValuesChange = false;
+
+            // check if we changed.
+            if (($this.data('beforestart_min') !== current_min_value) || 
+                ($this.data('beforestart_max') !== current_max_value)
+            ) {
+                // values have changed!
+                didValuesChange = true;
+
+                // save the new values
+                $this.data('beforestart_min', current_min_value);
+                $this.data('beforestart_max', current_max_value);
+            }
+
+
+            var settings = $this.data('settings');
+
+            settings.user_mouseup_callback.call($this, 
+                methods.get_current_min_value.call($this),
+                methods.get_current_max_value.call($this),
+                isLeftGrip,
+                didValuesChange
+            );
+
+            return $this;
+        },
+        /*
+         * NOTE: this method may take the previous min/max value as input.
+         *       if no arguments are provided the method blindly notifies.
+         */
+        'notify_changed_implicit' : function (cause, prevMin, prevMax) {
+            var $this = this;
+
+            var force = false;
+            if (cause === 'init' || cause === 'refresh') {
+                force = true;
+            }
+
+            var curMin = methods.get_current_min_value.call($this),
+                curMax = methods.get_current_max_value.call($this);
+
+            if (!force) {
+                prevMin = methods.round_value_according_to_rounding.call($this, prevMin);
+                prevMax = methods.round_value_according_to_rounding.call($this, prevMax);
+            }
+
+            if (force || curMin !== prevMin || curMax !== prevMax) {
+
+                _methods.notify_changed_explicit.call($this, cause, prevMin, prevMax, curMin, curMax);
+
+                force = 1;
+            }
+
+            return force;
+        },
+        'notify_changed_explicit' : function (cause, prevMin, prevMax, curMin, curMax) {
+            var $this = this,
+                settings = $this.data('settings');
+
+            // maybe update aria attributes for accessibility
+            if ($this.data('aria_enabled')) {
+                _methods.updateAriaAttributes.call($this);
+            }
+
+            settings.value_changed_callback.call($this, cause, curMin, curMax, prevMin, prevMax);
+
+            return $this;
+        },
+        'validate_params' : function (settings) {
+            var $this = this;
+            var min_value = $this.data('range_min'),
+                max_value = $this.data('range_max'),
+                cur_min = $this.data('cur_min'),
+                lower_limit = $this.data('lower-limit'),
+                upper_limit = $this.data('upper-limit');
+
+            var have_limits = _methods.haveLimits.call($this);
+
+            if (typeof min_value === 'undefined') {
+                $.error("the data-range_min attribute was not defined");
+            }
+            if (typeof max_value === 'undefined') {
+                $.error("the data-range_max attribute was not defined");
+            }
+            if (typeof cur_min === 'undefined') {
+                $.error("the data-cur_min attribute must be defined");
+            }
+            if (min_value > max_value) {
+                $.error("Invalid input parameter. must be min < max");
+            }
+
+            if (have_limits && lower_limit > upper_limit) {
+                $.error('Invalid data-lower-limit or data-upper-limit');
+            }
+            if ($this.find(settings.left_grip_selector).length === 0) {
+                $.error("Cannot find element pointed by left_grip_selector: " + settings.left_grip_selector);
+            }
+            /* 
+             * NOTE: only validate right grip selector if it is not
+             * undefined otherwise just assume that if it isn't
+             * found isn't there. This is because we initialize the
+             * slider at once and let the markup decide if the
+             * slider is there or not.
+             */
+            if (typeof settings.right_grip_selector !== 'undefined') {
+                if ($this.find(settings.right_grip_selector).length === 0) {
+                    $.error("Cannot find element pointed by right_grip_selector: " + settings.right_grip_selector);
+                }
+            }
+
+            // same thing for the value bar selector
+            if (typeof settings.value_bar_selector !== 'undefined') {
+                if ($this.find(settings.value_bar_selector).length === 0) {
+                    $.error("Cannot find element pointed by value_bar_selector" + settings.value_bar_selector);
+                }
+            }
+        },
+        /*
+         * Maps a value between [minRange -- maxRange] into [0 -- n].
+         * The target range will be an integer number.
+         */
+        'rangemap_0_to_n' : function (val, n) {
+            var $this = this;
+            var rangeMin = $this.data('range_min');
+            var rangeMax = $this.data('range_max');
+
+            if (val <= rangeMin) { return 0; }
+            if (val >= rangeMax) { return n; }
+
+            return Math.floor((n * val - n * rangeMin) / (rangeMax - rangeMin));
+        },
+        /*
+         * Maps a value between [0 -- max] back into [minRange -- maxRange].
+         * The target range can be a floating point number.
+         */
+        'inverse_rangemap_0_to_n' : function (val, max) {
+            var $this = this;
+            var rangeMin = $this.data('range_min');
+            var rangeMax = $this.data('range_max');
+
+            if (val <= 0)   { return rangeMin; }
+            if (val >= max) { return rangeMax; }
+
+            //
+            // To do this we first map 0 -- max relatively withing [minRange
+            // and maxRange], that is between [0 and (maxRange-minRange)].
+            //
+            var relativeMapping = (rangeMax - rangeMin) * val / max;
+
+            // ... then we bring this to the actual value by adding rangeMin.
+            return relativeMapping + rangeMin;
+        }
+
+    };
+    var methods = {
+        'teardown' : function () {
+            var $this = this;
+
+            // remove all data set with .data()
+            $this.removeData();
+
+            // unbind the document as well
+            $(document)
+                .unbind('mousemove.nstSlider')
+                .unbind('mouseup.nstSlider');
+
+            // unbind events bound to the container element
+            $this.parent()
+                .unbind('mousedown.nstSlider')
+                .unbind('touchstart.nstSlider')
+                .unbind('touchmove.nstSlider')
+                .unbind('touchend.nstSlider');
+            
+            // unbind events bound to the current element
+            $this.unbind('keydown.nstSlider')
+                .unbind('keyup.nstSlider');
+
+            return $this;
+        },
+        'init' : function(options) {
+            var settings = $.extend({
+                'animating_css_class' : 'nst-animating',
+                // this is the distance from the value bar by which we should
+                // grab the left or the right handler.
+                'touch_tolerance_value_bar_y': 30,  // px
+                'touch_tolerance_value_bar_x': 15,  // px
+                // where is the left grip?
+                'left_grip_selector': '.nst-slider-grip-left',
+                // where is the right grip?
+                // undefined = (only left grip bar)
+                'right_grip_selector': undefined,
+
+                // Specify highlight like this if you want to highlight a range
+                // in the slider.
+                //
+                // 'highlight' : {
+                //     'grip_class' : '.nsti-slider-hi',
+                //     'panel_selector' : '.nst-slider-highlight-panel'
+                // },
+                'highlight' : undefined,
+
+                // Lets you specify the increment rounding for the slider handles
+                // for when the user moves them.
+                // It can be a string, indicating a fixed increment, or an object
+                // indicating the increment based on the value to be rounded.
+                //
+                // This can be specified in the following form: {
+                //    '1' : '100',    
+                //    '10' : '1000',  /* rounding = 10 for values in [100-999] */
+                //    '50' : '10000',
+                // }
+                'rounding': undefined,
+
+                // if the bar is not wanted
+                'value_bar_selector': undefined,
+
+                'value_changed_callback': function(/*cause, vmin, vmax*/) { return; },
+                'user_mouseup_callback' : function(/*vmin, vmax, left_grip_moved*/) { return; },
+                'user_drag_start_callback' : function () { return; }
+            }, options);
+
+            //
+            // we need to unbind events attached to the document,
+            // as if we replace html elements and re-initialize, we
+            // don't want to double-bind events!
+            //
+            var $document = $(document);
+
+            // make sure only one event is bound to the document
+            $document.unbind('mouseup.nstSlider');
+            $document.unbind('mousemove.nstSlider');
+
+            $document.bind('mousemove.nstSlider', _methods.drag_move_func);
+            $document.bind('mouseup.nstSlider',   _methods.drag_end_func);
+
+            return this.each(function() {
+                //
+                // $this is like:
+                //
+                // <div class="outer-slider" data-... data-...>
+                //     <div class="bar"></div>
+                //     <div class="leftGrip"></div>
+                //     <div class="rightGrip"></div>
+                // </div>
+                //
+                // It is supposed to be enclosed in a container
+                //
+                var $this = $(this),
+                    $container = $this.parent();
+
+                // enable: the user is able to move the grips of this slider.
+                $this.data('enabled', true);
+
+                // fix some values first
+                var rangeMin = $this.data('range_min'),
+                    rangeMax = $this.data('range_max'),
+                    valueMin = $this.data('cur_min'),
+                    valueMax = $this.data('cur_max');
+
+                // assume 0 if valueMax is not specified
+                if (typeof valueMax === 'undefined') {
+                    valueMax = valueMin;
+                }
+
+                if (rangeMin === '') { rangeMin = 0; }
+                if (rangeMax === '') { rangeMax = 0; }
+                if (valueMin === '') { valueMin = 0; }
+                if (valueMax === '') { valueMax = 0; }
+
+                $this.data('range_min', rangeMin);
+                $this.data('range_max', rangeMax);
+                $this.data('cur_min', valueMin);
+                $this.data('cur_max', valueMax);
+
+                // halt on error
+                _methods.validate_params.call($this, settings);
+
+                $this.data('settings', settings);
+
+                // override rounding from markup if defined in configuration
+                if (typeof settings.rounding !== 'undefined') {
+                    methods.set_rounding.call($this, settings.rounding);
+                }
+                else if (typeof $this.data('rounding') !== 'undefined') {
+                    methods.set_rounding.call($this, $this.data('rounding'));
+                }
+                else {
+                    methods.set_rounding.call($this, 1);
+                }
+                
+                var left_grip = $this.find(settings.left_grip_selector)[0],
+                    $left_grip = $(left_grip),
+                    $right_grip = $($this.find(settings.right_grip_selector)[0]);
+
+                // make sure left grip can be tabbed if the user hasn't
+                // defined their own tab index
+                if (typeof $left_grip.attr('tabindex') === 'undefined') {
+                    $left_grip.attr('tabindex', 0);
+                }
+
+                // no right handler means single handler
+                var has_right_grip = false;
+                if ($this.find(settings.right_grip_selector).length > 0) {
+                    has_right_grip = true;
+
+                    // make sure right grip can be tabbed if the user hasn't
+                    // defined their own tab index
+                    if (typeof $right_grip.attr('tabindex') === 'undefined') {
+                        $right_grip.attr('tabindex', 0);
+                    }
+                }
+                $this.data('has_right_grip', has_right_grip);
+
+                // enable aria attributes update?
+                if ($this.data('aria_enabled') === true) {
+                    // setup aria role attributes on each grip
+                    $left_grip
+                        .attr('role', 'slider')
+                        .attr('aria-disabled', 'false');
+
+                    if (has_right_grip) {
+                        $right_grip
+                            .attr('role', 'slider')
+                            .attr('aria-disabled', 'false');
+                    }
+                }
+
+                //
+                // deal with keypresses here
+                //
+                $this.bind('keyup.nstSlider', function (e) {
+                    if ($this.data('enabled')) {
+                        switch (e.which) {
+                            case 37:   // left
+                            case 38:   // up
+                            case 39:   // right 
+                            case 40:   // down
+
+                            if (_before_keydown_value === _before_keyup_value) {
+
+                                // we should search for the next value change...
+                                // ... in which direction? depends on whe
+
+                                var searchUntil = _methods.getSliderWidthPx.call($this),
+                                    val,
+                                    i,
+                                    setAtPixel;
+
+                                if (_before_keydown_pixel - _before_keyup_pixel < 0) {
+                                    // the grip was moved towards the right
+
+                                    for (i=_before_keyup_pixel; i<=searchUntil; i++) {
+                                        // if the value at pixel i is different than
+                                        // the current value then we are good to go.
+                                        //
+                                        val = methods.round_value_according_to_rounding.call($this,
+                                            _methods.getSliderValuesAtPositionPx.call($this, i, i)[1]
+                                        );
+                                        if (val !== _before_keyup_value) {
+                                            setAtPixel = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else {
+                                    // the grip was moved towards the left
+
+                                    for (i=_before_keyup_pixel; i>=0; i--) {
+
+                                        // if the value at pixel i is different than
+                                        // the current value then we are good to go.
+                                        //
+                                        val = methods.round_value_according_to_rounding.call($this,
+                                            _methods.getSliderValuesAtPositionPx.call($this, i, i)[1]
+                                        );
+                                        if (val !== _before_keyup_value) {
+                                           setAtPixel = i;
+                                           break;
+                                        }
+                                    }
+                                }
+
+
+                                // we need to set the slider at this position
+                                if (_is_left_grip) {
+                                    _methods.validateAndMoveGripsToPx.call($this, setAtPixel, _methods.getRightGripPositionPx.call($this));
+                                }
+                                else {
+                                    _methods.validateAndMoveGripsToPx.call($this, _methods.getLeftGripPositionPx.call($this), setAtPixel);
+                                }
+
+                                //
+                                // call the mouseup callback when the key is up!
+                                //
+                                _methods.notify_mouse_up_implicit.call($this, _is_left_grip);
+                            }
+                        }
+
+                        // clear values 
+                        _before_keydown_value = undefined;
+                        _before_keydown_pixel = undefined;
+                        _before_keyup_value = undefined;
+                        _before_keyup_pixel = undefined;
+                    }
+                });
+                $this.bind('keydown.nstSlider', function (evt) {
+                    if ($this.data('enabled')) {
+
+                        var moveHandleBasedOnKeysFunc = function ($grip, e) {
+
+                            var nextLeft = _methods.getLeftGripPositionPx.call($this),
+                                nextRight = _methods.getRightGripPositionPx.call($this);
+
+                            if (typeof _before_keydown_value === 'undefined') {
+                                _before_keydown_pixel = _is_left_grip ? nextLeft : nextRight;
+
+                                _before_keydown_value = _is_left_grip ? methods.get_current_min_value.call($this) : methods.get_current_max_value.call($this);
+                            }
+
+                            switch (e.which) {
+                                case 37:   // left
+                                case 40:   // down
+                                    if (_is_left_grip) { nextLeft--; } else { nextRight--; }
+                                    e.preventDefault();
+                                    break;
+
+                                case 38:   // up
+                                case 39:   // right 
+                                    if (_is_left_grip) { nextLeft++; } else { nextRight++; }
+
+                                    e.preventDefault();
+                                    break;
+                            }
+
+                            _before_keyup_pixel = _is_left_grip ?  nextLeft : nextRight;
+
+                            // may write into cur_min, cur_max data...
+                            _methods.validateAndMoveGripsToPx.call($this, nextLeft, 
+                                nextRight);
+
+                            _before_keyup_value = _is_left_grip ? methods.get_current_min_value.call($this) : methods.get_current_max_value.call($this);
+                        };
+                        
+                        // default
+                        if (has_right_grip && $this.find(':focus').is($right_grip)) {
+                            _is_left_grip = false;
+                            moveHandleBasedOnKeysFunc.call($this, $right_grip, evt);
+                        }
+                        else {
+                            _is_left_grip = true;
+                            moveHandleBasedOnKeysFunc.call($this, $left_grip, evt);
+                        }
+                    } 
+                });
+
+                // determine size of grips
+                var left_grip_width = _methods.getLeftGripWidth.call($this),
+                    right_grip_width = has_right_grip ? 
+                        _methods.getRightGripWidth.call($this) : left_grip_width;
+
+                $this.data('left_grip_width', left_grip_width);
+                $this.data('right_grip_width', right_grip_width);
+
+                $this.data('value_bar_selector', settings.value_bar_selector);
+
+                // this will set the range to the right extreme in such a case.
+                if (rangeMin === rangeMax || valueMin === valueMax) {
+                    methods.set_range.call($this, rangeMin, rangeMax);
+                }
+                else {
+
+                    // set the initial position
+                    _methods.set_position_from_val.call($this, 
+                        $this.data('cur_min'), $this.data('cur_max'));
+                }
+
+                _methods.notify_changed_implicit.call($this, 'init');
+
+                // handle mouse movement
+                $this.data('beforestart_min', methods.get_current_min_value.call($this));
+                $this.data('beforestart_max', methods.get_current_max_value.call($this));
+
+                // pass a closure, so that 'this' will be the current slider bar,
+                // not the container.
+                $this.bind('mousedown.nstSlider', function (e) {
+                    _methods.drag_start_func.call($this, e, settings, $left_grip, $right_grip, false);
+                });
+                
+                $container.bind('touchstart.nstSlider', function (e) {
+                    _methods.drag_start_func_touch.call($this, e, settings, $left_grip, $right_grip, true);
+                });
+                $container.bind('touchend.nstSlider',  function (e) {
+                    _methods.drag_end_func_touch.call($this, e);
+                });
+                $container.bind('touchmove.nstSlider', function (e) {
+                    _methods.drag_move_func_touch.call($this, e);
+                });
+
+                // if the data-histogram attribute exists, then use this
+                // histogram to set the step distribution
+                var step_histogram = $this.data('histogram');
+                if (typeof step_histogram !== 'undefined') {
+                    methods.set_step_histogram.call($this, step_histogram);
+                }
+            }); // -- each slider
+        },
+        'get_range_min' : function () {
+            var $this = this;
+            return $this.data('range_min');
+        },
+        'get_range_max' : function () {
+            var $this = this;
+            return $this.data('range_max');
+        },
+        'get_current_min_value' : function () {
+            var $this = $(this);
+
+            var rangeMin = methods.get_range_min.call($this),
+                rangeMax = methods.get_range_max.call($this);
+
+            var currentMin = $this.data('cur_min');
+
+            var min;
+            if (rangeMin >= currentMin) {
+                min = rangeMin;
+            }
+            else {
+                min = methods.round_value_according_to_rounding.call($this, currentMin);
+            }
+
+            if (_methods.haveLimits.call($this)) {
+                if (min <= rangeMin) {
+                    return $this.data('lower-limit');
+                }
+                else if (min >= rangeMax) {
+                    return $this.data('upper-limit');
+                }
+            }
+            else {
+                if (min <= rangeMin) {
+                    return rangeMin;
+                }
+                else if (min >= rangeMax) {
+                    return rangeMax;
+                }
+            }
+
+            return min;
+        },
+        'get_current_max_value' : function () {
+            var $this = $(this);
+
+            var rangeMin = methods.get_range_min.call($this),
+                rangeMax = methods.get_range_max.call($this);
+
+            var currentMax = $this.data('cur_max');
+
+            var max;
+            if (rangeMax <= currentMax) {
+                max = rangeMax;
+            }
+            else {
+                max = methods.round_value_according_to_rounding.call($this, currentMax);
+            }
+
+
+            if (_methods.haveLimits.call($this)) {
+                if (max >= rangeMax) {
+                    return $this.data('upper-limit');
+                }
+                else if (max <= rangeMin) {
+                    return $this.data('lower-limit');
+                }
+            }
+            else {
+                if (max >= rangeMax) {
+                    return rangeMax;
+                }
+                else if (max <= rangeMin) {
+                    return rangeMin;
+                }
+            }
+
+            return max;
+        },
+        'is_handle_to_left_extreme' : function () {
+            var $this = this; 
+            if (_methods.haveLimits.call($this)) {
+                return $this.data('lower-limit') === methods.get_current_min_value.call($this);
+            }
+            else {
+                return methods.get_range_min.call($this) === methods.get_current_min_value.call($this);
+            }
+        },
+        'is_handle_to_right_extreme' : function () {
+            var $this = this; 
+            if (_methods.haveLimits.call($this)) {
+                return $this.data('upper-limit') === methods.get_current_max_value.call($this);
+            }
+            else {
+                return methods.get_range_max.call($this) === methods.get_current_max_value.call($this);
+            }
+        },
+        // just call set_position on the current values
+        'refresh' : function () {
+            var $this = this;
+
+            // re-set the slider step if specified
+            var lastStepHistogram = $this.data('last_step_histogram');
+            if (typeof lastStepHistogram !== 'undefined') {
+                methods.set_step_histogram.call($this, lastStepHistogram); 
+            }
+
+            // re-center given values
+            _methods.set_position_from_val.call($this, 
+                methods.get_current_min_value.call($this),
+                methods.get_current_max_value.call($this)
+            );
+
+            // re-highlight the range
+            var highlightRangeMin = $this.data('highlightedRangeMin');
+            if (typeof highlightRangeMin === 'number') {
+                // a highlight range is present, we must update it
+                var highlightRangeMax = $this.data('highlightedRangeMax');
+                methods.highlight_range.call($this, highlightRangeMin, highlightRangeMax);
+            }
+
+            _methods.notify_changed_implicit.call($this, 'refresh');
+            return $this;
+        },
+        'disable' : function () {
+            var $this = this,
+                settings = $this.data('settings');
+
+            $this.data('enabled', false)
+                .find(settings.left_grip_selector)
+                    .attr('aria-disabled', 'true')
+                .end()
+                .find(settings.right_grip_selector)
+                    .attr('aria-disabled', 'true');
+
+            return $this;
+        },
+        'enable' : function() {
+            var $this = this,
+                settings = $this.data('settings');
+
+            $this.data('enabled', true)
+                .find(settings.left_grip_selector)
+                    .attr('aria-disabled', 'false')
+                .end()
+                .find(settings.right_grip_selector)
+                    .attr('aria-disabled', 'false');
+
+            return $this;
+        },
+        'is_enabled' : function() {
+            var $this = this;
+            return $this.data('enabled');
+        },
+        /*
+         * This one is the public method, called externally.
+         * It sets the position and notifies in fact.
+         */
+        'set_position' : function(min, max) {
+            var $this = this;
+
+            var prev_min = $this.data('cur_min'),
+                prev_max = $this.data('cur_max');
+
+            if (min > max) {
+                _methods.set_position_from_val.call($this, max, min);
+            }
+            else {
+                _methods.set_position_from_val.call($this, min, max);
+            }
+
+            // set the style of the grips according to the highlighted range
+            _methods.refresh_grips_style.call($this);
+
+            _methods.notify_changed_implicit.call($this, 'set_position', prev_min, prev_max);
+            
+            // this is for the future, therefore "before the next
+            // interaction starts"
+            $this.data('beforestart_min', min);
+            $this.data('beforestart_max', max);
+        },
+        /*
+         * This tells the slider to increment its step non linearly over the
+         * current range, based on the histogram on where results are.
+         *
+         * the input parameter 'histogram' identifies an empirical probability
+         * density function (PDF).
+         *
+         */
+        'set_step_histogram' : function (histogram) {
+            var $this = this;
+
+            $this.data('last_step_histogram', histogram);
+
+            if (typeof histogram === 'undefined') {
+                $.error('got an undefined histogram in set_step_histogram');
+                _methods.unset_step_histogram.call($this);
+            }
+
+            var sliderWidthPx = _methods.getSliderWidthPx.call($this) - $this.data('left_grip_width'),
+                nbuckets = histogram.length;
+
+            if (sliderWidthPx <= 0) {
+                // that means the slider is not visible...
+                return;
+            }
+
+            //
+            // we need to transform this pdf into a cdf, and use it to obtain
+            // two mappings: pixel to value and value to pixel.
+            //
+            // 1) normalize the pdf to sum to sliderWidthPx first
+            var i;
+            var histogram_sum = 0;
+            for (i=0; i<nbuckets; i++) {
+                histogram_sum += histogram[i]; 
+            }
+
+            //
+            // if the sum of the histogram is 0 it means that all is 0 in the 
+            // histogram! (i.e, flat histogram). In this case we already know
+            // what's going to be the answer...
+            //
+            if (histogram_sum === 0) {
+                // ... and the answer is: a linear scale between min_range and
+                // max range!
+                methods.unset_step_histogram.call($this);
+
+                return $this;
+            }
+
+            // coefficient for normalization
+            var coeff = parseFloat(histogram_sum)/sliderWidthPx;
+
+            // go normalize the histogram using this coefficient!
+            for (i=0; i<nbuckets; i++) {
+                histogram[i] = histogram[i]/coeff;
+            }
+
+            // 2) now that the histogram is normalized, extract the cumulative
+            // distribution function (CDF). This is an always increasing function
+            // that ranges between 0 and sliderWidthPx;
+            //
+            // We also build the inverted cdf, just the cdf read the other way
+            // around.
+            //
+            var cdf = [ histogram[0] ];  // points to pixels
+            for (i=1; i<nbuckets; i++) {
+                var cdf_x = cdf[i-1] + histogram[i];
+                cdf.push(cdf_x);
+            }
+            cdf.push(sliderWidthPx);
+
+
+            // the first value here is always min_range as the cdf is supposed
+            // to start from 0 (also first pixel = min_range)
+            var pixel_to_value_lookup = [ $this.data('range_min') ];
+
+            var last_filled = 0; // we've already filled 0
+
+            // now stretch over the rest of the cdf
+            var last_price_for_cdf_bucket = pixel_to_value_lookup[0];
+
+            var cdf_bucket_count = 0;
+            while (last_filled <= sliderWidthPx) { // do until all pixels are filled
+
+                // get next item from cdf
+                var fill_up_to_px = parseInt(cdf.shift(), 10);
+                var price_for_cdf_bucket = 
+                    _methods.inverse_rangemap_0_to_n.call($this, cdf_bucket_count+1, nbuckets+1);
+
+                cdf_bucket_count++;
+
+                // how many pixels do we have to fill
+                var fill_tot = fill_up_to_px - last_filled;
+
+                // interpolate and fill
+                var diff = price_for_cdf_bucket - last_price_for_cdf_bucket;
+                for (i = last_filled; i < fill_up_to_px; i++) {
+                    var next_price_for_cdf_bucket = 
+                        last_price_for_cdf_bucket + (diff * (i-last_filled+1) / fill_tot);
+
+                    pixel_to_value_lookup.push(next_price_for_cdf_bucket);
+
+                    last_filled++;
+
+                    last_price_for_cdf_bucket = next_price_for_cdf_bucket;
+                }
+
+                if (last_filled === sliderWidthPx) {
+                    break;
+                }
+            }
+            pixel_to_value_lookup[pixel_to_value_lookup.length-1] = $this.data('range_max');
+
+            // 3) build lookup functions to extract pixels and values from the
+            // cdf and the inverted cdf.
+            //
+            var pixel_to_value_mapping = function (pixel) {
+                return pixel_to_value_lookup[parseInt(pixel, 10)];
+            };
+
+            var value_to_pixel_mapping = function (value) {
+                // binary search into the array of pixels...
+                var pixel = _methods.binarySearch.call($this, pixel_to_value_lookup, value, 
+                    function(a, i) { return a[i]; },  // access a value in the array
+
+                    // Must return:
+                    //
+                    // s: element to search for
+                    // a: array we are looking in 
+                    // i: position of the element we are looking for
+                    //
+                    // -1 (s < a[i])
+                    // 0  found (= a[i])
+                    // 1  (s > a[i])
+                    function (s, a, i) {
+                        if (s === a[i])          { return 0; }
+                        if (s < a[i] && i === 0) { return 0; }
+                        if (a[i-1] <= s && s < a[i]) { return 0; }
+                        if (s > a[i])           { return 1;  }
+                        if (s <= a[i-1])        { return -1; }
+                        $.error('cannot compare s: ' + s + ' with a[' + i + ']. a is: ' + a.join(','));
+                    }
+                );
+
+                return pixel;
+            };
+
+            //
+            // these two functions will be stored and then used internally to
+            // decide what value to display given a certain pixel, and what
+            // pixel to put the slider on given a certain value.
+            //
+            $this.data('pixel_to_value_mapping', pixel_to_value_mapping);
+            $this.data('value_to_pixel_mapping', value_to_pixel_mapping);
+
+            return $this;
+        },
+        /*
+         * Remove the pixel-to-value and the value-to-pixel mappings from the
+         * slider so that the slider can follow a linear step over the current
+         * range again.
+         */
+        'unset_step_histogram' : function () {
+            var $this = this;
+
+            $this.removeData('pixel_to_value_mapping');
+            $this.removeData('value_to_pixel_mapping');
+            $this.removeData('last_step_histogram');
+
+            return $this;
+        },
+        'set_range' : function (rangeMin, rangeMax) {
+            var $this = this;
+
+            // get the current values
+            var oldMin = methods.get_current_min_value.call($this),
+                oldMax = methods.get_current_max_value.call($this);
+            
+            // set range
+            $this.data('range_min', rangeMin);
+            $this.data('range_max', rangeMax);
+
+            // try to re-center old values in the new range.
+            // NOTE: this may set different values!
+            _methods.set_position_from_val.call($this, oldMin, oldMax);
+
+            /*
+             * Re-highlight ranges if any are defined.
+             */
+            // var highlightRangeMin = $this.data('highlightedRangeMin');
+            // if (typeof rangeMin === 'number') {
+            //     // a highlight range is present, we must update it
+            //     var highlightRangeMax = $this.data('highlightedRangeMax');
+            //     methods.highlight_range.call($this, highlightRangeMin, highlightRangeMax);
+            // }
+
+            // pass old min and max in the notify_changed_implicit method, so that we
+            // notify if we need to
+            _methods.notify_changed_implicit.call($this, 'set_range', oldMin, oldMax);
+
+            return $this;
+        },
+        /*
+         * This method highlights the range of the slider apart from the
+         * position of the slider grips.
+         * To work well, the slider must have background color set to
+         * transparent in the CSS or not set.
+         */
+        'highlight_range' : function(rangeMin, rangeMax) {
+            var $this = this;
+            var settings = $this.data('settings');
+
+            if (typeof settings.highlight === "undefined") {
+                $.error('you cannot call highlight_range if you haven\' specified the "highlight" parameter in construction!');
+            }
+
+            // avoid empty string
+            if (!rangeMin) { rangeMin = 0; }
+            if (!rangeMax) { rangeMax = 0; }
+
+            // we need to map rangeMin and rangeMax into pixels.
+            var leftPx = methods.value_to_px.call($this, rangeMin),
+                rightPx = methods.value_to_px.call($this, rangeMax),
+                barWidth = rightPx - leftPx + $this.data('left_grip_width');
+
+            // set position
+            var $highlightPanel = $this.find(
+                settings.highlight.panel_selector
+            );
+
+            $highlightPanel.css('left', leftPx + "px");
+            $highlightPanel.css('width', barWidth + "px");
+
+            // keep the latest highlighted range, because if set_range is called
+            // we must be able to update the highlighting.
+            $this.data('highlightedRangeMin', rangeMin);
+            $this.data('highlightedRangeMax', rangeMax);
+
+            // now decide wether the handler should be highlight
+            _methods.refresh_grips_style.call($this);
+
+            return $this;
+        },
+        /*
+         * Sets the increment rounding for the slider, see input parameters section
+         * for more information.
+         */
+        'set_rounding' : function (rounding) {
+            var $this = this;
+
+            if (typeof rounding === 'string' && rounding.indexOf('{') > -1) {
+                // probably a json string
+                rounding = $.parseJSON(rounding);
+            }
+
+            $this.data('rounding', rounding);
+            
+            // build an array of roundings and sort it by value to facilitate search
+            // when the range is going to be set.
+            var roundings_array = [];
+            if (typeof rounding === 'object') {
+                // initial object has the form { value : range }
+                var rounding_value;
+                for (rounding_value in rounding) { // skip_javascript_test
+                    if (rounding.hasOwnProperty(rounding_value)) {
+                        var rounding_range = rounding[rounding_value];
+                        roundings_array.push({ 
+                            'range' : rounding_range, 
+                            'value' : rounding_value 
+                        });
+                    }
+                }
+
+                // now sort it by rounding range
+                roundings_array.sort(function (a, b) { return a.range - b.range; });
+
+                $this.data('rounding_ranges', roundings_array);
+            }
+            else {
+                $this.removeData('rounding_ranges');
+            }
+
+            return $this;
+        },
+        'get_rounding' : function () {
+            var $this = this;
+            return $this.data('rounding');
+        },
+        /*
+         * This method rounds a given value to the closest integer defined
+         * according to the rounding. Examples:
+         * rounding: 10 v: 12.3    --> 10
+         * rounding: 1 v: 12.3     --> 12
+         * rounding: 10 v: 12.6    --> 13
+         */
+        'round_value_according_to_rounding' : function(v) {
+            var $this = this;
+            var rounding = _methods.get_rounding_for_value.call($this, v);
+
+            if (rounding > 0) {
+                // We bring ourselves in a space of unitary roundings. You can
+                // imagine now that sliders range between a certain minimum and 
+                // maximum, and we always increase/decrease of one.
+                var increment = v / rounding;
+
+                // This is the proposed value.
+                var increment_int = parseInt(increment, 10);
+
+                // delta is a positive number between 0 and 1 that tells us how
+                // close is the slider to integer + 1 (i.e., the next rounding).
+                // 0 means the grip is exactly on integer
+                // 1 means the grip is on integer + 1.
+                var delta = increment - increment_int;
+
+                // now use delta to modify or not the current value.
+                if (delta > 0.5) {
+                    increment_int++; 
+                }
+
+                // we now move the 
+                var rounded = increment_int * rounding;
+
+                return rounded;
+            }
+            else {
+                $.error('rounding must be > 0, got ' + rounding + ' instead');
+            }
+            return v;
+        },
+        /*
+         * Utility function. Given a value within the range of the slider,
+         * converts the value in pixels. If a value_to_pixel_mapping function
+         * is defined it will be used, otherwise a linear mapping is used for
+         * the conversion.
+         */
+        'value_to_px' : function (value) {
+            var $this = this,
+                value_to_pixel_mapping_func = $this.data('value_to_pixel_mapping');
+
+            // try using non-linear mapping if it's there...
+            if (typeof value_to_pixel_mapping_func !== 'undefined') {
+                return value_to_pixel_mapping_func(value); 
+            }
+
+            // ... use linear mapping otherwise
+            var w = _methods.getSliderWidthPx.call($this) - $this.data('left_grip_width');
+            return _methods.rangemap_0_to_n.call($this, value, w);
+        },
+    };
+
+    var __name__ = 'nstSlider';
+
+    $.fn[__name__] = function(method) {
+        /*
+         * Just a router for method calls
+         */
+        if (methods[method]) {
+            if (this.data('initialized') === true) {
+                // call a method
+                return methods[method].apply(this,
+                    Array.prototype.slice.call(arguments, 1)
+                );
+            }
+            else {
+                throw new Error('method ' + method + ' called on an uninitialized instance of ' + __name__);
+            }
+        }
+        else if (typeof method === 'object' || !method) {
+            // call init, user passed the settings as parameters
+            this.data('initialized', true);
+            return methods.init.apply(this, arguments);
+        }
+        else {
+            $.error('Cannot call method ' + method);
+        }
+    };
+})(jQuery);
+
+/*!
+ * jQuery UI 1.8
+ *
+ * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT (MIT-LICENSE.txt)
+ * and GPL (GPL-LICENSE.txt) licenses.
+ *
+ * http://docs.jquery.com/UI
+ */
+;jQuery.ui || (function($) {
+
+//Helper functions and ui object
+$.ui = {
+	version: "1.8",
+
+	// $.ui.plugin is deprecated.  Use the proxy pattern instead.
+	plugin: {
+		add: function(module, option, set) {
+			var proto = $.ui[module].prototype;
+			for(var i in set) {
+				proto.plugins[i] = proto.plugins[i] || [];
+				proto.plugins[i].push([option, set[i]]);
+			}
+		},
+		call: function(instance, name, args) {
+			var set = instance.plugins[name];
+			if(!set || !instance.element[0].parentNode) { return; }
+
+			for (var i = 0; i < set.length; i++) {
+				if (instance.options[set[i][0]]) {
+					set[i][1].apply(instance.element, args);
+				}
+			}
+		}
+	},
+
+	contains: function(a, b) {
+		return document.compareDocumentPosition
+			? a.compareDocumentPosition(b) & 16
+			: a !== b && a.contains(b);
+	},
+
+	hasScroll: function(el, a) {
+
+		//If overflow is hidden, the element might have extra content, but the user wants to hide it
+		if ($(el).css('overflow') == 'hidden') { return false; }
+
+		var scroll = (a && a == 'left') ? 'scrollLeft' : 'scrollTop',
+			has = false;
+
+		if (el[scroll] > 0) { return true; }
+
+		// TODO: determine which cases actually cause this to happen
+		// if the element doesn't have the scroll set, see if it's possible to
+		// set the scroll
+		el[scroll] = 1;
+		has = (el[scroll] > 0);
+		el[scroll] = 0;
+		return has;
+	},
+
+	isOverAxis: function(x, reference, size) {
+		//Determines when x coordinate is over "b" element axis
+		return (x > reference) && (x < (reference + size));
+	},
+
+	isOver: function(y, x, top, left, height, width) {
+		//Determines when x, y coordinates is over "b" element
+		return $.ui.isOverAxis(y, top, height) && $.ui.isOverAxis(x, left, width);
+	},
+
+	keyCode: {
+		BACKSPACE: 8,
+		CAPS_LOCK: 20,
+		COMMA: 188,
+		CONTROL: 17,
+		DELETE: 46,
+		DOWN: 40,
+		END: 35,
+		ENTER: 13,
+		ESCAPE: 27,
+		HOME: 36,
+		INSERT: 45,
+		LEFT: 37,
+		NUMPAD_ADD: 107,
+		NUMPAD_DECIMAL: 110,
+		NUMPAD_DIVIDE: 111,
+		NUMPAD_ENTER: 108,
+		NUMPAD_MULTIPLY: 106,
+		NUMPAD_SUBTRACT: 109,
+		PAGE_DOWN: 34,
+		PAGE_UP: 33,
+		PERIOD: 190,
+		RIGHT: 39,
+		SHIFT: 16,
+		SPACE: 32,
+		TAB: 9,
+		UP: 38
+	}
+};
+
+//jQuery plugins
+$.fn.extend({
+	_focus: $.fn.focus,
+	focus: function(delay, fn) {
+		return typeof delay === 'number'
+			? this.each(function() {
+				var elem = this;
+				setTimeout(function() {
+					$(elem).focus();
+					(fn && fn.call(elem));
+				}, delay);
+			})
+			: this._focus.apply(this, arguments);
+	},
+	
+	enableSelection: function() {
+		return this
+			.attr('unselectable', 'off')
+			.css('MozUserSelect', '')
+			.unbind('selectstart.ui');
+	},
+
+	disableSelection: function() {
+		return this
+			.attr('unselectable', 'on')
+			.css('MozUserSelect', 'none')
+			.bind('selectstart.ui', function() { return false; });
+	},
+
+	scrollParent: function() {
+		var scrollParent;
+		if(($.browser.msie && (/(static|relative)/).test(this.css('position'))) || (/absolute/).test(this.css('position'))) {
+			scrollParent = this.parents().filter(function() {
+				return (/(relative|absolute|fixed)/).test($.curCSS(this,'position',1)) && (/(auto|scroll)/).test($.curCSS(this,'overflow',1)+$.curCSS(this,'overflow-y',1)+$.curCSS(this,'overflow-x',1));
+			}).eq(0);
+		} else {
+			scrollParent = this.parents().filter(function() {
+				return (/(auto|scroll)/).test($.curCSS(this,'overflow',1)+$.curCSS(this,'overflow-y',1)+$.curCSS(this,'overflow-x',1));
+			}).eq(0);
+		}
+
+		return (/fixed/).test(this.css('position')) || !scrollParent.length ? $(document) : scrollParent;
+	},
+
+	zIndex: function(zIndex) {
+		if (zIndex !== undefined) {
+			return this.css('zIndex', zIndex);
+		}
+		
+		if (this.length) {
+			var elem = $(this[0]), position, value;
+			while (elem.length && elem[0] !== document) {
+				// Ignore z-index if position is set to a value where z-index is ignored by the browser
+				// This makes behavior of this function consistent across browsers
+				// WebKit always returns auto if the element is positioned
+				position = elem.css('position');
+				if (position == 'absolute' || position == 'relative' || position == 'fixed')
+				{
+					// IE returns 0 when zIndex is not specified
+					// other browsers return a string
+					// we ignore the case of nested elements with an explicit value of 0
+					// <div style="z-index: -10;"><div style="z-index: 0;"></div></div>
+					value = parseInt(elem.css('zIndex'));
+					if (!isNaN(value) && value != 0) {
+						return value;
+					}
+				}
+				elem = elem.parent();
+			}
+		}
+
+		return 0;
+	}
+});
+
+
+//Additional selectors
+$.extend($.expr[':'], {
+	data: function(elem, i, match) {
+		return !!$.data(elem, match[3]);
+	},
+
+	focusable: function(element) {
+		var nodeName = element.nodeName.toLowerCase(),
+			tabIndex = $.attr(element, 'tabindex');
+		return (/input|select|textarea|button|object/.test(nodeName)
+			? !element.disabled
+			: 'a' == nodeName || 'area' == nodeName
+				? element.href || !isNaN(tabIndex)
+				: !isNaN(tabIndex))
+			// the element and all of its ancestors must be visible
+			// the browser may report that the area is hidden
+			&& !$(element)['area' == nodeName ? 'parents' : 'closest'](':hidden').length;
+	},
+
+	tabbable: function(element) {
+		var tabIndex = $.attr(element, 'tabindex');
+		return (isNaN(tabIndex) || tabIndex >= 0) && $(element).is(':focusable');
+	}
+});
+
+})(jQuery);
+
+/*!
+ * jQuery UI Widget 1.8
+ *
+ * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT (MIT-LICENSE.txt)
+ * and GPL (GPL-LICENSE.txt) licenses.
+ *
+ * http://docs.jquery.com/UI/Widget
+ */
+(function( $ ) {
+
+var _remove = $.fn.remove;
+
+$.fn.remove = function( selector, keepData ) {
+	return this.each(function() {
+		if ( !keepData ) {
+			if ( !selector || $.filter( selector, [ this ] ).length ) {
+				$( "*", this ).add( this ).each(function() {
+					$( this ).triggerHandler( "remove" );
+				});
+			}
+		}
+		return _remove.call( $(this), selector, keepData );
+	});
+};
+
+$.widget = function( name, base, prototype ) {
+	var namespace = name.split( "." )[ 0 ],
+		fullName;
+	name = name.split( "." )[ 1 ];
+	fullName = namespace + "-" + name;
+
+	if ( !prototype ) {
+		prototype = base;
+		base = $.Widget;
+	}
+
+	// create selector for plugin
+	$.expr[ ":" ][ fullName ] = function( elem ) {
+		return !!$.data( elem, name );
+	};
+
+	$[ namespace ] = $[ namespace ] || {};
+	$[ namespace ][ name ] = function( options, element ) {
+		// allow instantiation without initializing for simple inheritance
+		if ( arguments.length ) {
+			this._createWidget( options, element );
+		}
+	};
+
+	var basePrototype = new base();
+	// we need to make the options hash a property directly on the new instance
+	// otherwise we'll modify the options hash on the prototype that we're
+	// inheriting from
+//	$.each( basePrototype, function( key, val ) {
+//		if ( $.isPlainObject(val) ) {
+//			basePrototype[ key ] = $.extend( {}, val );
+//		}
+//	});
+	basePrototype.options = $.extend( {}, basePrototype.options );
+	$[ namespace ][ name ].prototype = $.extend( true, basePrototype, {
+		namespace: namespace,
+		widgetName: name,
+		widgetEventPrefix: $[ namespace ][ name ].prototype.widgetEventPrefix || name,
+		widgetBaseClass: fullName
+	}, prototype );
+
+	$.widget.bridge( name, $[ namespace ][ name ] );
+};
+
+$.widget.bridge = function( name, object ) {
+	$.fn[ name ] = function( options ) {
+		var isMethodCall = typeof options === "string",
+			args = Array.prototype.slice.call( arguments, 1 ),
+			returnValue = this;
+
+		// allow multiple hashes to be passed on init
+		options = !isMethodCall && args.length ?
+			$.extend.apply( null, [ true, options ].concat(args) ) :
+			options;
+
+		// prevent calls to internal methods
+		if ( isMethodCall && options.substring( 0, 1 ) === "_" ) {
+			return returnValue;
+		}
+
+		if ( isMethodCall ) {
+			this.each(function() {
+				var instance = $.data( this, name ),
+					methodValue = instance && $.isFunction( instance[options] ) ?
+						instance[ options ].apply( instance, args ) :
+						instance;
+				if ( methodValue !== instance && methodValue !== undefined ) {
+					returnValue = methodValue;
+					return false;
+				}
+			});
+		} else {
+			this.each(function() {
+				var instance = $.data( this, name );
+				if ( instance ) {
+					if ( options ) {
+						instance.option( options );
+					}
+					instance._init();
+				} else {
+					$.data( this, name, new object( options, this ) );
+				}
+			});
+		}
+
+		return returnValue;
+	};
+};
+
+$.Widget = function( options, element ) {
+	// allow instantiation without initializing for simple inheritance
+	if ( arguments.length ) {
+		this._createWidget( options, element );
+	}
+};
+
+$.Widget.prototype = {
+	widgetName: "widget",
+	widgetEventPrefix: "",
+	options: {
+		disabled: false
+	},
+	_createWidget: function( options, element ) {
+		// $.widget.bridge stores the plugin instance, but we do it anyway
+		// so that it's stored even before the _create function runs
+		this.element = $( element ).data( this.widgetName, this );
+		this.options = $.extend( true, {},
+			this.options,
+			$.metadata && $.metadata.get( element )[ this.widgetName ],
+			options );
+
+		var self = this;
+		this.element.bind( "remove." + this.widgetName, function() {
+			self.destroy();
+		});
+
+		this._create();
+		this._init();
+	},
+	_create: function() {},
+	_init: function() {},
+
+	destroy: function() {
+		this.element
+			.unbind( "." + this.widgetName )
+			.removeData( this.widgetName );
+		this.widget()
+			.unbind( "." + this.widgetName )
+			.removeAttr( "aria-disabled" )
+			.removeClass(
+				this.widgetBaseClass + "-disabled " +
+				this.namespace + "-state-disabled" );
+	},
+
+	widget: function() {
+		return this.element;
+	},
+
+	option: function( key, value ) {
+		var options = key,
+			self = this;
+
+		if ( arguments.length === 0 ) {
+			// don't return a reference to the internal hash
+			return $.extend( {}, self.options );
+		}
+
+		if  (typeof key === "string" ) {
+			if ( value === undefined ) {
+				return this.options[ key ];
+			}
+			options = {};
+			options[ key ] = value;
+		}
+
+		$.each( options, function( key, value ) {
+			self._setOption( key, value );
+		});
+
+		return self;
+	},
+	_setOption: function( key, value ) {
+		this.options[ key ] = value;
+
+		if ( key === "disabled" ) {
+			this.widget()
+				[ value ? "addClass" : "removeClass"](
+					this.widgetBaseClass + "-disabled" + " " +
+					this.namespace + "-state-disabled" )
+				.attr( "aria-disabled", value );
+		}
+
+		return this;
+	},
+
+	enable: function() {
+		return this._setOption( "disabled", false );
+	},
+	disable: function() {
+		return this._setOption( "disabled", true );
+	},
+
+	_trigger: function( type, event, data ) {
+		var callback = this.options[ type ];
+
+		event = $.Event( event );
+		event.type = ( type === this.widgetEventPrefix ?
+			type :
+			this.widgetEventPrefix + type ).toLowerCase();
+		data = data || {};
+
+		// copy original event properties over to the new event
+		// this would happen if we could call $.event.fix instead of $.Event
+		// but we don't have a way to force an event to be fixed multiple times
+		if ( event.originalEvent ) {
+			for ( var i = $.event.props.length, prop; i; ) {
+				prop = $.event.props[ --i ];
+				event[ prop ] = event.originalEvent[ prop ];
+			}
+		}
+
+		this.element.trigger( event, data );
+
+		return !( $.isFunction(callback) &&
+			callback.call( this.element[0], event, data ) === false ||
+			event.isDefaultPrevented() );
+	}
+};
+
+})( jQuery );
+
+(function ($) {
+	$.widget("ui.rcarousel", {
+		_create: function() {
+			var data,
+				$root = $( this.element ),
+				_self = this,
+				options = this.options;
+
+			// if options were default there should be no problem
+            // check if user set options before init: $('element').rcarousel({with: "foo", visible: 3});
+            // in above example exception will be thrown because 'with' should be a number!
+            this._checkOptionsValidity( this.options );
+
+			// for every carousel create a data object and keeps it in the element
+			this._createDataObject();
+			data = $root.data( "data" );
+
+			// create wrapper inside root element; this is needed for animating
+			$root
+				.addClass( "ui-carousel" )
+				.children()
+				.wrapAll( "<div class='wrapper'></div>" );
+			
+			// save all children of root element in ‘paths’ array
+			this._saveElements();
+
+			// make pages using paginate algorithm
+			this._generatePages();		
+			
+			this._loadElements();
+				
+			this._setCarouselWidth();
+			this._setCarouselHeight();
+			
+			// handle default event handlers
+			$( options.navigation.next ).click(
+				function( event ) {
+					_self.next();
+					event.preventDefault();
+				}
+			);
+			
+			$( options.navigation.prev ).click(
+				function( event ) {
+					_self.prev();
+					event.preventDefault();
+				}
+			);			
+			
+			data.navigation.next = $( options.navigation.next );
+			data.navigation.prev = $( options.navigation.prev );
+			
+			// stop on hover feature
+			$root.hover(
+				function() {
+					if ( options.auto.enabled ) {
+						clearInterval( data.interval );
+						data.hoveredOver = true;
+					}
+				},
+				function() {
+					if ( options.auto.enabled ) {
+						data.hoveredOver = false;
+						_self._autoMode( options.auto.direction );
+					}
+				}
+			);
+			
+			this._setStep();
+			
+			// if auto mode is enabled run it
+			if ( options.auto.enabled ) {
+				this._autoMode( options.auto.direction );
+			}
+			
+			// broadcast event
+			this._trigger( "start" );
+		},
+		
+		_addElement: function( jQueryElement, direction ) {
+			var $root = $( this.element ),
+				$content = $root.find( "div.wrapper" ),
+				options = this.options;
+
+			jQueryElement
+				.width( options.width )
+				.height( options.height );
+				
+			if ( options.orientation === "horizontal" ) {
+				$( jQueryElement ).css( "marginRight", options.margin );
+			} else {
+				$( jQueryElement ).css({
+					marginBottom: options.margin,
+					"float": "none"
+				});
+			}
+			
+			if ( direction === "prev" ) {
+				
+				// clone event handlers and data as well
+				$content.prepend( jQueryElement.clone(true, true) );
+			} else {
+				$content.append( jQueryElement.clone(true, true) );
+			}			
+		},
+		
+		append: function( jqElements ) {
+			var $root = $( this.element ),
+				data = $root.data( "data" );
+				
+			// add new elements
+			jqElements.each(
+				function( i, el ) {
+					data.paths.push( $(el) );
+				}
+			);
+			
+			data.oldPage = data.pages[data.oldPageIndex].slice(0);
+			data.appended = true;
+			
+			// rebuild pages
+			this._generatePages();
+		},
+		
+		_autoMode: function( direction ) {
+			var options = this.options,
+				data = $( this.element ).data( "data" );
+
+			if ( direction === "next" ) {
+				data.interval = setTimeout( $.proxy(this.next, this), options.auto.interval );
+			} else {
+				data.interval = setTimeout( $.proxy(this.prev, this), options.auto.interval );
+			}
+		},
+		
+		_checkOptionsValidity: function( options ) {
+			var i,
+				self = this,
+				_correctSteps = "";
+			
+			// for every element in options object check its validity
+			$.each(options,
+				function( key, value ) {
+
+					switch ( key ) {
+						case "visible":
+							// visible should be a positive integer
+							if ( !value || typeof value !== "number" || value <= 0 || (Math.ceil(value) - value > 0) ) {
+								throw new Error( "visible should be defined as a positive integer" );
+							}
+							break;
+	
+						case "step":
+							if ( !value || typeof value !== "number" || value <= 0 || (Math.ceil(value) - value > 0) ) {
+								throw new Error( "step should be defined as a positive integer" );
+							} else if ( value > self.options.visible )  {
+								// for example for visible: 3 the following array of values for 'step' is valid
+								// 3 <= step >= 1 by 1 ==> [1,2,3]
+								// output correct values
+								for ( i = 1; i <= Math.floor(options.visible); i++ ) {
+									_correctSteps += ( i < Math.floor(value) ) ? i + ", " : i;
+								}
+								
+								throw new Error( "Only following step values are correct: " + _correctSteps );
+							}
+							break;
+	
+						case "width":
+							// width & height is defined by default so you can omit them to some extent
+							if ( !value || typeof value !== "number" || value <= 0 || Math.ceil(value) - value > 0 ) {
+								throw new Error( "width should be defined as a positive integer" );
+							}
+							break;
+		
+						case "height":
+							if ( !value || typeof value !== "number" || value <= 0 || Math.ceil(value) - value > 0 ) {
+								throw new Error("height should be defined as a positive integer");
+							}
+							break;
+		
+						case "speed":
+							if ( !value && value !== 0 ) {
+								throw new Error("speed should be defined as a number or a string");
+							}
+		
+							if ( typeof value === "number" && value < 0 ) {
+								throw new Error( "speed should be a positive number" );
+							} else if ( typeof value === "string" && !(value === "slow" || value === "normal" || value === "fast") ) {
+								throw new Error( 'Only "slow", "normal" and "fast" values are valid' );
+							}
+							break;
+		
+						case "navigation":
+							if ( !value || $.isPlainObject(value) === false ) {
+								throw new Error( "navigation should be defined as an object with at least one of the properties: 'prev' or 'next' in it");
+							}
+		
+							if ( value.prev && typeof value.prev !== "string" ) {
+								throw new Error( "navigation.prev should be defined as a string and point to '.class' or '#id' of an element" );
+							}
+		
+							if ( value.next && typeof value.next !== "string" ) {
+								throw new Error(" navigation.next should be defined as a string and point to '.class' or '#id' of an element" );
+							}
+							break;
+		
+						case "auto":
+							if ( typeof value.direction !== "string" ) {
+								throw new Error( "direction should be defined as a string" );
+							}
+		
+							if ( !(value.direction === "next" || value.direction === "prev") ) {
+								throw new Error( "direction: only 'right' and 'left' values are valid" );
+							}
+		
+							if ( isNaN(value.interval) || typeof value.interval !== "number" || value.interval < 0 || Math.ceil(value.interval) - value.interval > 0 ) {
+								throw new Error( "interval should be a positive number" );
+							}
+							break;
+		
+						case "margin":
+							if ( isNaN(value) || typeof value !== "number" || value < 0 || Math.ceil(value) - value > 0 ) {
+								throw new Error( "margin should be a positive number" );
+							}
+							break;
+						}
+				}
+			);
+		},
+		
+		_createDataObject: function() {
+			var $root = $( this.element );
+
+			$root.data("data",
+				{
+					paths: [],
+					pathsLen: 0,
+					pages: [],
+					lastPage: [],
+					oldPageIndex: 0,
+					pageIndex: 0,
+					navigation: {},
+					animated: false,
+					appended: false,
+					hoveredOver: false
+				}
+			);
+		},
+		
+		_generatePages: function() {
+			var self = this,
+				options = this.options,
+				data = $( this.element ).data( "data" ),
+				_visible = options.visible,
+				_pathsLen = data.paths.length;
+				
+			// having 10 elements: A, B, C, D, E, F, G, H, I, J the algorithm
+			// creates 3 pages for ‘visible: 5’ and ‘step: 4’:
+			// [ABCDE], [EFGHI], [FGHIJ]
+
+			function _init() {
+				// init creates the last page [FGHIJ] and remembers it
+
+				data.pages = [];
+				data.lastPage = [];
+				data.pages[0] = [];
+
+				// init last page
+				for ( var i = _pathsLen - 1; i >= _pathsLen - _visible; i-- ) {
+					data.lastPage.unshift( data.paths[i] );
+				}
+				
+				// and first page
+				for ( var i = 0; i < _visible; i++ ) {
+					data.pages[0][data.pages[0].length] = data.paths[i];
+				}				
+			}
+
+			function _islastPage( page ) {
+				var _isLast = false;
+
+				for ( var i = 0; i < data.lastPage.length; i++ ) {
+					if ( data.lastPage[i].get(0) === page[i].get(0) ) {
+						_isLast = true;
+					} else {
+						_isLast = false;
+						break;
+					}
+				}
+				
+				return _isLast;
+			}
+
+			function _append( start, end, atIndex ) {
+				var _index = atIndex || data.pages.length;
+
+				if ( !atIndex ) {
+					data.pages[_index] = [];
+				}
+
+				for ( var i = start; i < end; i++ ) {
+					data.pages[_index].push( data.paths[i] );
+				}
+				return _index;
+			}
+
+			function _paginate() {
+				var _isBeginning = true,
+					_complement = false,
+					_start = options.step,
+					_end, _index, _oldFirstEl, _oldLastEl;
+
+				// continue until you reach the last page
+				// we start from the 2nd page (1st page has been already initiated)
+				while ( !_islastPage(data.pages[data.pages.length - 1]) || _isBeginning ) {
+					_isBeginning = false;
+
+					_end = _start + _visible;
+
+					// we cannot exceed _pathsLen
+					if ( _end > _pathsLen ) {
+						_end = _pathsLen;
+					}
+					
+					// when we run ouf of elements (_end - _start < _visible) we must add the difference at the begining
+					// in our example the 3rd page is [FGHIJ] and J element is added in the second step
+					// first we add [FGHI] as old elements
+					// we must assure that we have always ‘visible’ (5 in our example) elements
+					if ( _end - _start < _visible ) {
+						_complement = true;
+					} else {
+						_complement = false;
+					}
+
+					if ( _complement ) {
+						
+						// first add old elemets; for 3rd page it adds [FGHI…]
+						// remember the page we add to (_index)
+						_oldFirstEl = _start - ( _visible - (_end - _start) );
+						_oldLastEl = _oldFirstEl + ( _visible - (_end - _start) );
+						_index = _append( _oldFirstEl, _oldLastEl );
+						
+						// then add new elements; for 3th page it is J element:
+						// [fghiJ]
+						_append( _start, _end, _index );
+
+					} else {
+						
+						// normal pages like [ABCDE], [EFGHI]
+						_append( _start, _end );
+						
+						// next step
+						_start += options.step;
+					}
+				}
+			}
+
+			// go!
+			_init();
+			_paginate();
+		},
+		
+		getCurrentPage: function() {
+			var data = $( this.element ).data( "data" );
+			return data.pageIndex + 1;
+		},
+		
+		getTotalPages: function() {
+			var data = $( this.element ).data( "data" );
+			return data.pages.length;
+		},
+		
+		goToPage: function( page ) {
+			var	_by,
+				data = $( this.element ).data( "data" );
+
+			if ( !data.animated && page !== data.pageIndex ) {
+				data.animated = true;
+
+				if ( page > data.pages.length - 1 ) {
+					page = data.pages.length - 1;
+				} else if ( page < 0 ) {
+					page = 0;
+				}
+				
+				data.pageIndex = page;
+				_by = page - data.oldPageIndex;
+				
+				if ( _by >= 0 ) {
+					//move by n elements from current index
+					this._goToNextPage( _by );
+				} else {
+					this._goToPrevPage( _by );
+				}
+				
+				data.oldPageIndex = page;
+			}
+		},
+		
+		_loadElements: function(elements, direction) {
+			var options = this.options,
+				data = $( this.element ).data( "data" ),
+				_dir = direction || "next",
+				_elem = elements || data.pages[options.startAtPage],
+				_start = 0,
+				_end = _elem.length;
+
+			if ( _dir === "next" ) {
+				for ( var i = _start; i < _end; i++ ) {
+					this._addElement( _elem[i], _dir );
+				}
+			} else {
+				for ( var i = _end - 1; i >= _start; i-- ) {
+					this._addElement( _elem[i], _dir );
+				}
+			}
+		},
+		
+		_goToPrevPage: function( by ) {
+			var _page, _oldPage, _dist, _index, _animOpts, $lastEl, _unique, _pos, _theSame,
+				$root = $( this.element ),
+				self = this,
+				options = this.options,
+				data = $( this.element ).data( "data" );
+
+			// pick pages
+			if ( data.appended ) {
+				_oldPage = data.oldPage;
+			} else {				
+				_oldPage = data.pages[data.oldPageIndex];
+			}
+			
+			_index = data.oldPageIndex + by;			
+			_page = data.pages[_index].slice( 0 );
+
+			// For example, the first time widget was initiated there were 5
+			// elements: A, B, C, D, E and 3 pages for visible 2 and step 2:
+			// AB, CD, DE. Then a user loaded next 5 elements so there were
+			// 10 already: A, B, C, D, E, F, G, H, I, J and 5 pages:
+			// AB, CD, EF, GH and IJ. If the other elemets were loaded when
+			// CD page was shown (from 5 elements) ‘_theSame’ is true because
+			// we compare the same
+			// pages, that is, the 2nd page from 5 elements and the 2nd from
+			// 10 elements. Thus what we do next is to decrement the index and
+			// loads the first page from 10 elements.			
+			$( _page ).each(
+				function( i, el ) {
+					if ( el.get(0) === $(_oldPage[i]).get(0) ) {
+						_theSame = true;
+					} else {
+						_theSame = false;
+					}
+				}
+			);
+			
+			if ( data.appended && _theSame ) {
+				if ( data.pageIndex === 0 ) {
+					_index = data.pageIndex = data.pages.length - 1;
+				} else {
+					_index = --data.pageIndex;
+				}
+				
+				_page = data.pages[_index].slice( 0 );
+			}			
+
+			// check if last element from _page appears in _oldPage
+			// for [ABCDFGHIJ] elements there are 3 pages for ‘visible’ = 6 and
+			// ‘step’ = 2: [ABCDEF], [CDEFGH] and [EFGHIJ]; going from the 3rd
+			// to the 2nd page we only loads 2 elements: [CD] because all
+			// remaining were loaded already
+			$lastEl = _page[_page.length - 1].get( 0 );
+			for ( var i = _oldPage.length - 1; i >= 0; i-- ) {
+				if ( $lastEl === $(_oldPage[i]).get(0) ) {
+					_unique = false;
+					_pos = i;
+					break;
+				} else {
+					_unique = true;
+				}
+			}
+
+			if ( !_unique ) {
+				while ( _pos >= 0 ) {
+					if ( _page[_page.length - 1].get(0) === _oldPage[_pos].get(0) ) {
+						// this element is unique
+						_page.pop();
+					}
+					--_pos;
+				}
+			}			
+
+			// load new elements
+			self._loadElements( _page, "prev" );
+
+			// calculate the distance
+			_dist = options.width * _page.length + ( options.margin * _page.length );
+
+			if (options.orientation === "horizontal") {
+				_animOpts = {scrollLeft: 0};
+				$root.scrollLeft( _dist );
+			} else {
+				_animOpts = {scrollTop: 0};
+				$root.scrollTop( _dist );
+			}
+
+			$root
+				.animate(_animOpts, options.speed, function () {
+					self._removeOldElements( "last", _page.length );
+					data.animated = false;
+
+					if ( !data.hoveredOver && options.auto.enabled ) {
+						// if autoMode is on and you change page manually
+						clearInterval( data.interval );
+						
+						self._autoMode( options.auto.direction );
+					}
+
+					// scrolling is finished, send an event
+					self._trigger("pageLoaded", null, {page: _index});
+				});
+				
+			// reset to deafult
+			data.appended = false;				
+		},
+		
+		_goToNextPage: function( by ) {
+			var _page, _oldPage, _dist, _index, _animOpts, $firstEl, _unique, _pos, _theSame,
+				$root = $( this.element ),
+				options = this.options,
+				data = $root.data( "data" ),				
+				self = this;
+
+			// pick pages
+			if ( data.appended ) {
+				_oldPage = data.oldPage;
+			} else {				
+				_oldPage = data.pages[data.oldPageIndex];
+			}
+			
+			_index = data.oldPageIndex + by;			
+			_page = data.pages[_index].slice( 0 );
+			
+			// For example, the first time widget was initiated there were 5
+			// elements: A, B, C, D, E and 2 pages for visible 4 and step 3:
+			// ABCD and BCDE. Then a user loaded next 5 elements so there were
+			// 10 already: A, B, C, D, E, F, G, H, I, J and 3 pages:
+			// ABCD, DEFG and GHIJ. If the other elemets were loaded when
+			// ABCD page was shown (from 5 elements) ‘_theSame’ is true because
+			// we compare the same
+			// pages, that is, the first pages from 5 elements and the first from
+			// 10 elements. Thus what we do next is to increment the index and
+			// loads the second page from 10 elements.
+			$( _page ).each(
+				function( i, el ) {
+					if ( el.get(0) === $(_oldPage[i]).get(0) ) {
+						_theSame = true;
+					} else {
+						_theSame = false;
+					}
+				}
+			);
+	
+			if ( data.appended && _theSame ) {
+				_page = data.pages[++data.pageIndex].slice( 0 );
+			}
+
+			// check if 1st element from _page appears in _oldPage
+			// for [ABCDFGHIJ] elements there are 3 pages for ‘visible’ = 6 and
+			// ‘step’ = 2: [ABCDEF], [CDEFGH] and [EFGHIJ]; going from the 2nd
+			// to the 3rd page we only loads 2 elements: [IJ] because all
+			// remaining were loaded already
+			$firstEl = _page[0].get( 0 );
+			for ( var i = 0; i < _page.length; i++) {
+				if ( $firstEl === $(_oldPage[i]).get(0) ) {
+					_unique = false;
+					_pos = i;
+					break;
+				} else {
+					_unique = true;
+				}
+			}
+
+			if ( !_unique ) {
+				while ( _pos < _oldPage.length ) {
+					if ( _page[0].get(0) === _oldPage[_pos].get(0) ) {
+						_page.shift();
+					}
+					++_pos;
+				}
+			}
+			
+			// load new elements			
+			this._loadElements( _page, "next" );
+
+			// calculate the distance
+			_dist = options.width * _page.length + ( options.margin * _page.length );
+			
+			if ( options.orientation === "horizontal" ) {
+				_animOpts = {scrollLeft: "+=" + _dist};
+			} else {
+				_animOpts = {scrollTop: "+=" + _dist};
+			}
+			
+			$root
+				.animate(_animOpts, options.speed, function() {
+					self._removeOldElements( "first", _page.length );
+					
+					if ( options.orientation === "horizontal" ) {
+						$root.scrollLeft( 0 );
+					} else {
+						$root.scrollTop( 0 );
+					}
+					
+					data.animated = false;
+
+					if ( !data.hoveredOver && options.auto.enabled ) {
+						// if autoMode is on and you change page manually
+						clearInterval( data.interval );
+						
+						self._autoMode( options.auto.direction );
+					}
+
+					// scrolling is finished, send an event
+					self._trigger( "pageLoaded", null, {page: _index});
+
+			});
+				
+			// reset to deafult
+			data.appended = false;
+		},
+		
+		next: function() {
+			var	options = this.options,
+				data = $( this.element ).data( "data" );
+
+			if ( !data.animated ) {
+				data.animated = true;
+				
+				if ( !data.appended  ) {
+					++data.pageIndex;
+				}				
+				
+				if ( data.pageIndex > data.pages.length - 1 ) {
+					data.pageIndex = 0;
+				}
+
+				// move by one element from current index
+				this._goToNextPage( data.pageIndex - data.oldPageIndex );
+				data.oldPageIndex = data.pageIndex;
+			}
+		},
+		
+		prev: function() {
+			var	options = this.options,
+				data = $( this.element ).data( "data" );
+
+			if ( !data.animated ) {
+				data.animated = true;
+
+				if ( !data.appended ) {
+					--data.pageIndex;
+				}
+				
+				if ( data.pageIndex < 0 ) {
+					data.pageIndex = data.pages.length - 1;
+				}
+
+				// move left by one element from current index
+				this._goToPrevPage( data.pageIndex - data.oldPageIndex );
+				data.oldPageIndex = data.pageIndex;
+			}
+		},
+		
+		_removeOldElements: function(position, length) {
+			// remove 'step' elements
+			var	$root = $( this.element );
+
+			for ( var i = 0; i < length; i++ ) {
+				if ( position === "first" ) {
+					$root
+						.find( "div.wrapper" )
+							.children()
+							.first()
+							.remove();
+				} else {
+					$root
+						.find( "div.wrapper" )
+							.children()
+							.last()
+							.remove();
+				}
+			}
+		},
+		
+		_saveElements: function() {
+			var $el,
+				$root = $( this.element ),
+				$elements = $root.find( "div.wrapper" ).children(),
+				data = $root.data( "data" );
+				
+			$elements.each(
+				function( i, el ) {
+					$el = $( el );
+					
+					// keep element’s data and events
+					data.paths.push( $el.clone(true, true) );
+					$el.remove();
+				}
+			);		
+		},
+		
+		_setOption: function( key, value ) {
+			var _newOptions,
+				options = this.options,
+				data = $( this.element ).data( "data" );
+
+			switch (key) {
+				case "speed":
+					this._checkOptionsValidity({speed: value});
+					options.speed = value;
+					$.Widget.prototype._setOption.apply( this, arguments );
+					break;
+	
+				case "auto":
+					_newOptions = $.extend( options.auto, value );
+					this._checkOptionsValidity({auto: _newOptions});
+	
+					if ( options.auto.enabled ) {
+						this._autoMode( options.auto.direction );
+					}
+				}
+
+		},
+		_setStep: function(s) {
+			// calculate a step
+			var _step,
+				options = this.options,
+				data = $( this.element ).data( "data" );
+
+			_step = s || options.step;
+
+			options.step = _step;
+			data.step = options.width * _step;
+		},
+		
+		_setCarouselHeight: function() {
+			var _newHeight,
+				$root = $( this.element ),
+				data = $( this.element ).data( "data" ),			
+				options = this.options;
+
+			if ( options.orientation === "vertical" ) {
+				_newHeight = options.visible * options.height + options.margin * (options.visible - 1);
+			} else {
+				_newHeight = options.height;
+			}
+
+			$root.height(_newHeight);
+		},
+		
+		_setCarouselWidth: function() {
+			var _newWidth,
+				$root = $( this.element ),
+				options = this.options,
+				data = $( this.element ).data( "data" );
+
+			if ( options.orientation === "horizontal" ) {
+				_newWidth = options.visible * options.width + options.margin * (options.visible - 1);
+			} else {
+				_newWidth = options.width;
+			}
+
+			// set carousel width and disable overflow: auto
+			$root.css({
+				width: _newWidth,
+				overflow: "hidden"
+			});
+		},
+		
+		options: {
+			visible: 3,
+			step: 3,
+			width: 100,
+			height: 100,
+			speed: 1000,
+			margin: 0,
+			orientation: "horizontal",
+			auto: {
+				enabled: false,
+				direction: "next",
+				interval: 5000
+			},
+			startAtPage: 0,
+			navigation: {
+				next: "#ui-carousel-next",
+				prev: "#ui-carousel-prev"
+			}
+		}
+	});
+}(jQuery));
