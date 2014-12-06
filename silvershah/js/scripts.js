@@ -1,141 +1,268 @@
 $(document).ready(function() {
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// COMMON
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	$(".categories").hide(); //Прячем подменю категорий
-	$(".cart-section").hide(); //Прячем корзину
 
+	$("nav.narrow").hide(); 	//Прячем мобильное меню
+	$(".cart-section").hide(); 	//Прячем корзину
+	$(".categories").hide(); 	//Прячем подменю категорий
+	
+	//Открытие/закрытие блока корзины
 	$(".cart").click(function() {
 		$(".cart-section").slideToggle(1000); 
 	});
 
+	//Клик на пункт меню категорий
 	$("nav.menu .item").on('click', function() {
-		var curcent = $(this).offset().left + $(this).width()/2;
 
-		$(this).addClass('clicked');
-		$("#main-cur").animate({'left': curcent}, 500);
-		$(".categories").slideDown();
+		//Определяем координаты центра текущего меню и принадлежащий ему список подменю
+		var curcent = $(this).offset().left + $(this).width()/2 - 6;
+		var curitems = $(this).find("ul").html();
+
+		//Если пункт не активен, то...
+		if (!$(this).hasClass('active'))
+		{
+			//Переключаем класс Active
+			$(this).siblings().removeClass('active');
+			$(this).addClass('active');
+
+			//Если подменю открыто, то...
+			if( $("#cat-menu").height() != 0 )
+			{
+				//Затухание подменю
+				$("#cat-menu ul").fadeOut(function() {
+					//Заполняем подпункт из списка выбранного пункта и появление
+					$(this).html(curitems).fadeIn();
+					//Сдвиг курсора к текущему пункту
+					$("#main-cur").animate({'left': curcent}, 500);
+				});
+			}
+			//Если подменю закрыто, то...
+			else
+			{
+				//Заполняем подменю
+				$("#cat-menu ul").html(curitems, function() {});
+				//Открываем блок подменю
+				$(".categories").slideDown();
+				//Сдвиг курсора к текущему пункту
+				$("#main-cur").animate({'left': curcent}, 500);
+			}
+		}
+		//Если пункт активен, то...
+		else
+		{
+			//Закрываем блок подменю
+			$(".categories").slideUp(function() {
+				//После закрытия очищаем NAV
+				$("#cat-menu ul").html("");
+			});
+			//Прячем курсор за экран
+			$("#main-cur").animate({'left': -20}, 500);
+			//Удаляем класс active
+			$(this).removeClass('active');
+		}
+
 	});
 
+	//Закрываем подменю при нажатии на X
 	$(".close").on('click', function() {
 		$(".categories").slideUp();
 	});
 
-	//СЛайдшоу на главной
-	//////////////////////////////////////////////////////////////////////////////////////
-	$("#slideshow").cycle({
-		slides: '.slide',
-		next: '#next',
-		prev: '#prev'
-	});
+	//Управление меню в мобильном режиме
+
+		//Прячем меню при изменении ширины экрана
+		$(window).width() < 1100 ? $("nav.narrow").hide() : $("nav.narrow").hide();
+
+		//При клике на кнопку меню
+		$(".nar_menu_button").on('click', function() {
+			$(this).toggleClass('active'); //Меняем кнопку на активную
+			$("nav.narrow").slideToggle(); //Показываем меню
+		});
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// MAIN PAGE
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		//Слайдшоу на главной, инициализация плагина
+		$("#slideshow").cycle({
+			slides: '.slide',
+			next: '#next',
+			prev: '#prev'
+		});
+		
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// ITEM PAGE
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	//Предпросмотр фотографий на странице товара
-	//////////////////////////////////////////////////////////////////////////////////////
-	$("#item-prev").find('img').on('click', function() {
-		$(this).siblings().removeClass('active');
-		$(this).addClass('active');
-		var curattr = $(this).attr("src");
-		$(".big-img img").fadeOut(200, function() {
-			$(this).attr("src",curattr).fadeIn(200);
-		});
-	});
 
-	//Вертикальная карусель в превью
-	//////////////////////////////////////////////////////////////////////////////////////
-	$("#item-prev").rcarousel({
-		visible: 5,
-		step: 3,
-		orientation: 'vertical',
-		margin: 10,
-		width: 80,
-		height: 80,
-		navigation: {
-			next: "#item-prev-up",
-			prev: "#item-prev-down"
-		}
-	});
+		//При клике на картинку-превью
+		$("#item-prev").find('img').on('click', function() {
+
+			//Переключаем класс active
+			$(this).siblings().removeClass('active');
+			$(this).addClass('active');
+
+			//Поучаем URL изображения
+			var curattr = $(this).attr("src");
+
+			//Прячем изображение в блоке большой фотографии
+			$(".big-img img").fadeOut(200, function() {
+				//Заменяем на выбранное фото и отображаем
+				$(this).attr("src",curattr).fadeIn(200);
+			});
+		});
+		
+		//Вертикальная карусель в превью, инициализация плагина
+		$("#item-prev").rcarousel({
+			visible: 5,
+			step: 3,
+			orientation: 'vertical',
+			margin: 10,
+			width: 80,
+			height: 80,
+			navigation: {
+				next: "#item-prev-up",
+				prev: "#item-prev-down"
+			}
+		});
 
 	//Адаптивная карусель на странице товара
-	//////////////////////////////////////////////////////////////////////////////////////
-	var watchedCount = Math.round( $(window).width()/250 );
-	var watchedItemSize = Math.round( $(".watched-carousel").width()/watchedCount );
 
-	$(".watched-carousel").rcarousel({
-		visible: watchedCount,
-		step: watchedCount,
-		width: watchedItemSize,
-		height: watchedItemSize,
-		orientation: 'horizontal',
-		margin: 0,
-		navigation: {
-			next: "#watched-car-next",
-			prev: "#watched-car-prev"
-		}
-	});
+		//Получаем количество элементов, исходя из ширины экрана и устанавливаем размер
+		var watchedCount = Math.round( $(window).width()/250 );
+		var watchedItemSize = Math.round( $(".watched-carousel").width()/watchedCount );
+
+		//Инициализация плагина
+		$(".watched-carousel").rcarousel({
+			visible: watchedCount,
+			step: watchedCount,
+			width: watchedItemSize,
+			height: watchedItemSize,
+			orientation: 'horizontal',
+			margin: 0,
+			navigation: {
+				next: "#watched-car-next",
+				prev: "#watched-car-prev"
+			}
+		});
 
 	//Рассчет стоимости на странице товара
-	//////////////////////////////////////////////////////////////////////////////////////
-	var itemCount = 1;
-	var one = $(".one-item").text();
 
-		//Прибавить
-		$(".price .add").on('click', function() {
-			if(itemCount < 10) {
-				$(".calc-price").text(one * itemCount);
-				$("#item-count").val(itemCount++);
-			}
-		});
+		//Количество по умолчанию
+		var itemCount = 1;
 
-		//Убавить
-		$(".price .sub").on('click', function() {
-			if(itemCount > 0) {
-				$(".calc-price").text(one * itemCount);
-				$("#item-count").val(itemCount--);
-			}
-		});
+		//Цена за один товар (берется из 'span')
+		var one = $(".one-item").text();
+		$(".calc-price").text(one * itemCount);
 
-		//ИЗменить в поле ввода
-		$("#item-count").on('input', function() {
-			if( $(this).val() > 0 && $(this).val() < 10) {
-				$(".calc-price").text(one * $(this).val());
-			}
-			itemCount = $(this).val();
-		});
+			//Прибавить
+			$(".price .add").on('click', function() {
+				
+				//Если количество не больше 9
+				if(itemCount < 9) {
+					itemCount++; 							//плюс 1
+					$(".calc-price").text(one * itemCount); //Подсчет суммы
+					$("#item-count").val(itemCount);        //Изменение значения в поле
+				}
+			});
+
+			//Убавить
+			$(".price .sub").on('click', function() {
+
+				//Если количество не меньше 1
+				if(itemCount > 1) {
+					itemCount--;							//Минус 1
+					$(".calc-price").text(one * itemCount); //Подсчет суммы
+					$("#item-count").val(itemCount);		//Изменение значения в поле
+				}
+			});
+
+			//ИЗменить в поле ввода
+			$("#item-count").on('input', function() {
+
+				//Запись введенного значения в переменную
+				itemCount = $(this).val();
+
+				//Если введенная строка - число от 1 до 9, то
+				if( itemCount > 0 && itemCount < 9 && typeof(itemCount) != NaN)
+				{
+					//Подсчитываем сумму
+					$(".calc-price").text(one * itemCount);
+				}
+				//Иначе, если введенная строка - число больше 9,
+				else if ( itemCount > 9  && typeof(itemCount) != NaN)
+				{
+					$(this).val(9)							//Меняем значение поля на 9
+					itemCount = $(this).val();				//Присваиваем переменной значение поля
+					$(".calc-price").text(one * itemCount); //Подсчитываем сумму
+				}
+				else 
+				{
+					$(this).val(1);							//Меняем значение поля на 1
+					itemCount = $(this).val();				//Присваиваем переменной значение поля
+					$(".calc-price").text(one * itemCount); //Подсчитываем сумму
+				}
+			});
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// CATEGORY PAGE
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	//Слайдер цены на старнице категории
-	//////////////////////////////////////////////////////////////////////////////////////
-	var pr_min = 0,
-		pr_max = 0;
+	
+		//Переменные для установления максимальной\минимальной цены
+		var pr_min = 0,
+			pr_max = 0;
 
 		//Инициализация плагина
 		$('.range-slider').nstSlider({
-			"rounding": {
-		        "10": "100",
-		        "100": "1500"
-		    },
 		    "left_grip_selector": ".lg",
 		    "right_grip_selector": ".rg",
 		    "value_bar_selector": ".bar",
+		    //При изменении положения слайдера
 	        "value_changed_callback": function(cause, leftValue, rightValue) {
-	        	$(".range-price-min").val(leftValue);
-	        	$(".range-price-max").val(rightValue);
+	        	$(".range-price-min").val(leftValue);  //Меняем значение поля минимальной  цены
+	        	$(".range-price-max").val(rightValue); //Меняем значение поля максимальной цены
 		    }
 		});
 
 		//Изменение поля ввода
 		$(".range").on('input', function() {
-			pr_min = $(".range-price-min").val();
-			pr_max = $(".range-price-max").val();
+			//Проверка введенного значения
+			if ( typeof($(this).val()) != NaN && $(this).val() > 0 )
+			{
+				pr_min = $(".range-price-min").val();
+				pr_max = $(".range-price-max").val();
+			}
+			else
+			{
+				pr_min = 25000;
+				pr_max = 175000;
+			}
+
+			//Установка слайдера в указанную позицию
 			$('.range-slider').nstSlider('set_position', pr_min, pr_max);
 		});
-	
-	//Управление меню в мобильном режиме
-	//////////////////////////////////////////////////////////////////////////////////////
-	$("nav.narrow").hide();
 
-	$(window).width() < 1100 ? $("nav.narrow").hide() : $("nav.narrow").hide();
 
-	$(".nar_menu_button").on('click', function() {
-		$(this).toggleClass('active');
-		$("nav.narrow").slideToggle();
-	});
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 });

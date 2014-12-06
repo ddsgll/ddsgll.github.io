@@ -1,3 +1,8 @@
+/*
+=====================================================================================================================
+Reset CSS
+=====================================================================================================================
+*/
 html,
 body {
   border: 0;
@@ -130,6 +135,11 @@ a img {
   content: '';
   position: absolute;
 }
+/*
+=====================================================================================================================
+Typograph
+=====================================================================================================================
+*/
 @font-face {
   font-family: 'agf';
   src: url('f/agf.ttf') format('truetype');
@@ -156,6 +166,11 @@ a img {
   -o-user-select: none;
   user-select: none;
 }
+/*
+=====================================================================================================================
+Animations
+=====================================================================================================================
+*/
 @-webkit-keyframes submitbutton {
   0% {
     box-shadow: 0px 0px 0px #ffc954 inset;
@@ -191,9 +206,9 @@ a img {
   }
 }
 /*
-==============================================================================
-Main
-==============================================================================
+=====================================================================================================================
+General
+=====================================================================================================================
 */
 body,
 html {
@@ -256,9 +271,9 @@ input[type='button']:hover {
   color: #191919;
 }
 /*
-==============================================================================
+=====================================================================================================================
 Header
-==============================================================================
+=====================================================================================================================
 */
 header {
   width: 100%;
@@ -459,6 +474,11 @@ nav.narrow ul a:hover::before {
     display: none;
   }
 }
+/*
+=====================================================================================================================
+Cart
+=====================================================================================================================
+*/
 .cart-section {
   width: 100%;
   margin: 0px;
@@ -470,6 +490,9 @@ nav.narrow ul a:hover::before {
   font-size: 30px;
   color: #191919;
   margin-bottom: .5em;
+}
+.cart-section #cart-del {
+  cursor: pointer;
 }
 .cart-section .counter {
   width: 15%;
@@ -553,7 +576,6 @@ nav.narrow ul a:hover::before {
 }
 .cart-section table td img {
   max-width: 100%;
-  min-width: 64px;
 }
 .cart-section table td input {
   width: 32px;
@@ -583,15 +605,15 @@ nav.narrow ul a:hover::before {
   width: 5%;
 }
 /*
-==============================================================================
+=====================================================================================================================
 Main-menu
-==============================================================================
+=====================================================================================================================
 */
 .menu-groups {
   position: relative;
   width: 100%;
   background: #222222;
-  padding: 32px 0px;
+  padding: 32px 0px 10px 0px;
   overflow: hidden;
 }
 .menu-groups .menu {
@@ -627,6 +649,9 @@ Main-menu
     height: 110px;
     font-size: 12px;
   }
+}
+.menu-groups .item ul {
+  display: none;
 }
 .menu-groups .item .icon {
   width: 64px;
@@ -674,33 +699,42 @@ Main-menu
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-.menu-groups .item:hover .icon {
+.menu-groups .item:hover .icon,
+.menu-groups .item.active .icon {
   /*
 				Icons
 				*/
 }
-.menu-groups .item:hover .icon.gift {
+.menu-groups .item:hover .icon.gift,
+.menu-groups .item.active .icon.gift {
   background-position: -64px 0px;
 }
-.menu-groups .item:hover .icon.kub {
+.menu-groups .item:hover .icon.kub,
+.menu-groups .item.active .icon.kub {
   background-position: -64px -64px;
 }
-.menu-groups .item:hover .icon.pos {
+.menu-groups .item:hover .icon.pos,
+.menu-groups .item.active .icon.pos {
   background-position: -64px -128px;
 }
-.menu-groups .item:hover .icon.serv {
+.menu-groups .item:hover .icon.serv,
+.menu-groups .item.active .icon.serv {
   background-position: -64px -192px;
 }
-.menu-groups .item:hover .icon.or {
+.menu-groups .item:hover .icon.or,
+.menu-groups .item.active .icon.or {
   background-position: -64px -256px;
 }
-.menu-groups .item:hover .icon.ex {
+.menu-groups .item:hover .icon.ex,
+.menu-groups .item.active .icon.ex {
   background-position: -64px -320px;
 }
-.menu-groups .item:hover .icon.ant {
+.menu-groups .item:hover .icon.ant,
+.menu-groups .item.active .icon.ant {
   background-position: -64px -384px;
 }
-.menu-groups .item:hover span {
+.menu-groups .item:hover span,
+.menu-groups .item.active span {
   color: #fff;
 }
 .menu-groups .cur {
@@ -815,6 +849,11 @@ Main-menu
 .menu-groups .categories nav ul li a:hover {
   color: #ffc954;
 }
+/*
+=====================================================================================================================
+Slider
+=====================================================================================================================
+*/
 .slider {
   position: relative;
   border: 1px solid #ffc954;
@@ -1025,6 +1064,11 @@ Main-menu
     display: none;
   }
 }
+/*
+=====================================================================================================================
+Filter
+=====================================================================================================================
+*/
 .filter {
   padding: 0px 2%;
   text-align: center;
@@ -1188,6 +1232,11 @@ Main-menu
     margin: 1em auto;
   }
 }
+/*
+=====================================================================================================================
+Categories
+=====================================================================================================================
+*/
 .category {
   width: 100%;
   text-align: center;
@@ -1394,6 +1443,11 @@ Main-menu
     font-size: 14px;
   }
 }
+/*
+=====================================================================================================================
+Item page
+=====================================================================================================================
+*/
 .itemdata {
   font-size: 0;
   line-height: 0;
@@ -1560,6 +1614,7 @@ Main-menu
   margin: 0px 2px;
   width: 48px;
   height: 48px;
+  padding: 2px;
 }
 .itemdata .info .price .one-item {
   margin-right: 1em;
@@ -1696,6 +1751,11 @@ Main-menu
     left: 32px;
   }
 }
+/*
+=====================================================================================================================
+Socials
+=====================================================================================================================
+*/
 .socials {
   margin: 48px 0px;
   width: 100%;
@@ -1745,6 +1805,11 @@ Main-menu
 .socials .ok:before {
   content: '\2666';
 }
+/*
+=====================================================================================================================
+Footer
+=====================================================================================================================
+*/
 footer {
   background: #222222;
   text-align: center;
