@@ -1,6 +1,5 @@
 @import "http://webfonts.ru/import/cleanvertising.css";
 
-
 /*
 ---------------------------------------------
 Common styles
@@ -18,7 +17,7 @@ body{
     font-family: 'Cleanvertising';
     -webkit-user-select: none;
     user-select: none;
-    background: #fff url('img/pattern.png');
+    background: #fff url('../img/pattern.png');
 }
 
 *::before,
@@ -60,10 +59,26 @@ span{
     opacity: 0;
 }
 
+.debug {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    width: 200px;
+    background: #fff;
+    border: 1px solid #efefef;
+    box-shadow: 0px 3px 6px rgba(0,0,0,.1);
+    padding: 8px;
+    font-size: 12px;
+}
+
+.paper {
+    position: relative;
+}
+
 ::-webkit-scrollbar
 {
-    width: 40px;  /* for vertical scrollbars */
-    height: 40px; /* for horizontal scrollbars */
+    width: 6px;  /* for vertical scrollbars */
+    height: 6px; /* for horizontal scrollbars */
 }
 
 ::-webkit-scrollbar-track
@@ -77,6 +92,15 @@ span{
     cursor: move;
 }
 /*--------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
 
 
 
@@ -143,6 +167,16 @@ Add-button
 
 
 
+
+
+
+
+
+
+
+
+
+
 /*
 ------------------------------------------------
 Block
@@ -159,8 +193,6 @@ Block
     padding: 0 10px 10px 10px;
 
     background: #daede2;
-
-    box-shadow: 120px 120px 60px -30px rgba(0,0,0,.05);
 }
 
 
@@ -180,8 +212,6 @@ Block
     border-right: 110px solid transparent;
     border-bottom: 20px solid transparent;
     border-left: 110px solid transparent;
-
-    box-shadow: 120px 120px 60px -30px rgba(0,0,0,.05);
 }
 
 
@@ -199,8 +229,7 @@ Block
     box-shadow: 0 6px 10px rgba(0,0,0,.1) inset;
 }
 
-
-.a textarea.question {
+.a textarea.cl_question {
     height: 100px;
 }
 
@@ -217,17 +246,22 @@ Block
     cursor: pointer;
     transition: all .2s ease;
 
-    background: #f78da3 url('img/close.png') no-repeat center;
-
-    box-shadow: 120px 120px 60px -30px rgba(0,0,0,.05);
+    background: #f78da3 url('../img/close.png') no-repeat center;
 }
 
 
 .a .close:hover {
-    background: #ee3859 url('img/close.png') no-repeat center;
+    background: #ee3859 url('../img/close.png') no-repeat center;
 }
 
 /*--------------------------------------------------------------*/
+
+
+
+
+
+
+
 
 
 
@@ -276,6 +310,14 @@ Border lines
 
 
 
+
+
+
+
+
+
+
+
 /*
 ------------------------------------------------
 Finish
@@ -296,8 +338,6 @@ Finish
     padding: 20px 10px 20px 10px;
 
     background: #daede2;
-
-    box-shadow: 120px 120px 60px -30px rgba(0,0,0,.05);
 }
 
 .finish::before {
@@ -341,7 +381,7 @@ Menu
     cursor: pointer;
     width: 48px;
     height: 48px;
-    background: #fff url('img/menu_burger.png') no-repeat center;
+    background: #fff url('../img/menu_burger.png') no-repeat center;
     z-index: 450;
     border-radius: 50px;
     box-shadow: 0px 3px 6px rgba(0,0,0,.15);
@@ -350,6 +390,7 @@ Menu
 #menu_close {
     cursor: pointer;
     display: inline-block;
+    vertical-align: top;
 }
 
 .menu {
@@ -368,7 +409,7 @@ Menu
     transition: all .4s cubic-bezier(.9,0,.1,1);
 }
 
-.splash {
+.menu_splash {
     position: fixed;
     width: 0%;
     height: 100%;
@@ -378,16 +419,114 @@ Menu
     opacity: 0;
     z-index: 500;
 
-    transition: opacity .8s ease;
+    transition: opacity .4s ease;
 }
 
 .menu.active {
     left: 0px;
 }
 
-.splash.active {
+.menu_splash.active {
     width: 100%;
     opacity: .4;
-    transition: opacity .8s ease;
+}
+
+.run_script {
+    font-size: 16px;
+    font-weight: 100;
+
+    position: relative;
+    right: -24px;
+
+    display: inline-block;
+
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 200px;
+    height: 48px;
+    padding-top: 16px;
+    padding-right: 48px;
+
+    cursor: pointer;
+    text-align: right;
+    vertical-align: top;
+    text-transform: uppercase;
+
+    background: transparent url('../img/play.png') no-repeat right center;
+}
+
+.all_scripts {
+    padding-top: 24px;
+}
+
+.all_scripts .item {
+    padding: 24px 0;
+    border-top: 1px solid #bfbfbf;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+
+    transition: all .2s ease;
+}
+
+.all_scripts .item:hover,
+.all_scripts .item:active {
+    padding: 24px 0 24px 24px;
+    background: rgba(0,0,0,.05);
 }
 /*--------------------------------------------------------------*/
+
+
+
+
+
+
+/*
+------------------------------------------------
+Mouse movers
+------------------------------------------------
+*/
+.move {
+    background: rgba(0,0,0,.3);
+    cursor: pointer;
+}
+
+.move:hover {
+    background: rgba(0,0,0,.7);
+}
+
+.move.up,
+.move.down {
+    position: fixed;
+    top: 0px;
+    left: 5%;
+
+    width: 90%;
+    height: 64px;
+
+    cursor: s-resize;
+}
+
+.move.down {
+    top: auto;
+    bottom: 0;
+}
+
+.move.left,
+.move.right {
+    position: fixed;
+    left: 0px;
+    top: 8%;
+
+    width: 64px;
+    height: 84%;
+
+    cursor: e-resize;
+}
+
+.move.right {
+    left: auto;
+    right: 0;
+}
+/*--------------------------------------------------------------*//*

@@ -5,44 +5,71 @@
 	<meta charset="UTF-8">
 	<title>Конструктор</title>
 
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
 
 
+	<!-- Левое меню -->
+	<div id="menu_open" class="menu_btn"></div>
 
-<div id="menu_open" class="menu_btn"></div>
+	<div class="menu">
+		<span id="menu_close">
+			<img src="img/menu_close.png" alt="">
+		</span>
 
-<div class="menu">
-	<span id="menu_close">
-		<img src="img/menu_close.png" alt="">
-	</span>
-</div>
-<div class="splash"></div>
+		<span class="run_script">Запустить скрипт</span>
 
+		<div class="move up" data-dir="1"></div>
+		<div class="move down" data-dir="2"></div>
+		<div class="move right" data-dir="3"></div>
+		<div class="move left" data-dir="4"></div>
 
+		<div class="all_scripts">
+			<div class="item">Название скрипта</div>
+			<div class="item">Название скрипта</div>
+			<div class="item">Название скрипта</div>
+			<div class="item">Название скрипта</div>
+			<div class="item">Название скрипта</div>
+		</div>
 
-<div class="paper">
+		<div class="add_script">
 
-	<div class="ask">
-	    
-	    <span class="a">
-	        <h3>Введите вопрос</h3>
-	        <textarea class="question" placeholder="Ваша речь"></textarea>
-	        <span class="add-but">Добавить ответ</span>
-	    </span>
-	    
-	    <p class="c"></p>
-	    
+			<div class="add_button"></div>
+			
+			<div class="add_form">
+				
+			</div>
+		</div>
 	</div>
 
-</div>
+	<!-- <div class="menu_splash"></div> -->
 
-<!-- JS -->
 
-<script src="jQuery/dist/jquery.js"></script>
-<script src="scripts.js"></script>
+	<!-- Блок конструктора -->
+	<div class="paper">
+
+		<div class="ask" data-level="1" data-query="1">
+		    
+		    <span class="a">
+		        <h3>Введите вопрос</h3>
+		        <textarea class="question"></textarea>
+		        <span class="add-but">Добавить ответ</span>
+		    </span>
+		    
+		    <p class="c"></p>
+		    
+		</div>
+
+	</div>
+
+
+	<!-- JS -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/underscore-min.js"></script>
+	<script src="js/application.js"></script>
+	<script src="js/scripts.js"></script>
 	
 </body>
 </html>
