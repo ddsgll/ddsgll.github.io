@@ -1,0 +1,1258 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700&subset=latin,cyrillic);
+/*
+=====================================================================================================================
+Reset CSS
+=====================================================================================================================
+*/
+html,
+body {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 1.5;
+}
+div,
+span,
+object,
+iframe,
+img,
+table,
+caption,
+thead,
+tbody,
+tfoot,
+tr,
+tr,
+td,
+article,
+aside,
+canvas,
+details,
+figure,
+hgroup,
+menu,
+nav,
+footer,
+header,
+section,
+summary,
+mark,
+audio,
+video {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+cit,
+code,
+del,
+dfn,
+em,
+ins,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+b,
+i,
+hr,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+legend,
+label {
+  border: 0;
+  vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+article,
+aside,
+canvas,
+figure,
+figure img,
+figcaption,
+hgroup,
+footer,
+header,
+nav,
+section,
+audio,
+video {
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+table caption,
+table th,
+table td {
+  text-align: left;
+  vertical-align: middle;
+}
+a,
+a:hover,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+a img {
+  border: 0;
+}
+* {
+  box-sizing: border-box;
+  position: relative;
+}
+*:focus {
+  outline: 0;
+}
+/*
+=====================================================================================================================
+Typograph
+=====================================================================================================================
+*/
+/*
+------------------------------------------------------------------
+Corner.less — стиль логотипа и иконки меню
+------------------------------------------------------------------
+*/
+.corner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 950;
+}
+.corner .logo,
+.corner .burger_menu {
+  position: relative;
+  display: block;
+  width: 80px;
+  height: 80px;
+  background-color: #151515;
+  cursor: pointer;
+  -webkit-transition: all 0.6s ease;
+  -moz-transition: all 0.6s ease;
+  -ms-transition: all 0.6s ease;
+  -o-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+}
+.corner .logo.active {
+  background: #f49b23;
+}
+.corner .burger_menu {
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all .3s ease;
+}
+.corner .burger_menu .container {
+  position: relative;
+  left: 0%;
+  width: 200%;
+  height: 100%;
+  -webkit-transition: all 0.6s ease;
+  -moz-transition: all 0.6s ease;
+  -ms-transition: all 0.6s ease;
+  -o-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+}
+.corner .burger_menu .container .closed,
+.corner .burger_menu .container .opened {
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* background: red; */
+  width: 50%;
+  height: 100%;
+}
+.corner .burger_menu .container .opened {
+  left: auto;
+  right: 0;
+  /* background: blue; */
+}
+.corner .burger_menu.active .container {
+  background: #f49b23;
+  left: -80px;
+}
+.corner .closed .burger {
+  position: relative;
+  left: 0px;
+  width: 45%;
+  height: 3px;
+  background: #fff;
+  top: 40%;
+  margin: 0 auto;
+  margin-top: -3px;
+  transition: all .6s ease;
+}
+.corner .closed .burger::before,
+.corner .closed .burger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transition: all .6s .1s ease;
+}
+.corner .closed .burger::after {
+  top: 16px;
+  transition: all .6s .2s ease;
+}
+.corner .opened::before,
+.corner .opened::after {
+  content: '';
+  width: 50%;
+  height: 4px;
+  background: #fff;
+  position: absolute;
+  top: 47%;
+  left: 150%;
+  opacity: 0;
+  transform-origin: -50% 3px;
+  transform: rotate(45deg);
+  transition: all 1s cubic-bezier(0.5, 1.6, 0.55, 1);
+}
+.corner .opened::after {
+  transform: rotate(-45deg);
+}
+.corner .burger_menu.active .closed .burger {
+  position: relative;
+  left: -20px;
+}
+.corner .burger_menu.active .closed .burger::before,
+.corner .burger_menu.active .closed .burger::after {
+  position: absolute;
+  left: -60px;
+}
+.corner .burger_menu.active .closed .burger::after {
+  left: -60px;
+}
+.corner .burger_menu.active .opened::before,
+.corner .burger_menu.active .opened::after {
+  content: '';
+  width: 50%;
+  height: 4px;
+  background: #fff;
+  position: absolute;
+  top: 47%;
+  left: 16px;
+  opacity: 1;
+  transform-origin: 50% 3px;
+  transform: rotate(45deg);
+}
+.corner .burger_menu.active .opened::after {
+  transform: rotate(-45deg);
+}
+/*
+------------------------------------------------------------------
+Main_menu.less — стили меню
+------------------------------------------------------------------
+*/
+.menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: #f49b23;
+  margin: 0;
+  padding: 0;
+  z-index: 0;
+  opacity: 0;
+  -webkit-transform: translateX(5%);
+  -moz-transform: translateX(5%);
+  -ms-transform: translateX(5%);
+  -o-transform: translateX(5%);
+  transform: translateX(5%);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.menu.active {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+  opacity: 1;
+  width: 50%;
+  z-index: 900;
+}
+.menu .title {
+  color: #ffffff;
+  font-style: italic;
+  font-family: 'Georgia' sans-serif;
+  font-size: 12px;
+  display: inline-block;
+  margin: 10% 0 10% 96px;
+}
+.menu .title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -14px;
+  width: 200%;
+  height: 2px;
+  display: inline-block;
+  background: #fff;
+}
+.menu .menu_nav {
+  font-family: 'PT Sans Caption', sans-serif;
+  font-size: 40px;
+  text-transform: uppercase;
+  margin: 0 0 10% 96px;
+}
+.menu .menu_nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.menu .menu_nav ul li {
+  margin: 4px 0;
+}
+.menu .menu_nav ul li a,
+.menu .menu_nav ul li a:visited,
+.menu .menu_nav ul li a:link,
+.menu .menu_nav ul li a:active {
+  display: inline-block;
+  color: #151515;
+  -webkit-transform: translateX(0px);
+  -moz-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  -o-transform: translateX(0px);
+  transform: translateX(0px);
+  -webkit-transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -moz-transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -ms-transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -o-transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+}
+.menu .menu_nav ul li a::after,
+.menu .menu_nav ul li a:visited::after,
+.menu .menu_nav ul li a:link::after,
+.menu .menu_nav ul li a:active::after {
+  content: '';
+  display: inline-block;
+  width: 10%;
+  opacity: 0;
+  height: 1px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: #151515;
+  -webkit-transition: all 0.8s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -moz-transition: all 0.8s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -ms-transition: all 0.8s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -o-transition: all 0.8s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  transition: all 0.8s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+}
+.menu .menu_nav ul li a:hover {
+  -webkit-transform: translateX(8px);
+  -moz-transform: translateX(8px);
+  -ms-transform: translateX(8px);
+  -o-transform: translateX(8px);
+  transform: translateX(8px);
+}
+.menu .menu_nav ul li a:hover::after {
+  width: 100%;
+  opacity: 1;
+}
+/*
+------------------------------------------------------------------
+Main_slider.less — стили слайдера на главной
+------------------------------------------------------------------
+*/
+.main_slider {
+  width: 100%;
+  height: 100%;
+  background: #ddd;
+  overflow: hidden;
+}
+.main_slider .item {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  overflow: hidden;
+  text-align: center;
+}
+.main_slider .item .sl_img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  -webkit-transform: scale(1, 1);
+  -moz-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  -o-transform: scale(1, 1);
+  transform: scale(1, 1);
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -ms-filter: grayscale(1);
+  -o-filter: grayscale(1);
+  filter: grayscale(1);
+  -webkit-transition: all 3s 0.2s ease;
+  -moz-transition: all 3s 0.2s ease;
+  -ms-transition: all 3s 0.2s ease;
+  -o-transition: all 3s 0.2s ease;
+  transition: all 3s 0.2s ease;
+}
+.main_slider .item .sl_img.sl_1 {
+  background: transparent url('../img/1.jpg') no-repeat center;
+  background-size: cover;
+}
+.main_slider .item .sl_img.sl_2 {
+  background: transparent url('../img/2.jpg') no-repeat center;
+  background-size: cover;
+}
+.main_slider .item .sl_img.sl_3 {
+  background: transparent url('../img/3.jpg') no-repeat center;
+  background-size: cover;
+}
+.main_slider .item .info {
+  text-align: left;
+  position: absolute;
+  top: 30%;
+  z-index: 50;
+  left: 10%;
+}
+.main_slider .item .info .type {
+  color: #151515;
+  font-style: italic;
+  font-family: 'Georgia' sans-serif;
+  font-size: 12px;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  border-bottom: 1px solid #151515;
+  padding-bottom: 2px;
+  opacity: 0;
+  text-shadow: 0px 0px 5px #fff, 0px 0px 30px #fff, 0px 0px 20px #fff;
+  -webkit-transform: translateX(1000%);
+  -moz-transform: translateX(1000%);
+  -ms-transform: translateX(1000%);
+  -o-transform: translateX(1000%);
+  transform: translateX(1000%);
+  -webkit-transition: all 0.8s 1s ease;
+  -moz-transition: all 0.8s 1s ease;
+  -ms-transition: all 0.8s 1s ease;
+  -o-transition: all 0.8s 1s ease;
+  transition: all 0.8s 1s ease;
+}
+.main_slider .item .info .title {
+  font-family: 'PT Sans Caption', sans-serif;
+  font-size: 40px;
+  color: #151515;
+  text-transform: uppercase;
+  line-height: 54px;
+  width: 60%;
+  opacity: 0;
+  text-shadow: 0px 0px 5px #fff, 0px 0px 30px #fff, 0px 0px 20px #fff;
+  -webkit-transition: all 0.8s 0.6s ease;
+  -moz-transition: all 0.8s 0.6s ease;
+  -ms-transition: all 0.8s 0.6s ease;
+  -o-transition: all 0.8s 0.6s ease;
+  transition: all 0.8s 0.6s ease;
+}
+.main_slider .item .info .link {
+  opacity: 0;
+  -webkit-transition: all 0.8s 0.8s ease;
+  -moz-transition: all 0.8s 0.8s ease;
+  -ms-transition: all 0.8s 0.8s ease;
+  -o-transition: all 0.8s 0.8s ease;
+  transition: all 0.8s 0.8s ease;
+}
+.main_slider .item .info .link a {
+  font-family: 'PT Sans Caption', sans-serif;
+  font-size: 40px;
+  color: #f49b23;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #f49b23;
+}
+.main_slider .item.is-selected .type {
+  opacity: 1;
+}
+.main_slider .item.is-selected .title {
+  opacity: 1;
+}
+.main_slider .item.is-selected .link {
+  opacity: 1;
+}
+.main_slider .item.is-selected .sl_img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  -webkit-transform: scale(1.1, 1.1);
+  -moz-transform: scale(1.1, 1.1);
+  -ms-transform: scale(1.1, 1.1);
+  -o-transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
+}
+/*
+------------------------------------------------------------------
+Main_gallery.less — стили галереи на главной странице
+------------------------------------------------------------------
+*/
+.main_gallery {
+  width: 100%;
+}
+.main_gallery .grid {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: -1;
+}
+.main_gallery .grid .item {
+  font-size: 16px;
+  line-height: normal;
+  letter-spacing: normal;
+  display: inline-block;
+  height: 360px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.main_gallery .grid .item.col-1 {
+  width: 8.33333333%;
+}
+.main_gallery .grid .item.col-2 {
+  width: 16.66666667%;
+}
+.main_gallery .grid .item.col-3 {
+  width: 25%;
+}
+.main_gallery .grid .item.col-4 {
+  width: 33.33333333%;
+}
+.main_gallery .grid .item.col-5 {
+  width: 41.66666667%;
+}
+.main_gallery .grid .item.col-6 {
+  width: 50%;
+}
+.main_gallery .grid .item.col-7 {
+  width: 58.33333333%;
+}
+.main_gallery .grid .item.col-8 {
+  width: 66.66666667%;
+}
+.main_gallery .grid .item.col-9 {
+  width: 75%;
+}
+.main_gallery .grid .item.col-10 {
+  width: 83.33333333%;
+}
+.main_gallery .grid .item.col-11 {
+  width: 91.66666667%;
+}
+.main_gallery .grid .item.col-12 {
+  width: 100%;
+}
+.main_gallery .grid .item::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: 150;
+  -webkit-transition: background 0.4s ease;
+  -moz-transition: background 0.4s ease;
+  -ms-transition: background 0.4s ease;
+  -o-transition: background 0.4s ease;
+  transition: background 0.4s ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.main_gallery .grid .item:hover::before {
+  background: rgba(0, 0, 0, 0.6);
+}
+.main_gallery .grid .item.main-info {
+  text-align: center;
+  padding: 0px;
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: -1;
+}
+.main_gallery .grid .item.main-info::before {
+  display: none;
+}
+.main_gallery .grid .item.main-info div {
+  font-size: 16px;
+  line-height: normal;
+  letter-spacing: normal;
+  display: inline-block;
+  width: 38%;
+  height: 50%;
+  position: relative;
+  top: 30%;
+}
+.main_gallery .grid .item.main-info .inf {
+  text-align: right;
+  margin-right: 5%;
+}
+.main_gallery .grid .item.main-info .inf span {
+  display: block;
+}
+.main_gallery .grid .item.main-info .inf span.works {
+  font-family: 'PT Sans Caption', sans-serif;
+  color: #151515;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+.main_gallery .grid .item.main-info .inf span.count {
+  font-family: 'PT Sans Caption', sans-serif;
+  color: #f49b23;
+  font-size: 60px;
+  text-transform: uppercase;
+}
+.main_gallery .grid .item.main-info .list {
+  width: 57%;
+  text-align: left;
+}
+.main_gallery .grid .item.main-info .list span {
+  display: block;
+  font-family: 'PT Sans Caption', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #151515;
+  margin-bottom: 7px;
+}
+.main_gallery .grid .item .type {
+  position: absolute;
+  top: 0;
+  right: 0;
+  -webkit-transform: translateX(10%);
+  -moz-transform: translateX(10%);
+  -ms-transform: translateX(10%);
+  -o-transform: translateX(10%);
+  transform: translateX(10%);
+  z-index: 400;
+  opacity: 0;
+  color: #f49b23;
+  font-style: italic;
+  font-family: 'Georgia' sans-serif;
+  font-size: 12px;
+  font-size: 14px;
+  -webkit-transition: all 1s 0.4s ease;
+  -moz-transition: all 1s 0.4s ease;
+  -ms-transition: all 1s 0.4s ease;
+  -o-transition: all 1s 0.4s ease;
+  transition: all 1s 0.4s ease;
+  margin: 5%;
+}
+.main_gallery .grid .item .title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 400;
+  opacity: 0;
+  width: 80%;
+  -webkit-transform-origin: 50% 60px;
+  -moz-transform-origin: 50% 60px;
+  transform-origin: 50% 60px;
+  -webkit-transform: perspective(600) rotateX(60deg) translateY(-100px);
+  -moz-transform: perspective(600) rotateX(60deg) translateY(-100px);
+  -ms-transform: perspective(600) rotateX(60deg) translateY(-100px);
+  -o-transform: perspective(600) rotateX(60deg) translateY(-100px);
+  transform: perspective(600) rotateX(60deg) translateY(-100px);
+  -webkit-transition: all 1.5s ease;
+  -moz-transition: all 1.5s ease;
+  -ms-transition: all 1.5s ease;
+  -o-transition: all 1.5s ease;
+  transition: all 1.5s ease;
+  font-family: 'PT Sans Caption', sans-serif;
+  color: #f49b23;
+  font-size: 24px;
+  text-transform: uppercase;
+  margin: 5%;
+}
+.main_gallery .grid .item .photo {
+  width: 100%;
+  height: 100%;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: all 3s ease;
+  -moz-transition: all 3s ease;
+  -ms-transition: all 3s ease;
+  -o-transition: all 3s ease;
+  transition: all 3s ease;
+}
+.main_gallery .grid .item .photo img {
+  width: 110%;
+  max-width: 110%;
+}
+.main_gallery .grid .item:hover .type,
+.main_gallery .grid .item:hover .title {
+  opacity: 1;
+}
+.main_gallery .grid .item:hover .title {
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+  -webkit-transform: perspective(1000) rotateX(0deg) translateY(0);
+  -moz-transform: perspective(1000) rotateX(0deg) translateY(0);
+  -ms-transform: perspective(1000) rotateX(0deg) translateY(0);
+  -o-transform: perspective(1000) rotateX(0deg) translateY(0);
+  transform: perspective(1000) rotateX(0deg) translateY(0);
+}
+.main_gallery .grid .item:hover .photo {
+  -webkit-transform: scale(1.1, 1.1);
+  -moz-transform: scale(1.1, 1.1);
+  -ms-transform: scale(1.1, 1.1);
+  -o-transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
+}
+/*
+------------------------------------------------------------------
+Main_contact.less — стили формы обратной связи на главной странице
+------------------------------------------------------------------
+*/
+.main_contact {
+  width: 100%;
+  background: #f49b23;
+  padding: 8% 30%;
+}
+.main_contact .mail_form {
+  width: 100%;
+}
+.main_contact .mail_form form input {
+  border: none;
+  border-bottom: 2px solid #fff;
+  padding: 4px 0;
+  text-transform: uppercase;
+  color: #fff;
+  width: 100%;
+  background: transparent;
+  font-size: 12px;
+  margin: 10px 0;
+  /* Firefox 19+ */
+  /* Firefox 18- */
+}
+.main_contact .mail_form form input::-webkit-input-placeholder {
+  color: #fff;
+}
+.main_contact .mail_form form input::-moz-placeholder {
+  color: #fff;
+}
+.main_contact .mail_form form input:-moz-placeholder {
+  color: #fff;
+}
+.main_contact .mail_form form input:-ms-input-placeholder {
+  color: #fff;
+}
+.main_contact .mail_form .add {
+  width: 100%;
+}
+.main_contact .mail_form .add span,
+.main_contact .mail_form .add img {
+  display: inline-block;
+  vertical-align: top;
+}
+.main_contact .mail_form .add span {
+  font-family: 'PT Sans Caption', sans-serif;
+  position: absolute;
+  right: 85%;
+  font-size: 12px;
+  color: #151515;
+  text-transform: uppercase;
+  display: inline-block;
+  width: 30%;
+  font-weight: bold;
+}
+.main_contact .mail_form .send {
+  width: 100%;
+  text-align: right;
+}
+.main_contact .mail_form .send span,
+.main_contact .mail_form .send img {
+  display: inline-block;
+  vertical-align: top;
+}
+.main_contact .mail_form .send span {
+  font-family: 'PT Sans Caption', sans-serif;
+  position: absolute;
+  left: 105%;
+  font-size: 12px;
+  color: #151515;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: left;
+  width: 30%;
+  font-weight: bold;
+}
+/*
+------------------------------------------------------------------
+Footer.less — стили футера
+------------------------------------------------------------------
+*/
+footer {
+  background: #fff;
+  padding: 7% 0;
+  text-align: center;
+}
+footer .info .item {
+  width: 10%;
+  min-width: 150px;
+  margin: 0 2%;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+}
+footer .info .item img {
+  margin: 10px 0;
+}
+footer .info .item img,
+footer .info .item span {
+  font-family: 'PT Sans Caption', sans-serif;
+  display: block;
+  font-size: 14px;
+  margin: 0 auto;
+}
+footer .goto_up {
+  position: relative;
+  top: 24px;
+  width: 80px;
+  height: 40px;
+  margin: 20px auto;
+  cursor: pointer;
+  -webkit-transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -moz-transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -ms-transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -o-transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+}
+footer .goto_up::after,
+footer .goto_up::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 1px;
+  right: 50%;
+  background: #151515;
+  -webkit-transform-origin: 100% 0;
+  -moz-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -moz-transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -ms-transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  -o-transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  transition: all 0.5s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+}
+footer .goto_up::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: auto;
+  left: 50%;
+  width: 30px;
+  height: 1px;
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+footer .goto_up:hover {
+  top: 10px;
+}
+footer .goto_up:hover::after,
+footer .goto_up:hover::before {
+  background: #f49b23;
+  -webkit-transform: rotate(-60deg);
+  -moz-transform: rotate(-60deg);
+  -ms-transform: rotate(-60deg);
+  -o-transform: rotate(-60deg);
+  transform: rotate(-60deg);
+}
+footer .goto_up:hover::after {
+  -webkit-transform: rotate(60deg);
+  -moz-transform: rotate(60deg);
+  -ms-transform: rotate(60deg);
+  -o-transform: rotate(60deg);
+  transform: rotate(60deg);
+}
+/*
+Для мониторов 1920х1080
+-----------------------
+Используются все нововведения css, доступные в браузерах Sfari, FF, Chrome, Opera, ie 9-11
+*/
+/*
+Для мониторов 1440х900
+-----------------------
+Используются все нововведения css, доступные в браузерах Sfari, FF, Chrome, Opera, ie 9-11
+*/
+/*
+Для мониторов 1280х768
+-----------------------
+Используются все нововведения css, доступные в браузерах Sfari, FF, Chrome, Opera, ie 9-11
+Правки для горизонтальной ориентации экрана планшета или телефона
+*/
+@media screen and (max-width: 1280px) {
+  .main_gallery .grid .item {
+    height: 280px;
+  }
+  .main_gallery .grid .item.main-info div {
+    width: 35%;
+    top: 35%;
+  }
+  .main_gallery .grid .item.main-info .inf {
+    margin-right: 5%;
+  }
+  .main_gallery .grid .item.main-info .inf span.works {
+    font-size: 18px;
+  }
+  .main_gallery .grid .item.main-info .inf span.count {
+    font-size: 50px;
+  }
+  .main_gallery .grid .item.main-info .list {
+    width: 60%;
+  }
+  .main_gallery .grid .item.main-info .list span {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+}
+/*
+Для экранов 960x540
+-----------------------
+Правки под горизонтальную ориентацию телефона или планшета
+*/
+@media screen and (max-width: 965px) {
+  /*****************************************************/
+  .main_gallery .grid .item {
+    height: 320px;
+  }
+  .main_gallery .grid .item.col-sm-1 {
+    width: 8.33333333%;
+  }
+  .main_gallery .grid .item.col-sm-2 {
+    width: 16.66666667%;
+  }
+  .main_gallery .grid .item.col-sm-3 {
+    width: 25%;
+  }
+  .main_gallery .grid .item.col-sm-4 {
+    width: 33.33333333%;
+  }
+  .main_gallery .grid .item.col-sm-5 {
+    width: 41.66666667%;
+  }
+  .main_gallery .grid .item.col-sm-6 {
+    width: 50%;
+  }
+  .main_gallery .grid .item.col-sm-7 {
+    width: 58.33333333%;
+  }
+  .main_gallery .grid .item.col-sm-8 {
+    width: 66.66666667%;
+  }
+  .main_gallery .grid .item.col-sm-9 {
+    width: 75%;
+  }
+  .main_gallery .grid .item.col-sm-10 {
+    width: 83.33333333%;
+  }
+  .main_gallery .grid .item.col-sm-11 {
+    width: 91.66666667%;
+  }
+  .main_gallery .grid .item.col-sm-12 {
+    width: 100%;
+  }
+  .main_gallery .grid .item .photo {
+    width: 100%;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transition: all 3s ease;
+    -moz-transition: all 3s ease;
+    -ms-transition: all 3s ease;
+    -o-transition: all 3s ease;
+    transition: all 3s ease;
+    text-align: center;
+  }
+  .main_gallery .grid .item .photo img {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0%;
+  }
+  .main_gallery .grid .item.main-info {
+    height: 240px;
+  }
+  .main_gallery .grid .item.main-info div {
+    width: 48%;
+    top: 30%;
+  }
+  .main_gallery .grid .item.main-info .inf {
+    margin-right: 2%;
+  }
+  .main_gallery .grid .item.main-info .inf span.works {
+    font-size: 24px;
+  }
+  .main_gallery .grid .item.main-info .inf span.count {
+    font-size: 60px;
+  }
+  .main_gallery .grid .item.main-info .list {
+    width: 48%;
+    margin-left: 2%;
+  }
+  .main_gallery .grid .item.main-info .list span {
+    font-size: 14px;
+    margin-bottom: 7px;
+  }
+  .main_slider .item .info .title {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .main_slider .item .info .link a {
+    font-size: 30px;
+  }
+  /************************************************************************/
+  .main_contact {
+    padding: 8% 15%;
+  }
+  .main_contact .mail_form {
+    width: 80%;
+  }
+  .main_contact .mail_form .add span {
+    right: 90%;
+  }
+  /***************************************/
+  footer {
+    background: #fff;
+    padding: 7% 0;
+    text-align: center;
+  }
+  footer .info .item {
+    width: 26%;
+    margin: 0 2%;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+  }
+  footer .info .item img {
+    margin: 10px 0;
+  }
+  footer .info .item img,
+  footer .info .item span {
+    font-family: 'PT Sans Caption', sans-serif;
+    display: block;
+    font-size: 14px;
+    margin: 0 auto;
+  }
+}
+/*
+Для экранов телефона
+-----------------------
+Правки под горизонтальную ориентацию телефона или планшета
+*/
+@media screen and (max-width: 600px) {
+  .main_gallery .grid .item {
+    height: 200px;
+  }
+  .main_gallery .grid .item.col-sm-1 {
+    width: 8.33333333%;
+  }
+  .main_gallery .grid .item.col-sm-2 {
+    width: 16.66666667%;
+  }
+  .main_gallery .grid .item.col-sm-3 {
+    width: 25%;
+  }
+  .main_gallery .grid .item.col-sm-4 {
+    width: 33.33333333%;
+  }
+  .main_gallery .grid .item.col-sm-5 {
+    width: 41.66666667%;
+  }
+  .main_gallery .grid .item.col-sm-6 {
+    width: 50%;
+  }
+  .main_gallery .grid .item.col-sm-7 {
+    width: 58.33333333%;
+  }
+  .main_gallery .grid .item.col-sm-8 {
+    width: 66.66666667%;
+  }
+  .main_gallery .grid .item.col-sm-9 {
+    width: 75%;
+  }
+  .main_gallery .grid .item.col-sm-10 {
+    width: 83.33333333%;
+  }
+  .main_gallery .grid .item.col-sm-11 {
+    width: 91.66666667%;
+  }
+  .main_gallery .grid .item.col-sm-12 {
+    width: 100%;
+  }
+  .main_gallery .grid .item .title {
+    font-size: 16px;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+  .main_gallery .grid .item .type {
+    opacity: 1;
+  }
+  .main_gallery .grid .item .photo {
+    width: 100%;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transition: all 3s ease;
+    -moz-transition: all 3s ease;
+    -ms-transition: all 3s ease;
+    -o-transition: all 3s ease;
+    transition: all 3s ease;
+    text-align: center;
+  }
+  .main_gallery .grid .item .photo img {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0%;
+  }
+  .main_gallery .grid .item.main-info {
+    height: 180px;
+  }
+  .main_gallery .grid .item.main-info div {
+    width: 48%;
+    top: 35%;
+  }
+  .main_gallery .grid .item.main-info .inf {
+    margin-right: 2%;
+  }
+  .main_gallery .grid .item.main-info .inf span.works {
+    font-size: 18px;
+  }
+  .main_gallery .grid .item.main-info .inf span.count {
+    font-size: 50px;
+  }
+  .main_gallery .grid .item.main-info .list {
+    width: 48%;
+    margin-left: 2%;
+  }
+  .main_gallery .grid .item.main-info .list span {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  .corner .logo,
+  .corner .burger_menu {
+    width: 60px;
+    height: 60px;
+  }
+  .corner .burger_menu {
+    width: 60px;
+    height: 60px;
+  }
+  .corner .burger_menu.active .container {
+    left: -60px;
+  }
+  .main_slider .item .info .title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  .main_slider .item .info .link a {
+    font-size: 26px;
+  }
+  .main_contact {
+    padding: 8% 10%;
+  }
+  .main_contact .mail_form {
+    width: 100%;
+  }
+  .main_contact .mail_form .add span,
+  .main_contact .mail_form .send span {
+    display: block;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin: 10px 0;
+  }
+  /******************************/
+  .menu {
+    width: 80%;
+    height: 100%;
+    background: #f49b23;
+  }
+  .menu.active {
+    width: 80%;
+  }
+  .menu .title {
+    margin: 10% 0 10% 42px;
+  }
+  .menu .menu_nav {
+    font-size: 32px;
+    margin: 0 0 10% 42px;
+  }
+}
