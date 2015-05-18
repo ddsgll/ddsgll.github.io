@@ -1,0 +1,18 @@
+.ie-flex-fix {
+	display: block;
+	text-align: justify;
+}
+
+.ie-flex-fix > * {
+	vertical-align: top;
+}
+
+.ie-flex-fix .helper {
+	vertical-align: top;
+	display: inline-block;
+	width: 100%;
+}
+
+.spec .item {
+	width: 15%;
+}
