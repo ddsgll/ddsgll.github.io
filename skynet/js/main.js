@@ -11,11 +11,13 @@ $(document).ready(function() {
 		list.append( "<li>" + cur_text + "</li>" );
 	});
 
+	var burger = $(".top_mobile").find(".burger"),
+		mob_menu = $(".top_mobile .menu");
 
-	// $(".list").mCustomScrollbar({
-	// 	scrollbarPosition: "inside",
-	// 	scrollInertia: 200
-	// });
+	burger.on('click', function() {
+		$(this).toggleClass("active");
+		mob_menu.toggleClass("active");
+	});
 
 	$(".nomi_select .list").hide();
 
@@ -76,7 +78,8 @@ $(document).ready(function() {
 			$(".about").height( n_h - 8 );
 		}
 	});
-
+	
+	$('.mini_menu').animate({top: -140},700);
 	var min_menu_visible = false;
 		$(window).scroll(function() {
 			if ($(window).scrollTop() > 247 && !min_menu_visible) {
@@ -85,7 +88,7 @@ $(document).ready(function() {
 			}
 			if ($(window).scrollTop() < 207 && min_menu_visible) {
 				min_menu_visible = false;
-				$('.mini_menu').animate({top: -80},700);
+				$('.mini_menu').animate({top: -140},700);
 			}
 		});
 
