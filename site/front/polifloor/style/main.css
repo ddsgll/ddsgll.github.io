@@ -948,6 +948,11 @@ header .color {
   padding-left: 32px;
   padding-top: 32px;
 }
+@media screen and (max-width: 1000px) {
+  .news_list_info {
+    padding-left: 0;
+  }
+}
 .news_list_info img {
   max-width: 240px;
   display: inline-block;
