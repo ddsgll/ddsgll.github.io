@@ -1,0 +1,33 @@
+color_pos_settings = {
+	'microcement': -150px,
+	'threefloor': 85px
+	'polir_bet': 85px
+}
+
+make_colors(hash)
+	for key, value in hash
+		&.{key} div
+			top value
+
+.deco
+	width 100%
+	
+	
+	div
+		position absolute
+		top 0
+		width 100%
+		left 0
+		height 800px
+		transform( skewY(-10deg) )
+	
+	.yellow
+		background yellow
+		
+	.orange
+		background #ffc000	
+			
+	.green
+		background #afd3a5
+		
+	make_colors(color_pos_settings)

@@ -1,0 +1,183 @@
+big_h1 =
+	top 2px
+	vertical-align middle
+	margin 0
+	font-family 'arial'
+	font-weigth bolder
+	text-transform uppercase
+	color #000
+
+.news
+	z-index 200
+	
+	.title
+		img 
+			display inline-block
+			vertical-align middle
+		h1
+			{big_h1}
+			display inline-block
+			margin 0 10px
+			
+			sm =
+				font-size 18px
+				
+			mid =
+				font-size 22px
+			
+			nor =
+				font-size 48px
+				
+			adapt(sm,mid,nor)
+	
+	.item
+		display inline-block
+		margin 80px 0 0 0
+		// background #ccc
+			
+		sm =
+			width 100%
+			margin 32px 0 0 0
+			
+		adapt(sm,sm)
+		
+		h1
+			{big_h1}
+			font-family 'Calibri'
+			font-weigth bold
+			
+			sm =
+				font-size 18px
+				
+			mid =
+				font-size 22px
+			
+			nor =
+				font-size 28px
+				
+			big =
+				font-size 48px
+				
+			adapt(sm,mid,nor)
+		
+		h2
+			display inline-block
+			font-family 'Calibri'
+			font-size 24px
+			font-weigth bolder
+			color #4ea6be
+			text-transform uppercase
+			
+			@media screen and (min-width: 1300px)
+				font-size 20px
+			
+
+.news_list_image,
+.news_list_info
+	display inline-block
+	vertical-align top
+	
+	sm =
+		width 100%
+	adapt(sm,sm)
+	
+.news_list_image
+	text-align center
+	
+	.program
+		text-align center
+		overflow hidden
+		width 100%
+		max-width 218px
+		height 220px
+		margin 0 auto
+		
+		@media screen and (min-width: 1400px)
+			height 249px				
+		@media screen and (max-width: 1280px)
+			height 174px		
+		@media screen and (max-width: 1000px)
+			display none
+		
+		img
+			max-height 100%
+		
+		&::before
+			{after}
+			width 100%
+			max-width 218px
+			height 249px
+			background url('i/hex_cover.png') no-repeat top
+			z-index 20
+			background-size 100%
+
+	.button
+		display inline-block
+		margin 32px auto
+		padding 12px 32px
+		color #fff
+		font-size 14px
+		font-family 'arial'
+		background #4ea6be
+		
+		@media screen and (max-width: 1000px)
+			display none
+		
+	.return_button
+		@extend .news_list_image .button
+		
+		&:before
+			{after}
+			left -14px
+			top 6px
+			width 28px
+			height 28px
+			background #4ea6be
+			transform( rotate(45deg) )
+		
+.news_list_info
+	padding-left 32px
+	padding-top 32px
+	
+	@media screen and (max-width: 1000px)
+		padding-left 0
+	
+	img
+		max-width 240px
+		display inline-block
+		margin 6px
+	
+	.channel
+		img, h2
+			display inline-block
+			vertical-align middle
+			margin-right 12px
+			
+		img
+			@media screen and (min-width: 1300px)
+				height 48px
+			
+	p 
+		font-size 14px
+		line-height 21px
+		font-family 'arial'
+		text-align justify
+		margin-top 24px
+		
+		sm =
+			padding-bottom 48px
+		adapt(sm,sm)
+		
+.article
+	p
+		text-align justify
+		font-family 'arial'
+		
+.article_title
+	width 100%
+	text-align center
+	text-transform uppercase
+	font-size 30px
+	font-weigth bold
+	font-family 'Myriad Pro'
+	margin 32px 0

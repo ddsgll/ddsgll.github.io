@@ -1,0 +1,74 @@
+gal_red = #ff5351
+gal_h = 150px
+
+.inner_gallery
+	width 100%
+	height gal_h
+	z-index 200
+	text-align center
+	margin 75px 0
+	
+	.list
+		height 100%
+		padding 0 gal_h + 32
+		overflow hidden
+		
+		sm =
+			padding 0
+		mid = 
+			padding 0 24px
+			
+		adapt(sm,mid)
+		
+		.item
+			display inline-block
+			width 200px
+			max-width 200px
+			height gal_h
+			margin 0 16px
+			overflow hidden
+			// reset-inline()
+			
+			img
+				restore-inline()
+				display inline-block
+				height 100%
+				
+
+			&::after
+				{after}
+				top 0
+				left 0
+				width 100%
+				height 100%
+				background transparent
+				box-shadow 0px 0px 0px 10px transparent inset
+				z-index 100
+				
+			&:hover::after,
+			&.is-selected::after
+				box-shadow 0px 0px 0px 10px gal_red inset
+				
+
+	.prev,
+	.next
+		position absolute
+		top 0
+		width gal_h
+		height gal_h
+		cursor pointer
+		z-index 200
+		
+		sm = 
+			display none
+		mid =
+			display none
+		adapt(sm,mid)
+		
+	.prev
+		background gal_red url('i/arr_prev.png') no-repeat center
+		left 0
+		
+	.next
+		background gal_red url('i/arr_next.png') no-repeat center
+		right 0

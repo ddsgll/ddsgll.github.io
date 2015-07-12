@@ -1,0 +1,37 @@
+pages = {
+	'microcement': 0
+	'polir_bet': 0
+}
+
+.features
+	reset-inline()
+	margin 65px -32px
+	
+	sm =
+		margin 48px 0
+	adapt(sm,sm)
+	
+	&.polir_bet .item
+		height 140px
+		
+		span
+			margin-left 150px
+	
+	.item
+		restore-inline()
+		height 100px
+		margin 16px 0
+		display inline-block
+		vertical-align top
+		
+	for key, value in pages
+		&.{key}
+			for i in (1..7)
+				.item:nth-child({i})
+					background url('../img/'+key+'_features/'+i+'.png') no-repeat left center
+			
+		span
+			display block
+			text-align left
+			margin-left 120px
+			margin-right 32px

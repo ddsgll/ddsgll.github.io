@@ -1,0 +1,22 @@
+top_height = 480px
+
+types(args)
+	for item in args
+		&.{item}
+			background transparent url('../img/blocks/'+item+'_top.png') no-repeat center
+			background-size cover
+
+.top_order
+	width 100%
+	height top_height
+	z-index 200
+	
+	types("microcement" "threefloor" "polir_bet" "prom_pol" "fitness" "threewall")
+	
+	// &.microcement
+	// 	background transparent url('../img/blocks/micro_top.png') no-repeat center
+	// 	background-size cover
+	
+.bottom_order
+	@extend .top_order
+	margin-top 60px
