@@ -1083,7 +1083,31 @@ header .color {
 }
 .video_block .video iframe {
   display: block;
-  width: 100%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 768px) {
+  .video_block .video iframe {
+    max-width: 100%;
+    height: 320px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .video_block .video iframe {
+    width: 480px;
+    height: 320px;
+  }
+}
+@media screen and (min-width: 1300px) {
+  .video_block .video iframe {
+    width: 640px;
+    height: 380px;
+  }
+}
+@media screen and (min-width: 1500px) {
+  .video_block .video iframe {
+    width: 640px;
+    height: 380px;
+  }
 }
 .video_bg {
   font-size: 16px;
