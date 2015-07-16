@@ -1,0 +1,85 @@
+.profile_block
+	width 100%
+	text-align center
+	margin 32px 0
+	
+	.profile
+		max-width 960px
+		margin 0 auto			
+			
+.profile_info
+	reset-inline()
+	width 100%
+	
+	.photo,
+	.user_form
+		restore-inline()
+		display inline-block
+		vertical-align top
+		
+	.photo
+		width 30%
+		text-align center
+		
+		img 
+			max-width 100%
+			min-width 64px
+			
+		.load_photo
+			border 1px solid #777
+			border-radius 3px
+			padding 2px 8px
+			font-size 14px
+			line-height 1
+			width 50%
+			margin 0 auto
+			cursor pointer
+		
+	.user_form
+		reset-inline()
+		width 70%
+		text-align left
+		
+		label,
+		input,
+		select
+			restore-inline()
+			display block
+			width 100%
+			text-align left
+			font-size 14px
+			color #7a7979
+			
+		input,
+		select
+			padding 8px
+			font-size 18px
+			margin 6px 0 16px 0
+			border 1px solid #777
+			border-radius 3px
+			
+			&[name="birth_day"]
+				width 23%
+				display inline-block
+				margin-right 2%
+
+			&[name="birth_month"]
+				width 40%
+				display inline-block
+				margin-right 2%
+
+			&[name="birth_year"]
+				width 32%
+				display inline-block
+				
+			&[type="button"]
+				float right
+				display inline-block
+				width 200px
+				border none
+				border-radius 3px
+				padding 8px 20px
+				background #33cc66
+				color #fff
+				text-align center
+				cursor pointer

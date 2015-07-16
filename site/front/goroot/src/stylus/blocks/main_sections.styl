@@ -1,0 +1,135 @@
+.tasks
+	width 100%
+	margin 0
+	text-align center
+	
+	h1
+		width 520px
+		font-family 36px
+		line-height 48px;
+		margin 0 auto
+		{f_regular}
+		
+	.tasks
+		flex-centrify()
+		
+	.task
+		position relative
+		font-size 18px
+		margin 64px 28px
+		color #fff
+		display inline-block
+		vertical-align top
+		width 115px
+		height 115px
+		background #286ceb
+		flex-centrify()
+		border-radius(50%)
+		
+		&:after
+			{after}
+			top 50%
+			left 90%
+			margin-top -3px
+			width 72px
+			height 6px
+			background url('i/linedot.png') no-repeat center
+			
+		&:last-child::after
+			{after}
+			display none
+		
+		span
+			{f_bold}
+			display inline-block
+			font-weight bold
+			line-height 1
+			
+.aims
+	@extend .tasks
+	
+	h1
+		width 440px
+		margin-bottom 52px;
+	
+	.item
+		{f_italic}
+		height 128px
+		margin-left 64px
+		margin-right 24px
+		background url('i/dart.png') no-repeat left center
+		display inline-block
+		font-style italic
+		width 30%
+		font-size 18px
+		color: #000
+		text-align right
+		
+		span
+			margin-top 34px
+			display inline-block
+			text-align left
+			width 72%
+			
+.subscribe
+	{f_bold}
+	display block
+	text-align center
+	width 200px
+	margin 32px auto 80px auto
+	background #9fc864
+	font-weight bold
+	font-size 24px
+	color #fff
+	padding 12px 24px
+	border-radius(3px)
+	
+.learning
+	@extend .tasks
+	padding 0 10% 10%
+	
+	h1
+		margin 24px auto
+	
+	.item
+		display inline-block
+		vertical-align top
+		width 48%
+		text-align left
+		margin 32px 0
+		
+		img
+			display inline-block
+			vertical-align top
+		
+		.inf
+			display inline-block
+			vertical-align top
+			width 45%
+			margin-left 5%
+			
+			span
+				display block
+				font-size 36px
+				{f_light}
+				color #333
+				margin-bottom 10px
+				line-height 1
+				
+				&:last-child
+					{f_italic}
+					font-size 14px
+					font-style italic
+					color #999
+	
+.big_blue
+	margin 32px 0
+	display inline-block
+	vertical-align top
+	text-align left
+	width 48%
+	color blue 
+	{f_bold}
+	font-size 36px
+	font-weight bold
+	line-height 1
