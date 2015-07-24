@@ -1,63 +1,92 @@
 $(document).ready(function() {
 
-    $("#mobile_menu_open").on('click', function() {
-        $(".menuList").addClass("opened");
-    });
-
-    $(".mobile-close").on('click', function() {
-        $(".menuList").removeClass("opened");
-    });
-
-    $("#main_slider").flickity({
-        cellSelector: '.item',
-        pageDots: false,
-        prevNextButtons: false,
-        wrapAround: true
-    });
-
-    $(".slider .slide_nav").on('click', function() {
-        var act = $(this).data("action");
-        $("#main_slider").flickity(act);
-    });
-
-    $(".prog_list .row").flickity({
-        cellSelector: '.prog_item',
-        pageDots: false,
-        prevNextButtons: false,
-        wrapAround: true
-    });
-
-    $("#prog_main_prev").on('click', function() {
-        $(".prog_list .row").flickity("previous");
-    });
-
-    $("#prog_main_next").on('click', function() {
-        $(".prog_list .row").flickity("next");
-    });
 
 
-
-    $(".top_lang").on('click', function() {
-        $(this).next(".sub_lang").toggleClass("active");
-    });
-
-
-
-    var st_row = $(".stolp").find(".row"),
-        st_img = $(".stolp").find(".stolp_image img");
-
-    st_row.find(".number").on('click', function() {
-        
-        var i = $(this).parent().parent().data("image");
-        var string = "img/stolp_photo/" + i + ".png";
-        st_img.fadeOut(300,function() {
-            $(this).attr("src",string).fadeIn(300);
+    // Mobile menu actions
+        $("#mobile_menu_open").on('click', function() {
+            $(".menuList").addClass("opened");
         });
 
-        
-        st_row.removeClass("active");
-        $(this).parent().parent().addClass("active");
-    });
+        $(".mobile-close").on('click', function() {
+            $(".menuList").removeClass("opened");
+        });
+
+
+
+    // Main page slider
+        $("#main_slider").flickity({
+            cellSelector: '.item',
+            pageDots: false,
+            prevNextButtons: false,
+            wrapAround: true,
+            setGallerySize: false
+        });
+
+        $(".slider .slide_nav").on('click', function() {
+            var act = $(this).data("action");
+            $("#main_slider").flickity(act);
+        });
+
+
+
+    // Programs slider
+        $(".prog_list .row").flickity({
+            cellSelector: '.prog_item',
+            pageDots: false,
+            prevNextButtons: false,
+            wrapAround: true,
+            setGallerySize: false
+        });
+
+        $("#prog_main_prev").on('click', function() {
+            $(".prog_list .row").flickity("previous");
+        });
+
+        $("#prog_main_next").on('click', function() {
+            $(".prog_list .row").flickity("next");
+        });
+
+
+
+    // Выбор языка
+        $(".top_lang").on('click', function() {
+            $(this).next(".sub_lang").toggleClass("active");
+        });
+
+
+    // Столпы
+        var st_row = $(".stolp").find(".row"),
+            st_img = $(".stolp").find(".stolp_image img");
+
+        // При клике на цифру
+        st_row.find(".number").on('click', function() {
+            
+            // Получаем фото
+            var i = $(this).parent().parent().data("image");
+
+            // Составляем путь
+            var string = "img/stolp_photo/" + i + ".png";
+
+            // Затухание -> смена фото -> появление
+            st_img.fadeOut(300,function() {
+                $(this)
+                    .attr("src",string)
+                    .fadeIn(300);
+            });
+
+            // Переключаем класс "Active"
+            st_row.removeClass("active");
+            $(this).parent().parent().addClass("active");
+        });
+
+
+
+    // фикс стилей
+        var top_lang_right = $(".top_lang").offset().left + $(".top_lang").width();
+        console.log(top_lang_right);
+        var sub_lang_offset = $(window).width() - top_lang_right - 52;
+        console.log(sub_lang_offset);
+        $(".sub_lang").css("right",sub_lang_offset);
 
 });
 
