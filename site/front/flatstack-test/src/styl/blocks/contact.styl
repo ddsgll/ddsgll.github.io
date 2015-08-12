@@ -1,0 +1,44 @@
+.contact
+	width 100%
+	padding 64px 0
+	text-align center
+	
+	input[type="text"],
+	input[type="email"],
+	textarea
+		display inline-block
+		width 100%
+		margin 16px 0
+		border 1px solid #e7e7e7
+		border-radius 6px 
+		padding 16px 22px
+		text-align left
+		
+		{rale}
+		font-size 18px
+		color dark_text
+		transition all .3s ease
+		
+		&:required:valid:focus
+			border 1px solid salad
+			
+		&:required:invalid:focus
+			border 1px solid pink
+		
+	textarea
+		height 250px
+		
+.contact__submit
+	display inline-block
+	margin 0 auto
+	padding 24px 40px
+	margin 16px auto
+	border-radius 6px
+	text-align center
+
+	{oxy}
+	text-transform uppercase	
+	font-size 25px
+	color #fff
+	background pink
+	border none

@@ -1,0 +1,57 @@
+body, html
+	height 100%
+
+	
+a, a:hover, a:active, a:visited
+	text-decoration none
+
+
+*
+	position relative
+	
+*:focus
+	outline none
+	
+.title--white
+	display inline-block
+	width 100%
+	margin 40px 0
+	
+	{oxy}
+	letter-spacing 4px
+	font-weight 100
+	font-size 38px
+	color #fff
+	text-transform uppercase
+	text-align center
+
+	&::after
+		{after}
+		width 100px
+		height 4px
+		left 50%
+		margin-left -50px
+		top auto
+		bottom -24px
+		
+		background #fff
+		opacity .5	
+
+
+.title--gray
+	@extend .title--white
+	color dark_text
+	
+	&::after
+		background dark_text
+		
+		
+.title__desc
+	margin 16px auto
+	width 80%
+	
+	{rale}
+	font-size 18px
+	line-height 1.5
+	text-align center
+	

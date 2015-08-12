@@ -1,0 +1,54 @@
+.skill
+	width 100%
+	margin 64px 0
+	text-align center
+	
+.skill__amount
+	width 170px
+	height 170px
+	position absolute
+	top 15px
+	left 15px
+	border-radius 50%
+	background #fff
+	z-index 100
+	line-height 170px
+	transform(rotate(90deg))
+
+.skill__pie--salad
+	display inline-block
+	width 200px
+	height 200px
+	margin 32px auto
+
+	{rale}
+	font-weight 100
+	font-size 50px
+	font-weight 100
+	color #777
+	border-radius 50%
+	overflow hidden
+	transform(rotate(-90deg))
+
+	.pie
+		width 200px
+		height 200px
+		background #f7f7f7
+		
+		circle
+			fill #f7f7f7
+			stroke salad 
+			stroke-width 32px
+			stroke-dasharray 0 200
+			
+.skill__pie--pink
+	@extend .skill__pie--salad
+	
+	.pie circle
+		stroke pink
+	
+.skill__title
+	{oxy}
+	font-weight 100
+	font-size 22px
+	text-transform uppercase
