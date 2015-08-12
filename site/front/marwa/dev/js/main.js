@@ -50,8 +50,18 @@ $(document).ready(function() {
 
     // Выбор языка
         $(".top_lang").on('click', function() {
-            $(this).next(".sub_lang").toggleClass("active");
+            $(".sub_lang").toggleClass("active");
         });
+
+        $(".sub_lang .lang").on('click', function() {
+            var lan = $(this).find("span").text(),
+                flg = $(this).find("img").attr("src");
+
+                $(".top_lang  span").text( lan );
+                $(".top_lang .flag").attr("src", flg);
+
+        });
+
 
 
     // Столпы
@@ -59,7 +69,7 @@ $(document).ready(function() {
             st_img = $(".stolp").find(".stolp_image img");
 
         // При клике на цифру
-        st_row.find(".number").on('click', function() {
+        st_row.find(".act").on('click', function() {
             
             // Получаем фото
             var i = $(this).parent().parent().data("image");
@@ -71,7 +81,7 @@ $(document).ready(function() {
             st_img.fadeOut(300,function() {
                 $(this)
                     .attr("src",string)
-                    .fadeIn(300);
+                    .fadeIn(600);
             });
 
             // Переключаем класс "Active"
@@ -82,11 +92,119 @@ $(document).ready(function() {
 
 
     // фикс стилей
+
+        // Выбор языка
         var top_lang_right = $(".top_lang").offset().left + $(".top_lang").width();
-        console.log(top_lang_right);
         var sub_lang_offset = $(window).width() - top_lang_right - 52;
-        console.log(sub_lang_offset);
         $(".sub_lang").css("right",sub_lang_offset);
+
+        // Установка высоты элементов
+        var slide_hgh = $(window).height();
+        console.log(slide_hgh);
+        $(".slider_block").height(slide_hgh);
+
+        var main_prog_hgh = $(window).height();
+        $(".prog_list .row").height(main_prog_hgh + 32);
+
+
+
+    // Top + menu
+        $(window).scroll(function() {
+            var offset = $(this).scrollTop();
+            if( offset > 140 )
+            {
+                $(".main_top").addClass("hidden");
+                $(".main_menu").addClass("scrolled");
+                $(".main_menu.main_page").addClass("floated");
+            }
+            else
+            {
+                $(".main_top").removeClass("hidden");
+                $(".main_menu").removeClass("scrolled");
+                $(".main_menu.main_page").removeClass("floated");
+            }
+        });
+
+
+
+    // Slider scroll
+        $(".slider .scroll").on('click', function() {
+            $(window).animate( { scrollTop: $(".greetings").offset().top }, 500 );
+        });
+
+
+
+    // Термины
+        if ( $("#therm_list").length ) {
+            var pckry = new Packery( '#therm_list', {
+                itemSelector: '.therm',
+                gutter: 0
+            });
+        }
+
+
+
+    // Медиа вкладки
+        m_tabs = $("#media_tab h2");
+
+        var cur_media_mode,
+            media_block = $(".media_item").parent(),
+
+            media_resort = function() {
+                media_block.each(function() {
+                    if ( $(this).data("type") != cur_media_mode ) {
+                        $(this).addClass("hidden");
+                    } else {
+                        $(this).removeClass("hidden");
+                    }
+                });
+            },
+
+            media_show_all = function() {
+                media_block.removeClass("hidden");
+            }
+
+        m_tabs.on('click', function() {
+            cur_media_mode = $(this).data("type");
+            
+            m_tabs.removeClass("active");
+            $(this).addClass("active");
+
+            cur_media_mode != "all" ? media_resort() : media_show_all() ;
+        }); 
+
+
+
+    // Вкладки программ
+        p_tabs = $("#program_tab h2");
+
+        var cur_program_mode,
+            prog_block = $(".prog_item"),
+
+            programs_resort = function() {
+                prog_block.each(function() {
+                    if ( $(this).data("type") != cur_program_mode ) {
+                        $(this).addClass("hidden");
+                    } else {
+                        $(this).removeClass("hidden");
+                    }
+                });
+            },
+
+            programs_show_all = function() {
+                prog_block.removeClass("hidden");
+            }
+
+        p_tabs.on('click', function() {
+            cur_program_mode = $(this).data("type");
+
+            p_tabs.removeClass("active");
+            $(this).addClass("active");
+
+            alert("Pressed " + cur_program_mode);
+
+            cur_program_mode != "all" ? programs_resort() : programs_show_all() ;
+        });
 
 });
 

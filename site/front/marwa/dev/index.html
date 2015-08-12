@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!-- Meta-mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Meta optimize-->
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
@@ -24,16 +24,16 @@
       <!-- ==========================-->
       <!-- Top line -->
       <!-- ==========================-->
+      <div class="sub_lang">
+        <div class="lang"><span>Русский</span><img src="img/icons/lang_rus.png"></div>
+        <div class="lang"><span>English</span><img src="img/icons/lang_en.png"></div>
+        <div class="lang"><span class="arab">اللغة</span><img src="img/icons/lang_ar.png"></div>
+      </div>
       <div class="main_top">
         <div class="container">
           <div class="item"><img src="img/icons/top_phone.png"><span>+7 (8722) 56-66-62</span></div>
           <div class="item"><img src="img/icons/top_mail.png"><span>admin@marwaltd.com</span></div>
-          <div class="item top_lang"><span>Русский</span><img src="img/icons/lang_rus.png"><img src="img/icons/dd_white.png"></div>
-          <div class="sub_lang">
-            <div class="lang"><span>Русский</span><img src="img/icons/lang_rus.png"></div>
-            <div class="lang"><span>English</span><img src="img/icons/lang_en.png"></div>
-            <div class="lang"><span class="arab">اللغة</span><img src="img/icons/lang_ar.png"></div>
-          </div>
+          <div class="item top_lang"><span>Русский</span><img src="img/icons/lang_rus.png" class="flag"><img src="img/icons/dd_white.png"></div>
           <div class="item search">
             <input type="text" placeholder="Поиск">
           </div>
@@ -42,7 +42,7 @@
       <!-- ==========================-->
       <!-- Menu -->
       <!-- ==========================-->
-      <div class="main_menu">
+      <div class="main_menu main_page">
         <div class="container">
           <ul class="menuList">
             <div id="mobile_menu_close" class="mobile-close"></div>
@@ -113,10 +113,6 @@
                 <div class="title">Прием документов на умра</div>
                 <div class="date">— 2015 —</div>
                 <div class="button">Записаться</div>
-              </div>
-              <div class="item slide-3">
-                <div class="title">Заказ авиабилетов<br>по низким ценам</div>
-                <div class="button">Заказать</div>
               </div>
         </div>
       </div>
@@ -344,8 +340,8 @@
     <div class="page_heading-center">
       <h1>Медиа</h1>
     </div>
-    <div class="tabs">
-      <h2 class="all">Все</h2>
+    <div id="media_tab" class="tabs">
+      <h2 data-type="all">Все</h2>
       <h2 data-type="photo">Фото</h2>
       <h2 data-type="video">Видео</h2>
       <h2 data-type="audio">Аудио</h2>
@@ -358,9 +354,9 @@
                   <div class="image"><img src="img/photos/article.jpg"></div><a href="">Хадж 2014 года</a>
                 </div>
               </div>
-              <div data-type="photo" class="col-md-4 col-sm-6 col-xs-12">
+              <div data-type="video" class="col-md-4 col-sm-6 col-xs-12">
                 <div class="media_item">
-                  <div class="image"><img src="img/photos/article.jpg"></div><a href="">Хадж 2014 года</a>
+                  <div class="image"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/G6oExFXCKxU" frameborder="0" allowfullscreen></iframe></div><a href="">Хадж 2014 года</a>
                 </div>
               </div>
               <div data-type="photo" class="col-md-4 col-sm-6 col-xs-12">
@@ -368,9 +364,24 @@
                   <div class="image"><img src="img/photos/article.jpg"></div><a href="">Хадж 2014 года</a>
                 </div>
               </div>
+              <div data-type="video" class="col-md-4 col-sm-6 col-xs-12">
+                <div class="media_item">
+                  <div class="image"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/G6oExFXCKxU" frameborder="0" allowfullscreen></iframe></div><a href="">Хадж 2014 года</a>
+                </div>
+              </div>
               <div data-type="photo" class="col-md-4 col-sm-6 col-xs-12">
                 <div class="media_item">
                   <div class="image"><img src="img/photos/article.jpg"></div><a href="">Хадж 2014 года</a>
+                </div>
+              </div>
+              <div data-type="audio" class="col-md-4 col-sm-6 col-xs-12">
+                <div class="media_item">
+                  <div class="image"><iframe style="border: 0; width: 100%; height: 160px;" src="http://bandcamp.com/EmbeddedPlayer/album=2263614154/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://musique.coeurdepirate.com/album/roses">Roses by Cœur de pirate</a></iframe></div><a href="">Хадж 2014 года</a>
+                </div>
+              </div>
+              <div data-type="audio" class="col-md-4 col-sm-6 col-xs-12">
+                <div class="media_item">
+                  <div class="image"><iframe style="border: 0; width: 100%; height: 160px;" src="http://bandcamp.com/EmbeddedPlayer/album=2263614154/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://musique.coeurdepirate.com/album/roses">Roses by Cœur de pirate</a></iframe></div><a href="">Хадж 2014 года</a>
                 </div>
               </div>
               <div data-type="photo" class="col-md-4 col-sm-6 col-xs-12">
@@ -391,50 +402,54 @@
       <div class="container">
         <div class="title">Столпы ислама</div>
         <div data-image="ihram" class="row active">
-          <div class="line-item col-md-1 col-sm-3"><span class="number">1</span></div>
+          <div class="line-item col-md-1 col-sm-3"><span class="number act">1</span></div>
           <div class="line-item col-md-2 col-sm-3">
-            <h1>Ихрам</h1>
+            <h1 class="act">Ихрам</h1>
           </div>
           <div class="line-item col-md-4 col-sm-6">
             <p>
-              ритуальный обход против часовой стрелки вокруг Каабы во время хаджа.
-              Первый таваф совершается сразу по прибытии в Мекку
+              особое состояние духовной чистоты паломника, совершающего хадж.
+              Для пребывания в нём требуется совершить полное омовение тела,
+              облачиться в особые одеяния и соблюдать правила ихрама.
             </p>
           </div>
         </div>
         <div data-image="tawaf" class="row">
-          <div class="line-item col-md-1 col-sm-3"><span class="number">2</span></div>
+          <div class="line-item col-md-1 col-sm-3"><span class="number act">2</span></div>
           <div class="line-item col-md-2 col-sm-3">
-            <h1>Таваф</h1>
+            <h1 class="act">Таваф</h1>
           </div>
           <div class="line-item col-md-4 col-sm-6">
             <p>
-              ритуальный обход против часовой стрелки вокруг Каабы во время хаджа.
-              Первый таваф совершается сразу по прибытии в Мекку
+              или тауа́ф — ритуальный обход против часовой стрелки вокруг Каабы
+              во время хаджа. Первый таваф совершается сразу по прибытии в Мекку.
             </p>
           </div>
         </div>
         <div data-image="sai" class="row">
-          <div class="line-item col-md-1 col-sm-3"><span class="number">3</span></div>
+          <div class="line-item col-md-1 col-sm-3"><span class="number act">3</span></div>
           <div class="line-item col-md-2 col-sm-3">
-            <h1>Са`и</h1>
+            <h1 class="act">Са`и</h1>
           </div>
           <div class="line-item col-md-4 col-sm-6">
             <p>
-              ритуальный обход против часовой стрелки вокруг Каабы во время хаджа.
-              Первый таваф совершается сразу по прибытии в Мекку
+              бег между холмами Сафа и Марва, один из элементов хаджа и умры.
+              Са`й выполняется после обхода Каабы (тавафа).
             </p>
           </div>
         </div>
         <div data-image="arafa" class="row">
-          <div class="line-item col-md-1 col-sm-3"><span class="number">4</span></div>
+          <div class="line-item col-md-1 col-sm-3"><span class="number act">4</span></div>
           <div class="line-item col-md-2 col-sm-3">
-            <h1>Арафа</h1>
+            <h1 class="act">Арафа</h1>
           </div>
           <div class="line-item col-md-4 col-sm-6">
             <p>
-              ритуальный обход против часовой стрелки вокруг Каабы во время хаджа.
-              Первый таваф совершается сразу по прибытии в Мекку
+              гора в 20 км от Мекки. Именно отсюда Мухаммад произнес свою последнюю проповедь.
+              Стояние на горе Арафат является кульминацией хаджа. После стояния, которое длится
+              до заката солнца, следует обряд побивания Сатаны камнями в долине Мина.
+              В мусульманской мифологии у горы Арафат встретились и узнали друг друга изгнанные
+              из рая в разные места земли Адам и Хавва.
             </p>
           </div>
         </div>
@@ -650,6 +665,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/modernizr.js"></script>
     <script src="js/flickity.pkgd.min.js"></script>
+    <script src="js/packery.pkgd.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
