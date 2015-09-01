@@ -30,22 +30,25 @@ $(document).ready(function() {
 
 
     // Programs slider
-        $(".prog_list .row").flickity({
-            cellSelector: '.prog_item',
-            pageDots: false,
-            prevNextButtons: false,
-            wrapAround: true,
-            setGallerySize: false
-        });
+        // if( $(window).width() > 720 ) {
+            
+            $(".prog_list .row").flickity({
+                cellSelector: '.prog_item',
+                pageDots: false,
+                prevNextButtons: false,
+                wrapAround: true,
+                setGallerySize: false
+            });
 
-        $("#prog_main_prev").on('click', function() {
-            $(".prog_list .row").flickity("previous");
-        });
+            $("#prog_main_prev").on('click', function() {
+                $(".prog_list .row").flickity("previous");
+            });
 
-        $("#prog_main_next").on('click', function() {
-            $(".prog_list .row").flickity("next");
-        });
+            $("#prog_main_next").on('click', function() {
+                $(".prog_list .row").flickity("next");
+            });
 
+        // }
 
 
     // Выбор языка
@@ -103,8 +106,9 @@ $(document).ready(function() {
         console.log(slide_hgh);
         $(".slider_block").height(slide_hgh);
 
-        var main_prog_hgh = $(window).height();
-        $(".prog_list .row").height(main_prog_hgh + 32);
+        var main_prog_hgh = $(".prog_item").height();
+
+        $(".prog_list .row").height(main_prog_hgh + 64);
 
 
 
@@ -209,7 +213,9 @@ $(document).ready(function() {
 });
 
 
-
+$(window).load(function() {
+    $(".preloader").delay(500).fadeOut(300);
+});
 
 
 
@@ -447,7 +453,7 @@ var map_styles =
     }
 ];
 
-function initialize() {
+function initializeMap() {
 	var mapOptions = {
 		zoom: 17,
 		disableDefaultUI: true,
@@ -468,6 +474,8 @@ function initialize() {
 	map.setOptions({styles: map_styles});
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+if ( $(window).width() > 720 ) {
+    google.maps.event.addDomListener(window, 'load', initializeMap);
+}
 
 ///////////////////////////////////////////////////////

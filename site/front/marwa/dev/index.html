@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="style/main.css">
   </head>
   <body>
+    <div class="preloader">
+      <div class="content"><img src="img/logo.png">
+        <h1>Загрузка</h1>
+      </div>
+    </div>
     <!-- ==========================-->
     <!-- First section -->
     <!-- ==========================-->
@@ -133,16 +138,16 @@
     </div>
     <div class="main_programs">
       <div class="container">
-        <div class="tabs programs">
-          <h2>Хадж 2015</h2>
-          <h2>Все программы</h2>
-          <h2>Умра 2015</h2>
+        <div id="program_tab" class="tabs programs">
+          <h2 data-type="hadj2015">Хадж 2015</h2>
+          <h2 data-type="all">Все программы</h2>
+          <h2 data-type="umra2015">Умра 2015</h2>
         </div>
         <div class="prog_list">
           <div id="prog_main_prev" class="arrow-left"></div>
           <div id="prog_main_next" class="arrow-right"></div>
           <div class="row">
-                <div class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
+                <div data-type="hadj2015" class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
                   <div class="program_normal extra">
                     <div class="title">Стандарт</div>
                     <div class="prog_info">
@@ -160,7 +165,7 @@
                     <div class="link"><a href="">Подробнее</a></div>
                   </div>
                 </div>
-                <div class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
+                <div data-type="hadj2015" class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
                   <div class="program_normal">
                     <div class="title">Минимум</div>
                     <div class="prog_info">
@@ -177,7 +182,7 @@
                     <div class="link"><a href="">Подробнее</a></div>
                   </div>
                 </div>
-                <div class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
+                <div data-type="umra2015" class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
                   <div class="program_normal">
                     <div class="title">Минимум</div>
                     <div class="prog_info">
@@ -194,7 +199,7 @@
                     <div class="link"><a href="">Подробнее</a></div>
                   </div>
                 </div>
-                <div class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
+                <div data-type="hadj2015" class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
                   <div class="program_normal">
                     <div class="title">Минимум</div>
                     <div class="prog_info">
@@ -211,7 +216,7 @@
                     <div class="link"><a href="">Подробнее</a></div>
                   </div>
                 </div>
-                <div class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
+                <div data-type="umra2015" class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
                   <div class="program_normal">
                     <div class="title">Минимум</div>
                     <div class="prog_info">
@@ -228,7 +233,7 @@
                     <div class="link"><a href="">Подробнее</a></div>
                   </div>
                 </div>
-                <div class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
+                <div data-type="hadj2015" class="prog_item col-md-4 col-sm-8 col-sm-push-2 col-xs-12">
                   <div class="program_normal">
                     <div class="title">Минимум</div>
                     <div class="prog_info">
@@ -455,6 +460,43 @@
         </div>
       </div>
     </div>
+    <div class="stolp--mobile">
+      <div class="container">
+        <div class="title">Столпы ислама</div>
+        <div class="st_mob_item">
+          <h2>Ихрам</h2>
+          <p>
+            особое состояние духовной чистоты паломника, совершающего хадж.
+            Для пребывания в нём требуется совершить полное омовение тела,
+            облачиться в особые одеяния и соблюдать правила ихрама.
+          </p>
+        </div>
+        <div class="st_mob_item">
+          <h2>Таваф</h2>
+          <p>
+            или тауа́ф — ритуальный обход против часовой стрелки вокруг Каабы
+            во время хаджа. Первый таваф совершается сразу по прибытии в Мекку.
+          </p>
+        </div>
+        <div class="st_mob_item">
+          <h2>Са`и</h2>
+          <p>
+            бег между холмами Сафа и Марва, один из элементов хаджа и умры.
+            Са`й выполняется после обхода Каабы (тавафа).
+          </p>
+        </div>
+        <div class="st_mob_item">
+          <h2>Арафа</h2>
+          <p>
+            гора в 20 км от Мекки. Именно отсюда Мухаммад произнес свою последнюю проповедь.
+            Стояние на горе Арафат является кульминацией хаджа. После стояния, которое длится
+            до заката солнца, следует обряд побивания Сатаны камнями в долине Мина.
+            В мусульманской мифологии у горы Арафат встретились и узнали друг друга изгнанные
+            из рая в разные места земли Адам и Хавва.
+          </p>
+        </div>
+      </div>
+    </div>
     <!-- ==========================-->
     <!-- Otz section-->
     <!-- ==========================-->
@@ -571,7 +613,7 @@
                     </p>
                   </div>
                 </div>
-              </div><a href="" class="all_otz col-md-2 col-md-push-5">все отзывы</a>
+              </div><a href="" class="all_otz col-xs-12 col-sm-8 col-sm-push-2 col-md-2 col-md-push-5">все отзывы</a>
         </div>
       </div>
     </div>
