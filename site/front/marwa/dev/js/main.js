@@ -1,3 +1,8 @@
+if ( $(window).width() < 720 ) {
+    $(".stolp").remove();
+}
+
+
 $(document).ready(function() {
 
 
