@@ -215,12 +215,28 @@ $(document).ready(function() {
             cur_program_mode != "all" ? programs_resort() : programs_show_all() ;
         });
 
+
+    // Вертикальное выравнивание
+        var fc = $(".flex-center");
+        v_mid( fc.parent(), fc );
+
 });
 
 
 $(window).load(function() {
     $(".preloader").delay(500).fadeOut(300);
 });
+
+
+function v_mid(parent, children) {
+    if(parent.length && children.length)
+    {
+        parent.each(function() {
+            var cur_ch = $(this).find(children);
+            cur_ch.css("margin-top", parent.height()/2 - cur_ch.height()/2); 
+        });
+    }
+}
 
 
 
