@@ -1353,12 +1353,12 @@ footer .dev * {
 }
 @media screen and (min-width: 1300px) {
   .main_menu.floated ul li.image_float img {
-    height: 72px;
+    height: 64px;
   }
 }
 @media screen and (min-width: 1500px) {
   .main_menu.floated ul li.image_float img {
-    height: 72px;
+    height: 64px;
   }
 }
 .main_menu.inner {
@@ -1374,7 +1374,7 @@ footer .dev * {
   position: absolute;
   top: 33px;
   left: 0;
-  padding: 8px 24px;
+  padding: 24px;
   text-align: left;
   border-left: 2px solid #ffa500;
   overflow: hidden;
@@ -2129,10 +2129,14 @@ footer .dev * {
 }
 .prog_item {
   opacity: 1;
+  -webkit-transition: transform 0.4s cubic-bezier(0.9, 0.1, 0.1, 0.9), opacity 0.8s ease;
+  transition: transform 0.4s cubic-bezier(0.9, 0.1, 0.1, 0.9), opacity 0.8s ease;
 }
 .prog_item.hidden {
-  opacity: 0;
+  opacity: 0.3;
   position: absolute;
+  -webkit-transform: scale(0.8, 0.8);
+  transform: scale(0.8, 0.8);
 }
 .program_normal,
 .program_normal--inner {
@@ -3367,6 +3371,8 @@ footer .dev * {
   color: #6bab9d;
   font-size: 14px;
   z-index: 150;
+  background: -webkit-linear-gradient(to top, #f00, #00f);
+  background: linear-gradient(to top, #f00, #00f);
 }
 .news .news_item .photo .views,
 .newsblockExtra .photo .views {
