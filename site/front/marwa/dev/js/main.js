@@ -72,6 +72,14 @@ $(document).ready(function() {
 
 
 
+    // Скролл главной части
+        $(".slider .scroll").on('click', function() {
+            var offset = $(window).height();
+            $("html, body").animate({scrollTop: offset-80}, 500);
+        });
+
+
+
     // Столпы
         var st_row = $(".stolp").find(".row"),
             st_img = $(".stolp").find(".stolp_image img");
@@ -113,7 +121,7 @@ $(document).ready(function() {
 
         var main_prog_hgh = $(".prog_item").height();
 
-        $(".prog_list .row").height(main_prog_hgh + 64);
+        $(".prog_list .row").height(main_prog_hgh + 160);
 
 
 
@@ -209,8 +217,6 @@ $(document).ready(function() {
 
             p_tabs.removeClass("active");
             $(this).addClass("active");
-
-            alert("Pressed " + cur_program_mode);
 
             cur_program_mode != "all" ? programs_resort() : programs_show_all() ;
         });
