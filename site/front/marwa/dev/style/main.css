@@ -1293,8 +1293,8 @@ footer .dev * {
 }
 .main_menu ul li:hover .submenu {
   opacity: 1;
-  padding: 8px 24px;
-  height: auto;
+  -webkit-transform: perspective(2000) rotateY(0deg);
+  transform: perspective(2000) rotateY(0deg);
 }
 .main_menu.floated {
   margin: 0;
@@ -1370,12 +1370,11 @@ footer .dev * {
 .submenu {
   display: block;
   width: 260px;
-  height: 0px;
   background: rgba(40,68,118,0.8);
   position: absolute;
   top: 33px;
   left: 0;
-  padding: 0px;
+  padding: 24px;
   text-align: left;
   border-left: 2px solid #ffa500;
   overflow: hidden;
@@ -1383,6 +1382,8 @@ footer .dev * {
   -webkit-transition: all 0.4s 0.2s ease;
   transition: all 0.4s 0.2s ease;
   transform-origin: 0% 50%;
+  -webkit-transform: perspective(1000) rotateY(90deg);
+  transform: perspective(1000) rotateY(90deg);
 }
 .submenu a {
   display: inline-block;
