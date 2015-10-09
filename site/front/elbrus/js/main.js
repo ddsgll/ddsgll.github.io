@@ -18,6 +18,9 @@ $(document).ready(function() {
 	}
 
 
+	animateMainMenuLinks();
+
+
 
 	// Main page slider settings
 	$(".main_page_slider .slides").flickity({
@@ -79,6 +82,19 @@ $(document).ready(function() {
 		$(this).css("bottom", -ib_offset );
 	});
 
+
+
+	// Contacts block
+	var map 	= $(".mailmap .map"),
+		mail 	= $(".mailmap .mail"),
+		mailmap = $(".mailmap");
+
+	var map_height = mailmap.height() - mail.height();
+
+	map.height( map_height );
+
+
+
 });
 
 
@@ -86,6 +102,7 @@ $(document).ready(function() {
 function initOnepageScroll() {
 	// One page scrolling settings
 	var slider_section = $(".main_sections");
+
 	$("html").addClass("op-enabled");
 
 	if ( slider_section.length ) {
@@ -103,22 +120,50 @@ function initOnepageScroll() {
 			responsiveFallback : false,
 			beforeMove: function(index) {
 
-				if (index > 1) {
-					$(".main_menu").addClass("floated");
-				}
-				else {
-					$(".main_menu").removeClass("floated");
-				}
+				switch(index) {
 
-				if (index === 3) {
-					animateNewsSection();
-				}
+					case 1:
+						$(".main_menu").removeClass("floated");
+						$(".webcam_splash").removeClass("active");
+						animateOnepageDots("hide");
+						animateMainMenuLinks();
+						break
 
-				if (index === 2) {
-					animateLiveSection();
-				}
-				else {
-					$(".webcam_splash").removeClass("active");
+					case 2:
+						animateLiveSection();
+						$(".main_menu").addClass("floated");
+						animateOnepageDots("show");
+						break
+
+					case 3:
+						animateNewsSection();
+						$(".webcam_splash").removeClass("active");
+						$(".main_menu").addClass("floated");
+						break
+
+					case 4:
+						$(".webcam_splash").removeClass("active");
+						$(".main_menu").addClass("floated");
+						break
+
+					case 5:
+						$(".webcam_splash").removeClass("active");
+						$(".main_menu").addClass("floated");
+						break
+
+					case 6:
+						animateContactsSection();
+						$(".webcam_splash").removeClass("active");
+						$(".main_menu").addClass("floated");
+						break
+
+					default:
+						$(".webcam_splash").removeClass("active");
+						$(".main_menu").addClass("floated");
+						animateOnepageDots("show");
+						animateMainMenuLinks();
+						break
+
 				}
 
 		    }
@@ -136,33 +181,38 @@ function initOnepageScroll() {
 
 $(window).load(function() {
 
+	
+
+});
 
 
-	// Animating one page scroll pagination
-	var pg_items = $(".onepage-pagination").find("li");
-
-	TweenMax.staggerTo( pg_items, 1, {
-		opacity : 1,
-		right   : 0,
-		scale   : [1,1],
-		ease    : Elastic.easeOut.config(1, 0.3)
-	}, 0.1 );
 
 
+
+
+
+
+
+
+// GSAP Animations
+function animateMainMenuLinks() {
 
 	// Animating main menu links
-	var main_menu_links = $(".main_menu .links").find("ul.main > li");
+	var main_menu_links = $(".main_menu .links.normal").find("ul.main > li");
 
-	TweenMax.staggerTo( main_menu_links, 2, {
+	TweenMax.staggerFromTo( main_menu_links, 2,
+	{
+		opacity   : 0,
+		rotationX : '90deg'
+	},
+	{
 		opacity   : 1,
 		rotationX : '0deg',
 		delay     : 0.5,
 		ease      : Elastic.easeOut.config(1, 0.3)
 	}, 0.1 );
 
-
-
-});
+}
 
 function animateNewsSection() {
 	// Animating one page scroll pagination
@@ -186,14 +236,69 @@ function animateLiveSection() {
 	TweenMax.staggerFromTo( live_tbs_items, 1,
 	{
 		scale   : [0.8,0.8],
-		y       : '-100px',
 		opacity : 0
 	},
 	{
 		scale   : [1,1],
-		y       : '0px',
 		opacity : 1,
 		delay   : 0.5,
 		ease    : Elastic.easeOut
 	}, 0.2 );
+}
+
+function animateContactsSection() {
+	// Animating one page scroll pagination
+	var cont_items = $(".phone_block");
+
+	TweenMax.staggerFromTo( cont_items, 1.5,
+	{
+		x       : '-64px',
+		opacity : 0
+	},
+	{
+		x       : 0,
+		opacity : 1,
+		delay   : 0.8,
+		ease    : Elastic.easeOut
+	}, 0.1 );
+}
+
+function animateOnepageDots(state) {
+
+	var pg_items = $(".onepage-pagination").find("li");
+
+	if (state === 'show' && state != undefined) {
+
+		TweenMax.staggerFromTo( pg_items, 1,
+		{
+			opacity : 0,
+			right   : '-10px',
+			scale   : [0.5,0.5]
+		},
+		{
+			opacity : 1,
+			right   : 0,
+			scale   : [1,1],
+			ease    : Elastic.easeOut.config(1, 0.3)
+		}, 0.1 );
+
+	}
+	else
+	{
+
+		TweenMax.staggerFromTo( pg_items, 3,
+		{
+			opacity : 1,
+			right   : 0,
+			scale   : [1,1]
+		},
+		{
+			opacity : 0,
+			right   : '-64px',
+			scale   : [0.5,0.5],
+			ease    : Elastic.easeOut.config(1, 0.3)
+		}, 0.08 );
+
+	}
+
 }
