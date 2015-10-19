@@ -86,7 +86,7 @@ function eduAnimations( els ) {
 		},
 		{
 			opacity: 1,
-			x: 0,
+			x: 16,
 			delay: 2
 		},
 		0.15 );
@@ -99,7 +99,7 @@ function eduAnimations( els ) {
 		},
 		{
 			opacity: 1,
-			width: 300,
+			width: 200,
 			delay: 1
 		},
 		0.15 );
