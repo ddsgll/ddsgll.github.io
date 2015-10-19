@@ -1,0 +1,292 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Calibri', arial;
+  font-size: 14px;
+}
+* {
+  outline: none;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.page {
+  background: #edf3f6;
+  padding: 42px;
+}
+@media screen and (max-width: 768px) {
+  .page {
+    padding: 18px;
+  }
+}
+.page .page_block {
+  background: #fff url("i/login_bg.png") no-repeat right bottom;
+  background-size: auto;
+  padding: 32px;
+}
+@media screen and (max-width: 768px) {
+  .page .page_block {
+    padding: 18px;
+    background-size: 50% 50%;
+  }
+}
+.page .page_block .title {
+  margin: 64px 0;
+}
+@media screen and (max-width: 768px) {
+  .page .page_block .title {
+    margin: 18px 0;
+  }
+}
+.page .page_block .title span {
+  display: inline-block;
+  width: 100%;
+  font-size: 1em;
+  color: #000;
+  text-transform: uppercase;
+  font-family: 'Calibri', arial;
+}
+.page .page_block .title span:last-child {
+  text-transform: normal;
+  color: #929292;
+}
+.page .page_block .title.left {
+  text-align: left;
+}
+@media screen and (max-width: 768px) {
+  .page .page_block .title.left {
+    text-align: center;
+  }
+}
+.page .page_block .title.right {
+  text-align: right;
+}
+@media screen and (max-width: 768px) {
+  .page .page_block .title.right {
+    text-align: center;
+  }
+}
+.page .page_block .logo {
+  text-align: center;
+}
+.page .page_block .logo img {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+}
+.page .page_block .login_form {
+  margin: 64px 0;
+  text-align: center;
+  width: 100%;
+  padding: 72px;
+  padding-top: 48px;
+  background: #edf3f6;
+  box-shadow: 0px 3px 21px rgba(0,0,0,0.35);
+}
+@media screen and (max-width: 768px) {
+  .page .page_block .login_form {
+    padding: 24px;
+    padding-top: 18px;
+    margin: 18px 0;
+  }
+}
+.page .page_block .login_form img {
+  top: -76px;
+}
+@media screen and (max-width: 768px) {
+  .page .page_block .login_form img {
+    top: -32px;
+  }
+}
+.page .page_block .login_form input {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  padding: 18px;
+  border: 1px solid #8396ba;
+  font-family: 'Calibri', arial;
+  font-size: 1em;
+  text-align: center;
+  margin-bottom: 18px;
+}
+@media screen and (max-width: 768px) {
+  .page .page_block .login_form input {
+    padding: 10px;
+  }
+}
+.page .page_block .login_form input[type="submit"] {
+  background: #344284;
+  color: #fff;
+  font-size: 2em;
+  margin-top: 18px;
+  border: none;
+}
+.page .page_block .year {
+  padding: 48px 0;
+  text-align: center;
+  font-family: 'Calibri', arial;
+  font-size: 1em;
+  color: #939292;
+}
+@media screen and (max-width: 768px) {
+  .page .page_block .year {
+    padding: 18px 0;
+  }
+}
+.page .page_block .top {
+  text-align: left;
+}
+.page .page_block .top .logo,
+.page .page_block .top .title {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+.page .page_block .top .title {
+  margin-left: 24px;
+}
+.edu_block {
+  text-align: center;
+  margin: 10px 0;
+}
+.edu_block a,
+.edu_block a:visited,
+.edu_block a:active {
+  color: #000;
+  font-family: 'Calibri';
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+.edu_block a:hover,
+.edu_block a:visited:hover,
+.edu_block a:active:hover {
+  border-bottom: 1px solid #000;
+}
+.edu_block .number {
+  font-size: 50px;
+  color: #000;
+  font-family: 'Calibri';
+  width: 100%;
+  text-align: right;
+  position: absolute;
+  top: 30%;
+  right: 0;
+  margin-top: 25px;
+  line-height: 1;
+}
+.line {
+  display: inline-block;
+  width: 320px;
+  height: 4px;
+  margin: 16px 0;
+}
+.line.violet {
+  background: linear-gradient(to right, #5c027b, #dd0280);
+}
+.line.blue {
+  background: linear-gradient(to right, #008bad, #5c17bb);
+}
+.line.orange {
+  background: linear-gradient(to right, #ffc51a, #df5c00);
+}
+.b1 .circle {
+  opacity: 0;
+  margin: 8px auto;
+  width: 240px;
+  height: 240px;
+  background: transparent url("../img/categories/dec-1.png") no-repeat center;
+}
+.b1 .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+  width: 100px;
+  height: 100px;
+  background: transparent url("../img/categories/ico-1.png") no-repeat center;
+}
+.b2 .circle {
+  opacity: 0;
+  margin: 8px auto;
+  width: 240px;
+  height: 240px;
+  background: transparent url("../img/categories/dec-2.png") no-repeat center;
+}
+.b2 .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+  width: 100px;
+  height: 100px;
+  background: transparent url("../img/categories/ico-2.png") no-repeat center;
+}
+.b3 .circle {
+  opacity: 0;
+  margin: 8px auto;
+  width: 240px;
+  height: 240px;
+  background: transparent url("../img/categories/dec-3.png") no-repeat center;
+}
+.b3 .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+  width: 100px;
+  height: 100px;
+  background: transparent url("../img/categories/ico-3.png") no-repeat center;
+}
+.b4 .circle {
+  opacity: 0;
+  margin: 8px auto;
+  width: 240px;
+  height: 240px;
+  background: transparent url("../img/categories/dec-4.png") no-repeat center;
+}
+.b4 .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+  width: 100px;
+  height: 100px;
+  background: transparent url("../img/categories/ico-4.png") no-repeat center;
+}
+.b5 .circle {
+  opacity: 0;
+  margin: 8px auto;
+  width: 240px;
+  height: 240px;
+  background: transparent url("../img/categories/dec-5.png") no-repeat center;
+}
+.b5 .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+  width: 100px;
+  height: 100px;
+  background: transparent url("../img/categories/ico-5.png") no-repeat center;
+}
+.b6 .circle {
+  opacity: 0;
+  margin: 8px auto;
+  width: 240px;
+  height: 240px;
+  background: transparent url("../img/categories/dec-6.png") no-repeat center;
+}
+.b6 .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+  width: 100px;
+  height: 100px;
+  background: transparent url("../img/categories/ico-6.png") no-repeat center;
+}
