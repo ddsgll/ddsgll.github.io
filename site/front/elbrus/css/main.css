@@ -418,7 +418,6 @@
    font-family: 'pf_square_sans_proregular', 'Tahoma';
    width: 100%;
    height: 100%;
-   opacity: 0;
    -webkit-transition: all 0.7s cubic-bezier(0.5, 0.2, 0, 1);
    transition: all 0.7s cubic-bezier(0.5, 0.2, 0, 1);
 }
@@ -843,12 +842,12 @@
 }
  @media (min-width: 1200px) {
    .links.mobile {
-     display: none;
+     display: none !important;
   }
 }
  @media (min-width: 1442px) {
    .links.mobile {
-     display: none;
+     display: none !important;
   }
 }
  @media (max-width: 767px) {
@@ -877,7 +876,7 @@
  .links.mobile .burger {
    width: 32px;
    height: 4px;
-   background: #a04b52;
+   background: #fff;
    display: inline-block;
    vertical-align: middle;
    margin-right: 48px;
@@ -890,7 +889,7 @@
    left: 0;
    width: 100%;
    height: 4px;
-   background: #a04b52;
+   background: #fff;
    top: -8px;
 }
  .links.mobile .burger::after {
@@ -976,6 +975,12 @@
 }
  .hide {
    overflow: hidden;
+}
+ .floated .burger {
+   background: #a04b52;
+}
+ .floated .burger::before, .floated .burger::after {
+   background: #a04b52;
 }
  section.main.slider {
    height: 100% !important;
@@ -1408,9 +1413,34 @@
    padding-top: 80px;
    min-height: 100%;
 }
+ @media (max-width: 767px) {
+   .main.live {
+     padding-top: 0;
+  }
+}
+ @media (min-width: 768px) {
+   .main.live {
+     padding-top: 0;
+  }
+}
+ @media (min-width: 1200px) {
+   .main.live {
+     padding-top: 80px;
+  }
+}
+ @media (min-width: 1442px) {
+   .main.live {
+     padding-top: 80px;
+  }
+}
  .main.live .live_tabs {
    margin: 24px 0;
    height: 10%;
+}
+ @media (min-width: 768px) {
+   .main.live .live_tabs {
+     display: none;
+  }
 }
  @media (min-width: 1200px) {
    .main.live .live_tabs {
@@ -1427,6 +1457,43 @@
 }
  .main.live .live_section {
    height: 85%;
+}
+ .main.live .mobile_tabs {
+   font-size: 0;
+   line-height: 0;
+   letter-spacing: -1;
+   width: 100%;
+   margin: 0;
+   padding: 0;
+}
+ .main.live .mobile_tabs .tab {
+   font-size: 16px;
+   line-height: normal;
+   letter-spacing: normal;
+   font-family: 'pf_square_sans_promedium', 'Tahoma';
+   display: inline-block;
+   width: 33.33333%;
+   background: #3e4f7c;
+   color: #fff;
+   vertical-align: top;
+   font-size: 18px;
+   text-transform: uppercase;
+   padding: 18px 0;
+   text-align: center;
+   -webkit-transition: all 0.5s ease;
+   transition: all 0.5s ease;
+}
+ .main.live .mobile_tabs .tab img {
+   display: inline-block;
+   vertical-align: middle;
+   margin-right: 8px;
+}
+ .main.live .mobile_tabs .tab span {
+   display: inline-block;
+   vertical-align: middle;
+}
+ .main.live .mobile_tabs .tab:hover, .main.live .mobile_tabs .tab:active, .main.live .mobile_tabs .tab:focus {
+   background: #a04b52;
 }
  .live_tab_button {
    cursor: pointer;
@@ -1469,6 +1536,11 @@
    -webkit-transition: all 0.2s cubic-bezier(0.5, 0.2, 0, 1);
    transition: all 0.2s cubic-bezier(0.5, 0.2, 0, 1);
    box-shadow: 3px 0px 6px rgba(0,0,0,0.1);
+}
+ @media (min-width: 768px) {
+   .live_tab_button .icon {
+     display: none;
+  }
 }
  @media (min-width: 1200px) {
    .live_tab_button .icon {
@@ -1619,13 +1691,26 @@
 }
  .webcam_section .link_all {
    width: 100%;
-   height: 20%;
-   position: absolute;
    bottom: 0px;
-   height: 15%;
    bottom: 0;
    left: 0;
    text-align: center;
+}
+ @media (min-width: 768px) {
+   .webcam_section .link_all {
+     position: relative;
+     bottom: auto;
+     height: auto;
+     margin: 24px 0;
+  }
+}
+ @media (min-width: 1200px) {
+   .webcam_section .link_all {
+     position: absolute;
+     height: 20%;
+     margin: 0;
+     height: 15%;
+  }
 }
  .webcam_item {
    margin: 24px 0;
@@ -2045,6 +2130,24 @@
    height: 100%;
    border-right: 4px solid #3e4f7c;
 }
+ @media (max-width: 767px) {
+   .main.contacts .numbers {
+     height: auto;
+     border-right: none;
+  }
+}
+ @media (min-width: 768px) {
+   .main.contacts .numbers {
+     height: auto;
+     border-right: none;
+  }
+}
+ @media (min-width: 1200px) {
+   .main.contacts .numbers {
+     height: 100%;
+     border-right: 4px solid #3e4f7c;
+  }
+}
  .main.contacts .numbers .title {
    font-family: 'pf_square_sans_probold', 'Tahoma';
    font-size: 48px;
@@ -2064,6 +2167,13 @@
 }
  .main.contacts .phone_block {
    padding-bottom: 36px;
+}
+ @media (min-width: 768px) {
+   .main.contacts .phone_block {
+     width: 46%;
+     display: inline-block;
+     vertical-align: baseline;
+  }
 }
  @media (min-width: 1200px) {
    .main.contacts .phone_block {
@@ -2133,19 +2243,60 @@
    height: 100%;
    background: #fff;
 }
+ @media (min-width: 768px) {
+   .main.contacts .mailmap {
+     padding: 0 !important;
+  }
+}
  .main.contacts .mailmap .map {
-   left: -15px;
    width: 1200px;
    height: 50%;
    background: #f89f75;
+}
+ @media (min-width: 768px) {
+   .main.contacts .mailmap .map {
+     left: 0;
+     width: auto;
+     height: 340px;
+  }
+}
+ @media (min-width: 1200px) {
+   .main.contacts .mailmap .map {
+     left: -15px;
+     width: 1200px;
+     height: 50%;
+  }
 }
  .main.contacts .mailmap .mail {
    background: #fff;
    position: absolute;
    bottom: 0;
-   padding-left: 15px;
    left: 0;
    width: 100%;
+}
+ @media (max-width: 767px) {
+   .main.contacts .mailmap .mail {
+     padding-left: 0;
+     position: relative;
+  }
+}
+ @media (min-width: 768px) {
+   .main.contacts .mailmap .mail {
+     padding-left: 0;
+     position: relative;
+  }
+}
+ @media (min-width: 1200px) {
+   .main.contacts .mailmap .mail {
+     padding-left: 15px;
+     position: absolute;
+  }
+}
+ @media (min-width: 1442px) {
+   .main.contacts .mailmap .mail {
+     padding-left: 15px;
+     position: absolute;
+  }
 }
  .main.contacts .mailmap .mail h2 {
    font-family: 'pf_square_sans_promedium', 'Tahoma';
@@ -2207,6 +2358,16 @@
 }
  .main.contacts .mailmap .mail div[class^='col-'] {
    padding-left: 0;
+}
+ @media (min-width: 768px) {
+   .main.contacts .mailmap .mail div[class^='col-'] {
+     padding-right: 0;
+  }
+}
+ @media (min-width: 1200px) {
+   .main.contacts .mailmap .mail div[class^='col-'] {
+     padding-right: 15px;
+  }
 }
  .page .row {
    font-size: 0;
