@@ -1,6 +1,25 @@
 $(document).ready(function() {
 
 
+	// Mobile menu actions
+	var mob_open  = $("#open_menu"),
+		mob_close = $("#close_menu");
+
+	mob_open.on('click', function() {
+
+		$(".links.mobile .ship").addClass("opened");
+		$('body').addClass("hide")
+
+	});
+
+	mob_close.on('click', function() {
+
+		$(".links.mobile .ship").removeClass("opened");
+		$('body').removeClass("hide")
+
+	});
+
+
 
 	// Change images to bg
 	$(".slides .slide").each(function() {
@@ -93,6 +112,45 @@ $(document).ready(function() {
 
 	map.height( map_height );
 
+
+
+
+	// Questions page
+	var q_photo = $(".answer .photo");
+
+	q_photo.each(function() {
+
+		var cur_h = $(this).parent().height();
+
+		$(this).height( cur_h )
+
+	});
+
+	$(".answer").slideUp(0);
+
+	$(".question").on('click', function(e) {
+
+		$(this).next(".answer").stop(1,1).slideToggle(500).toggleClass("active");
+
+	});
+
+
+
+
+	// Feedback slider
+	$("#feedback_slider").flickity({
+		cellSelector: '.slide',
+		prevNextButtons: false,
+		pageDots: false,
+		wrapAround: false
+	});
+
+	$(".slider .button.prev").on('click', function() {
+		$("#feedback_slider").flickity('previous')
+	});
+	$(".slider .button.next").on('click', function() {
+		$("#feedback_slider").flickity('next')
+	});
 
 
 });
