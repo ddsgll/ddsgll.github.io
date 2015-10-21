@@ -7,14 +7,14 @@ $(document).ready(function() {
 
 	mob_open.on('click', function() {
 
-		$(".links.mobile .ship").addClass("opened");
+		$(".mobile-ship").addClass("opened");
 		$('body').addClass("hide")
 
 	});
 
 	mob_close.on('click', function() {
 
-		$(".links.mobile .ship").removeClass("opened");
+		$(".mobile-ship").removeClass("opened");
 		$('body').removeClass("hide")
 
 	});
@@ -27,6 +27,7 @@ $(document).ready(function() {
 			cur_src = cur_img.attr("src");
 
 		$(this).css("background","transparent url('" + cur_src + "') no-repeat center")
+				.css("background-size","cover")
 				.children(".image").html("");
 	});
 
