@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
+    <div class="preloader">
+      <div class="logo"></div>
+    </div>
     
     <div class="mobile-ship">
       <div id="close_menu" class="close"></div><img src="img/red_logo.png" class="floated">
@@ -139,27 +142,27 @@
           </div>
         </div>
         <div class="mobile_tabs">
-          <div class="tab"><img src="img/icons/live_mobile/webcam.png" alt=""><span>Веб камеры</span></div>
-          <div class="tab"><img src="img/icons/live_mobile/cable.png" alt=""><span>Канатная дорога</span></div>
-          <div class="tab"><img src="img/icons/live_mobile/weather.png" alt=""><span>Погода</span></div>
+          <div data-state="webcam" class="tab"><img src="img/icons/live/cam_white.png" alt=""><span>Веб камеры</span></div>
+          <div data-state="cable" class="tab"><img src="img/icons/live/cable_white.png" alt=""><span>Канатная дорога</span></div>
+          <div data-state="weather" class="tab"><img src="img/icons/live/temp_white.png" alt=""><span>Погода</span></div>
         </div>
         <div class="container">
           <div class="live_tabs">
             <div class="row">
                     <div class="col-md-4 col-sm-4">
-                      <div class="live_tab_button active">
+                      <div data-state="webcam" class="live_tab_button active">
                         <div class="icon webcam"></div>
                         <div class="tab_form"><span>Веб камеры</span></div>
                       </div>
                     </div>
                     <div class="col-md-4 col-sm-4">
-                      <div class="live_tab_button">
+                      <div data-state="cable" class="live_tab_button">
                         <div class="icon cable"></div>
                         <div class="tab_form"><span>Канатная дорога</span></div>
                       </div>
                     </div>
                     <div class="col-md-4 col-sm-4">
-                      <div class="live_tab_button">
+                      <div data-state="weather" class="live_tab_button">
                         <div class="icon weather"></div>
                         <div class="tab_form"><span>Погода</span></div>
                       </div>
@@ -167,7 +170,7 @@
             </div>
           </div>
           <div class="live_section">
-                  <div class="webcam_section">
+                  <div data-stcheck="webcam" class="livesect webcam_section">
                     <div class="row">
                             <div class="col-md-4 col-sm-6 col-xs-12">
                               <div class="webcam_item">
@@ -210,6 +213,85 @@
                     </div>
                     <div class="link_all"><a class="button3d"><span>Все камеры</span></a></div>
                   </div>
+                  <div data-stcheck="cable" class="livesect cable_section"><a href="">
+                            <div class="cable_block">
+                              <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="image"><img src="img/photos/cable/1.jpg" alt=""></div>
+                              </div>
+                              <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="title">Азау - кругозор</div>
+                                <div class="st">
+                                  <div class="state normal">Работает</div>
+                                  <div class="time">9:00 – 17:30</div>
+                                </div>
+                              </div>
+                              <div class="col-md-2 col-sm-4 col-xs-6">
+                                <div class="info">
+                                  <div class="data"><span>Длина дороги</span><span class="big">345<i> м</i></span><span>Высота</span><span class="big">1500<i> м</i></span></div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 col-sm-8 col-xs-6">
+                                <div class="description">
+                                  Азау-кругозор — канатная дорога
+                                  на высоте 1500 метров, с которой открывается
+                                  прекрасный вид на приэльбрусье и снежные вершины эльбруса.
+                                  
+                                </div>
+                              </div>
+                            </div></a><a href="">
+                            <div class="cable_block">
+                              <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="image"><img src="img/photos/cable/1.jpg" alt=""></div>
+                              </div>
+                              <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="title">Азау - кругозор</div>
+                                <div class="st">
+                                  <div class="state normal">Работает</div>
+                                  <div class="time">9:00 – 17:30</div>
+                                </div>
+                              </div>
+                              <div class="col-md-2 col-sm-4 col-xs-6">
+                                <div class="info">
+                                  <div class="data"><span>Длина дороги</span><span class="big">345<i> м</i></span><span>Высота</span><span class="big">1500<i> м</i></span></div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 col-sm-8 col-xs-6">
+                                <div class="description">
+                                  Азау-кругозор — канатная дорога
+                                  на высоте 1500 метров, с которой открывается
+                                  прекрасный вид на приэльбрусье и снежные вершины эльбруса.
+                                  
+                                </div>
+                              </div>
+                            </div></a>
+                          <div class="cable_block disabled">
+                            <div class="col-md-3 col-md-6 col-xs-12">
+                              <div class="image"><img src="img/photos/cable/1.jpg" alt=""></div>
+                            </div>
+                            <div class="col-md-3 col-md-6 col-xs-12">
+                              <div class="title">Азау - кругозор</div>
+                              <div class="st">
+                                <div class="state error">Неисправна, ведутся работы</div>
+                              </div>
+                            </div>
+                            <div class="col-md-2 col-md-4 col-xs-6">
+                              <div class="info">
+                                <div class="data"><span>Длина дороги</span><span class="big">345<i> м</i></span><span>Высота</span><span class="big">1500<i> м</i></span></div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 col-md-8 col-xs-6">
+                              <div class="description">
+                                Азау-кругозор — канатная дорога
+                                на высоте 1500 метров, с которой открывается
+                                прекрасный вид на приэльбрусье и снежные вершины эльбруса.
+                                
+                                
+                                
+                              </div>
+                            </div>
+                          </div>
+                  </div>
+                  <div data-stcheck="weather" class="livesect weather_section"><span>Погода</span></div>
           </div>
         </div>
       </section>
@@ -561,7 +643,7 @@
                   </div>
           </div>
           <div class="col-md-8 col-sm-12 mailmap">
-            <div class="map"></div>
+            <div id="main_map" class="map"></div>
             <div class="mail">
               <h2>Вы можете связаться с нами в любое время</h2>
               <form action="">
@@ -584,6 +666,7 @@
       </section>
     </div>
     <!-- Scripts-->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD_KiE7iRWdGplFjjVJ41SmS9CSeXCFkVQ&amp;sensor=true"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/libs/jquery.onepage-scroll.min.js"></script>
     <script src="js/libs/TweenMax.min.js"></script>
