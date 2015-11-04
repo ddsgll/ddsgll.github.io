@@ -6,6 +6,7 @@ $(document).ready(function() {
 		| Main general |
 	================================================================
 	*/
+<<<<<<< HEAD
 
 
 	var OPS = false;
@@ -16,6 +17,10 @@ $(document).ready(function() {
 	}
 	else {
 		$("#smooth_scroll").remove();
+=======
+	if ( $(window).width() > 1200 ) {
+		initOnepageScroll();
+>>>>>>> origin/master
 	}
 
 	animateMainMenuLinks();
@@ -28,6 +33,7 @@ $(document).ready(function() {
 
 
 
+<<<<<<< HEAD
 	/*
 	================================================================
 		| Main media photos |
@@ -176,6 +182,8 @@ $(document).ready(function() {
 
 
 
+=======
+>>>>>>> origin/master
 
 	/*
 	================================================================
@@ -222,11 +230,13 @@ $(document).ready(function() {
 			cur_src = cur_img.attr("src");
 
 		$(this).css("background","transparent url('" + cur_src + "') no-repeat center")
+				.css("background-size","cover")
 				.children(".image").html("");
 	});
 
 
 
+<<<<<<< HEAD
 
 	if ( $(window).width() > 1200 )
 	{
@@ -243,6 +253,8 @@ $(document).ready(function() {
 		news_extra_img.remove();
 
 	}
+=======
+>>>>>>> origin/master
 
 
 
@@ -250,16 +262,22 @@ $(document).ready(function() {
 
 
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> origin/master
 	/*
 	================================================================
 		| Main slider |
 	================================================================
 	*/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 	var main_slider = $(".main_page_slider .slides"),
 		main_prev = $("#main-slide-left"),
 		main_next = $("#main-slide-right");
@@ -288,6 +306,7 @@ $(document).ready(function() {
 
 
 
+<<<<<<< HEAD
 	/*
 	================================================================
 		| Photos |
@@ -358,6 +377,8 @@ $(document).ready(function() {
 
 
 
+=======
+>>>>>>> origin/master
 
 
 	/*
@@ -399,7 +420,10 @@ $(document).ready(function() {
 	================================================================
 	*/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 	var tabs = $(".live_tabs .live_tab_button"),
 		mob_tabs = $(".mobile_tabs .tab"),
 		live_state = "webcam",
@@ -410,6 +434,10 @@ $(document).ready(function() {
 
 	reload_live_section( live_state );
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 	tabs.on('click', function() {
 		tabs.removeClass("active");
 		$(this).addClass("active");
@@ -434,7 +462,11 @@ $(document).ready(function() {
 			var t_state = $(this).data('stcheck');
 
 			if ( st === t_state ) {
+<<<<<<< HEAD
 
+=======
+				
+>>>>>>> origin/master
 				$(this).fadeIn(500);
 
 			}
@@ -443,6 +475,7 @@ $(document).ready(function() {
 			}
 		});
 
+<<<<<<< HEAD
 
 		if (live_state === "weather") {
 			TweenMax.to( $(".weather_main_bg"), 0.5, {opacity: 1}, rotateWindArrow );
@@ -461,6 +494,8 @@ $(document).ready(function() {
 
 		TweenMax.to(el, 0.6, { rotate: deg, delay: 0.6 });
 
+=======
+>>>>>>> origin/master
 	}
 
 
@@ -495,6 +530,12 @@ $(document).ready(function() {
 	close.on('click', function() {
 		webc_splash.removeClass("active");
 	});
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> origin/master
 
 
 
@@ -502,9 +543,12 @@ $(document).ready(function() {
 
 
 
+<<<<<<< HEAD
+=======
 
 
-
+	
+>>>>>>> origin/master
 	/*
 	================================================================
 		| Style fixes |
@@ -540,11 +584,17 @@ $(document).ready(function() {
 
 
 
+<<<<<<< HEAD
 
 
 	/*
 	================================================================
 		| Questions page |
+=======
+	/*
+	================================================================
+		| Questins page |
+>>>>>>> origin/master
 	================================================================
 	*/
 
@@ -726,7 +776,11 @@ $(window).load(function() {
 	var preloader = $(".preloader");
 
 	window.setTimeout(function() {
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> origin/master
 
 		preloader.find(".logo").addClass("stop");
 
@@ -741,6 +795,7 @@ $(window).load(function() {
 		function cleanSplash() {
 			preloader.fadeOut(500);
 		}
+<<<<<<< HEAD
 	}, 1);
 
 
@@ -760,6 +815,11 @@ $(window).load(function() {
 	var partners = $(".partners");
 
 	if (partners.length) {
+=======
+	}, 1500);
+
+
+>>>>>>> origin/master
 
 		var p_block = partners.find(".partner");
 
@@ -830,6 +890,7 @@ if ( $(".mailmap .map").length )
 // Map initialisation
 function initializeMainMap() {
 
+<<<<<<< HEAD
 	var mapOptions, map, myLatLng, imageMarker, marker;
 
 	mapOptions = {
@@ -873,18 +934,42 @@ function initializeMainMap() {
 /*
 ================================================================
 	| Inner page map |
+=======
+/*
+================================================================
+	| Main page map |
+>>>>>>> origin/master
 ================================================================
 */
 
 
+<<<<<<< HEAD
 if ( $(".inner_cont_map").length )
 {
 	google.maps.event.addDomListener(window, 'load', initializeInnerMap);
+=======
+// Hide map on small screens
+if ( $(".mailmap .map").length )
+{
+
+	if ( $(window).width() > 720 ) {
+	    google.maps.event.addDomListener(window, 'load', initializeMainMap);
+	}
+	else
+	{
+		$(".mailmap .map").remove();
+	}
+
+>>>>>>> origin/master
 }
 
 
 // Map initialisation
+<<<<<<< HEAD
 function initializeInnerMap() {
+=======
+function initializeMainMap() {
+>>>>>>> origin/master
 
 	var mapOptions, map, myLatLng, imageMarker, marker;
 
@@ -895,7 +980,11 @@ function initializeInnerMap() {
 		center: new google.maps.LatLng(43.2631521,42.5343502)
 	}
 
+<<<<<<< HEAD
 	map = new google.maps.Map(document.getElementById('inner_map'), mapOptions);
+=======
+	map = new google.maps.Map(document.getElementById('main_map'), mapOptions);
+>>>>>>> origin/master
 
 	myLatLng = new google.maps.LatLng(43.2631521,42.5343502);
 
@@ -927,6 +1016,7 @@ function initializeInnerMap() {
 
 
 
+<<<<<<< HEAD
 /*
 ================================================================
 	| Way page map |
@@ -1019,6 +1109,8 @@ function initializeWayMaps() {
 
 
 
+=======
+>>>>>>> origin/master
 
 
 /*
