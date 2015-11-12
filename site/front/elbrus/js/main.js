@@ -42,14 +42,19 @@ $(document).ready(function() {
 		mediaPhotoSection = $(".main_media.photo"),
 		mediaVideoSection = $(".main_media.video");
 
+	var is_arrows = true;
+	
+	if ( $(window).width() < 520 )
+		is_arrows = false
+
 	mediaVideoSection.hide(0);
 	$(".media_splash_section.video").hide();
 
-	function initMainPhotoGallery(index) {
+	function initMainPhotoGallery(index, arrows) {
 
 		main_med_slider.flickity({
-			pageDots: false,
-			prevNextButtons: true
+			pageDots        : false,
+			prevNextButtons : is_arrows
 		});
 
 		main_med_slider.flickity('select', index);
@@ -68,7 +73,7 @@ $(document).ready(function() {
 
 		window.setTimeout(function() {
 
-			initMainPhotoGallery( ind );
+			initMainPhotoGallery( ind, is_arrows );
 
 		}, 500);
 
@@ -155,10 +160,10 @@ $(document).ready(function() {
 	var shop_slider = $(".shop_slider .slider");
 
 	shop_slider.flickity({
-		cellelector: ".shop-slide",
-		prevNextButtons: false,
-		autoplay: 1500,
-		wrapAround: true
+		cellelector     : ".shop-slide",
+		prevNextButtons : false,
+		autoplay        : 1500,
+		wrapAround      : true
 	});
 
 	$(".shop_slider").find(".arrow.left").on('click', function() {
@@ -218,14 +223,14 @@ $(document).ready(function() {
 	mob_open.on('click', function() {
 
 		$(".mobile-ship").addClass("opened");
-		$('body').addClass("hide")
+		$('body').addClass("hide");
 
 	});
 
 	mob_close.on('click', function() {
 
 		$(".mobile-ship").removeClass("opened");
-		$('body').removeClass("hide")
+		$('body').removeClass("hide");
 
 	});
 
@@ -249,8 +254,10 @@ $(document).ready(function() {
 		var cur_img = $(this).children(".image").find("img"),
 			cur_src = cur_img.attr("src");
 
-		$(this).css("background","transparent url('" + cur_src + "') no-repeat center")
-				.children(".image").html("");
+		$(this)
+			.css("background","transparent url('" + cur_src + "') no-repeat center")
+			.children(".image")
+			.html("");
 	});
 
 
@@ -259,7 +266,7 @@ $(document).ready(function() {
 	if ( $(window).width() > 1200 )
 	{
 		var news_extra_item = $("#news_extra_photo"),
-			news_extra_img = news_extra_item.children("img");
+			news_extra_img  = news_extra_item.children("img");
 
 		news_extra_photo_bg()
 	}
@@ -289,8 +296,8 @@ $(document).ready(function() {
 
 
 	var main_slider = $(".main_page_slider .slides"),
-		main_prev = $("#main-slide-left"),
-		main_next = $("#main-slide-right");
+		main_prev   = $("#main-slide-left"),
+		main_next   = $("#main-slide-right");
 
 	main_slider.flickity({
 		cellSelector    : '.slide',
@@ -329,19 +336,19 @@ $(document).ready(function() {
             gutter: 4
         });
 
-        var images = $("#photolist").find("img");
-        var imagescopy = images.clone();
+        var images     = $("#photolist").find("img"),
+        	imagescopy = images.clone();
 
         $(".photoview").html(imagescopy);
 
         $(".photoview").flickity({
-            cellSelector: 'img',
-            pageDots: false,
-            prevNextButtons: true,
-            wrapAround: true,
-            setGallerySize: true,
-            resize: false,
-            contain: true
+			cellSelector    : 'img',
+			pageDots        : false,
+			prevNextButtons : true,
+			wrapAround      : true,
+			setGallerySize  : true,
+			resize          : false,
+			contain         : true
         });
 
         var sliderimages = $(".photoview").find("img");
@@ -398,9 +405,9 @@ $(document).ready(function() {
 	var btn = $(".button3d");
 
 	btn.on('mousemove', function(e) {
-		var eX = e.clientX;
+		var eX        = e.clientX;
 		var leftBound = $(this).offset().left;
-		var center = leftBound + ( $(this).width() * 1 );
+		var center    = leftBound + ( $(this).width() * 1 );
 
 		if (eX > leftBound && eX < center) {
 			$(this).removeClass("left");
@@ -428,11 +435,11 @@ $(document).ready(function() {
 	*/
 
 
-	var tabs = $(".live_tabs .live_tab_button"),
-		mob_tabs = $(".mobile_tabs .tab"),
-		live_state = "webcam",
+	var tabs         = $(".live_tabs .live_tab_button"),
+		mob_tabs     = $(".mobile_tabs .tab"),
+		live_state   = "webcam",
 		live_section = $(".live_section"),
-		sections = $(".livesect");
+		sections     = $(".livesect");
 
 	sections.fadeOut(0);
 
@@ -461,14 +468,12 @@ $(document).ready(function() {
 		sections.each(function() {
 			var t_state = $(this).data('stcheck');
 
-			if ( st === t_state ) {
-
+			if ( st === t_state )
 				$(this).fadeIn(500);
 
-			}
-			else {
+			else
 				$(this).fadeOut(500);
-			}
+
 		});
 
 
@@ -512,9 +517,9 @@ $(document).ready(function() {
 	*/
 
 
-	var webc_item = $(".webcam_item"),
+	var webc_item   = $(".webcam_item"),
 		webc_splash = $(".webcam_splash"),
-		close = $(".webcam_splash .videoblock").find(".close");
+		close       = $(".webcam_splash .videoblock").find(".close");
 
 	webc_item.on('click', function() {
 		webc_splash.addClass("active");
@@ -577,8 +582,8 @@ $(document).ready(function() {
 	*/
 
 
-	var q_photo = $(".answer .photo"),
-		answer = $(".answer"),
+	var q_photo  = $(".answer .photo"),
+		answer   = $(".answer"),
 		question = $(".question");
 
 	q_photo.each(function() {
@@ -618,13 +623,13 @@ $(document).ready(function() {
 	var info_slider = $(".info_slider .slider");
 
 	info_slider.flickity({
-		cellSelector: '.slider-item',
-		pageDots: false,
-		prevNextButtons: false,
-		wrapAround: false
+		cellSelector    : '.slider-item',
+		pageDots        : false,
+		prevNextButtons : false,
+		wrapAround      : false
 	});
 
-	var info_arrow_left = info_slider.find(".arrow.left");
+	var info_arrow_left  = info_slider.find(".arrow.left");
 	var info_arrow_right = info_slider.find(".arrow.right");
 
 
@@ -644,7 +649,7 @@ $(document).ready(function() {
 		$(this)
 			.css("background","transparent url('" + cur_img + "') no-repeat center")
 			.children("img")
-				.remove();
+			.remove();
 	});
 
 
@@ -666,15 +671,15 @@ $(document).ready(function() {
 
 
 	var fb_slider = $("#feedback_slider"),
-		fb_prev = $(".feedback_slider .button.prev"),
-		fb_next = $(".feedback_slider .button.next");
+		fb_prev   = $(".feedback_slider .button.prev"),
+		fb_next   = $(".feedback_slider .button.next");
 
 
 	fb_slider.flickity({
-		cellSelector: '.slide',
-		prevNextButtons: false,
-		pageDots: false,
-		wrapAround: false
+		cellSelector    : '.slide',
+		prevNextButtons : false,
+		pageDots        : false,
+		wrapAround      : false
 	});
 
 	fb_prev.on('click', function() {
@@ -725,6 +730,7 @@ function initOnepageScroll() {
 			keyboard           : true,
 			loop               : false,
 			responsiveFallback : false,
+
 			beforeMove: function(index) {
 
 				switch(index) {
@@ -812,10 +818,10 @@ $(window).load(function() {
 
 		TweenMax.to(preloader.find(".logo"), 1.2,
 			{
-				scale: [0,0],
-				opacity: 0,
-				ease: Back.easeInOut.config(3),
-				onComplete: cleanSplash
+				scale      : [0,0],
+				opacity    : 0,
+				ease       : Back.easeInOut.config(3),
+				onComplete : cleanSplash
 			}
 		);
 
@@ -868,18 +874,27 @@ $(window).load(function() {
 */
 
 
-// $(window).scroll(function() {
+$(window).scroll(function() {
 
-//     var offset = $(this).scrollTop();
-//     if( offset > 100)
-//     {
-//         $(".main_menu.floated").removeClass("inner");
-//     }
-//     else
-//     {
-//         $(".main_menu.floated").addClass("inner");
-//     }
-// });
+    var offset = $(this).scrollTop();
+
+    if( offset > 100)
+        $(".main_menu.floated").removeClass("inner");
+
+    else
+        $(".main_menu.floated").addClass("inner");
+
+
+
+    var offset = $(this).scrollTop();
+
+    if( offset > 100)
+        $("#main-page-menu").addClass("floated");
+    
+    else
+        $("#main-page-menu").removeClass("floated");
+
+});
 
 
 
@@ -898,13 +913,11 @@ $(window).load(function() {
 if ( $(".mailmap .map").length )
 {
 
-	if ( $(window).width() > 720 ) {
+	if ( $(window).width() > 720 )
 	    google.maps.event.addDomListener(window, 'load', initializeMainMap);
-	}
+	
 	else
-	{
 		$(".mailmap .map").remove();
-	}
 
 }
 
@@ -915,29 +928,28 @@ function initializeMainMap() {
 	var mapOptions, map, myLatLng, imageMarker, marker;
 
 	mapOptions = {
-		zoom: 11,
-		disableDefaultUI: true,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		center: new google.maps.LatLng(43.2631521,42.5343502)
+		zoom             : 11,
+		disableDefaultUI : true,
+		mapTypeId        : google.maps.MapTypeId.ROADMAP,
+		center           : new google.maps.LatLng(43.2631521,42.5343502)
 	}
 
-	map = new google.maps.Map(document.getElementById('main_map'), mapOptions);
-
+	map      = new google.maps.Map(document.getElementById('main_map'), mapOptions);
 	myLatLng = new google.maps.LatLng(43.2631521,42.5343502);
 
 	imageMarker = {
-		url: 'img/icons/map_baloon.png',
-		size: new google.maps.Size(309, 76),
-		origin: new google.maps.Point(0, 0),
-		anchor: new google.maps.Point(309, 76),
-		scaledSize: new google.maps.Size(309, 76)
+		url        : 'img/icons/map_baloon.png',
+		size       : new google.maps.Size(309, 76),
+		origin     : new google.maps.Point(0, 0),
+		anchor     : new google.maps.Point(309, 76),
+		scaledSize : new google.maps.Size(309, 76)
 	};
 
 	marker = new google.maps.Marker({
-		position: myLatLng,
-		map: map,
-		title: "Поляна Азау",
-		icon: imageMarker
+		position : myLatLng,
+		map      : map,
+		title    : "Поляна Азау",
+		icon     : imageMarker
 	});
 
 
@@ -971,29 +983,28 @@ function initializeInnerMap() {
 	var mapOptions, map, myLatLng, imageMarker, marker;
 
 	mapOptions = {
-		zoom: 11,
-		disableDefaultUI: true,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		center: new google.maps.LatLng(43.2631521,42.5343502)
+		zoom             : 11,
+		disableDefaultUI : true,
+		mapTypeId        : google.maps.MapTypeId.ROADMAP,
+		center           : new google.maps.LatLng(43.2631521,42.5343502)
 	}
 
-	map = new google.maps.Map(document.getElementById('inner_map'), mapOptions);
-
+	map      = new google.maps.Map(document.getElementById('inner_map'), mapOptions);
 	myLatLng = new google.maps.LatLng(43.2631521,42.5343502);
 
 	imageMarker = {
-		url: 'img/icons/map_baloon.png',
-		size: new google.maps.Size(309, 76),
-		origin: new google.maps.Point(0, 0),
-		anchor: new google.maps.Point(309, 76),
-		scaledSize: new google.maps.Size(309, 76)
+		url        : 'img/icons/map_baloon.png',
+		size       : new google.maps.Size(309, 76),
+		origin     : new google.maps.Point(0, 0),
+		anchor     : new google.maps.Point(309, 76),
+		scaledSize : new google.maps.Size(309, 76)
 	};
 
 	marker = new google.maps.Marker({
-		position: myLatLng,
-		map: map,
-		title: "Поляна Азау",
-		icon: imageMarker
+		position : myLatLng,
+		map      : map,
+		title    : "Поляна Азау",
+		icon     : imageMarker
 	});
 
 
@@ -1029,22 +1040,20 @@ function initializeWayMaps() {
 	var mapOptions_1, map_1, ltln_1, marker_1;
 
 	mapOptions_1 = {
-		zoom: 8,
-		disableDefaultUI: true,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		center: new google.maps.LatLng(43.2631521,42.5343502),
-		scrollwheel: false,
-		disableDoubleClickZoom: true
+		zoom                   : 8,
+		disableDefaultUI       : true,
+		mapTypeId              : google.maps.MapTypeId.ROADMAP,
+		center                 : new google.maps.LatLng(43.2631521,42.5343502),
+		scrollwheel            : false,
+		disableDoubleClickZoom : true
 	}
 
-	map_1 = new google.maps.Map(document.getElementById('way_map-1'), mapOptions_1);
-
-	ltln_1 = new google.maps.LatLng(43.2631521,42.5343502);
-
+	map_1    = new google.maps.Map(document.getElementById('way_map-1'), mapOptions_1);
+	ltln_1   = new google.maps.LatLng(43.2631521,42.5343502);
 	marker_1 = new google.maps.Marker({
-		position: ltln_1,
-		map: map_1,
-		title: "Поляна Азау"
+		position : ltln_1,
+		map      : map_1,
+		title    : "Поляна Азау"
 	});
 
 
@@ -1055,18 +1064,17 @@ function initializeWayMaps() {
 	var directionsDisplay = new google.maps.DirectionsRenderer;
 
 	mapOptions_2 = {
-		zoom: 9,
-		disableDefaultUI: false,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		center: new google.maps.LatLng(43.3260317,42.9903277),
-		zoomControl: true,
-		scaleControl: false,
-		scrollwheel: false,
-		disableDoubleClickZoom: true
+		zoom                   : 9,
+		disableDefaultUI       : false,
+		mapTypeId              : google.maps.MapTypeId.ROADMAP,
+		center                 : new google.maps.LatLng(43.3260317,42.9903277),
+		zoomControl            : true,
+		scaleControl           : false,
+		scrollwheel            : false,
+		disableDoubleClickZoom : true
 	}
 
 	map_2 = new google.maps.Map(document.getElementById('way_map-2'), mapOptions_2);
-
 	directionsDisplay.setMap(map_2);
 
 	ltln_a = new google.maps.LatLng(43.4871619,43.5904382);
@@ -1076,9 +1084,9 @@ function initializeWayMaps() {
 
 	function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 		directionsService.route({
-			origin: ltln_a,
-			destination: ltln_b,
-			travelMode: google.maps.TravelMode.DRIVING
+			origin      : ltln_a,
+			destination : ltln_b,
+			travelMode  : google.maps.TravelMode.DRIVING
 		},
 		function(response, status) {
 			if (status === google.maps.DirectionsStatus.OK) {

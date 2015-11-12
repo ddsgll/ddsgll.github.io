@@ -343,12 +343,12 @@
 }
  @media (min-width: 768px) {
    .button3d {
-     padding: 10px 40px;
+     padding: 16px 45px;
   }
 }
  @media (min-width: 1200px) {
    .button3d {
-     padding: 10px 45px;
+     padding: 16px 45px;
   }
 }
  @media (min-width: 1442px) {
@@ -375,12 +375,21 @@
    .button3d::before {
      background: #3e4f7c;
      color: #fff;
+     border-radius: 4px;
+  }
+}
+ @media (min-width: 768px) {
+   .button3d::before {
+     background: #3e4f7c;
+     color: #fff;
+     border-radius: 4px;
   }
 }
  @media (min-width: 1200px) {
    .button3d::before {
      background: #fff;
      color: #3e4f7c;
+     border-radius: 8px;
   }
 }
  .button3d.left:hover::before, .button3d.left.active::before {
@@ -761,7 +770,7 @@
    position: absolute;
    width: 100%;
    padding: 64px 30px;
-   z-index: 200;
+   z-index: 900;
    -webkit-transition: all 0.3s cubic-bezier(0.5, 0.2, 0, 1);
    transition: all 0.3s cubic-bezier(0.5, 0.2, 0, 1);
 }
@@ -1725,6 +1734,11 @@
    transition: all 0.3s cubic-bezier(0.5, 0.2, 0, 1);
 }
  @media (max-width: 767px) {
+   .s-arrow {
+     display: none;
+  }
+}
+ @media (min-width: 768px) {
    .s-arrow {
      display: none;
   }
@@ -2795,6 +2809,12 @@
      background-position: 0px -64px;
   }
 }
+ @media screen and (max-height: 512px) {
+   .weather_main_bg {
+     background-position: 0px 96px;
+     background-size: 100% auto;
+  }
+}
  .weather_info {
    margin-top: 32px;
 }
@@ -3236,6 +3256,16 @@
    z-index: 400;
    text-align: center;
 }
+ @media (max-width: 767px) {
+   .main.media .link_all.center {
+     bottom: -64px;
+  }
+}
+ @media (min-width: 768px) {
+   .main.media .link_all.center {
+     bottom: -64px;
+  }
+}
  @media (min-width: 1200px) {
    .main.media .link_all.center {
      bottom: 72px;
@@ -3314,6 +3344,24 @@
    -webkit-transition: opacity 0.5s ease, height 0s 0.5s linear;
    transition: opacity 0.5s ease, height 0s 0.5s linear;
 }
+ @media (max-width: 767px) {
+   .media_splash {
+     position: fixed;
+     z-index: 500;
+  }
+}
+ @media (min-width: 768px) {
+   .media_splash {
+     position: fixed;
+     z-index: 500;
+  }
+}
+ @media (min-width: 1200px) {
+   .media_splash {
+     position: absolute;
+     z-index: 300;
+  }
+}
  .media_splash.active {
    height: 100%;
    opacity: 1;
@@ -3337,6 +3385,30 @@
    -webkit-align-items: center;
    -ms-flex-align: center;
    align-items: center;
+}
+ @media (max-width: 767px) {
+   .media_splash .container {
+     display: block;
+  }
+}
+ @media (min-width: 768px) {
+   .media_splash .container {
+     display: -webkit-flex;
+     display: -moz-flex;
+     display: -ms-flex;
+     display: -o-flex;
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: flex;
+     -webkit-box-pack: center;
+     -webkit-justify-content: center;
+     -ms-flex-pack: center;
+     justify-content: center;
+     -webkit-box-align: center;
+     -webkit-align-items: center;
+     -ms-flex-align: center;
+     align-items: center;
+  }
 }
  .media_splash .close {
    position: absolute;
