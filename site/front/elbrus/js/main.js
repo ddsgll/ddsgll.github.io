@@ -146,7 +146,6 @@ $(document).ready(function() {
 
 	/*
 	================================================================
-<<<<<<< HEAD
 		| Shop logics |
 	================================================================
 	*/
@@ -196,29 +195,6 @@ $(document).ready(function() {
 			el.slideDown(500, function() { el.fadeIn(500); });
 
 	}
-=======
-		| Main menu interaction |
-	================================================================
-	*/
-
-
-	var main_menu = $(".main_menu ul.main"),
-		menu_item = main_menu.children("li"),
-		sub1, sub2;
-
-	menu_item.hover(
-		function()
-		{
-			sub1 = $(this).children("ul");
-
-		},
-		function()
-		{
-			sub1 = $(this).children("ul");
-
-		}
-	);
->>>>>>> 38f3bb50549f9b5bd782e4be6ac8b1931f5a0ef7
 
 
 
@@ -846,15 +822,10 @@ $(window).load(function() {
 		function cleanSplash() {
 			preloader.fadeOut(500);
 		}
-<<<<<<< HEAD
 
 	}, 1);
 
 
-=======
-	}, 1);
-
->>>>>>> 38f3bb50549f9b5bd782e4be6ac8b1931f5a0ef7
 
 
 
@@ -863,10 +834,6 @@ $(window).load(function() {
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 38f3bb50549f9b5bd782e4be6ac8b1931f5a0ef7
 	/*
 	================================================================
 		| Partners animation |
@@ -913,32 +880,6 @@ $(window).load(function() {
 //         $(".main_menu.floated").addClass("inner");
 //     }
 // });
-
-
-
-
-
-
-
-/*
-================================================================
-	| Main page map |
-================================================================
-*/
-
-
-$(window).scroll(function() {
-
-    var offset = $(this).scrollTop();
-    if( offset > 100)
-    {
-        $(".main_menu.floated").removeClass("inner");
-    }
-    else
-    {
-        $(".main_menu.floated").addClass("inner");
-    }
-});
 
 
 
