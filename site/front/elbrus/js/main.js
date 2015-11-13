@@ -336,6 +336,11 @@ $(document).ready(function() {
             gutter: 4
         });
 
+        var is_arrows = true;
+	
+		if ( $(window).width() < 520 )
+			is_arrows = false
+
         var images     = $("#photolist").find("img"),
         	imagescopy = images.clone();
 
@@ -344,7 +349,7 @@ $(document).ready(function() {
         $(".photoview").flickity({
 			cellSelector    : 'img',
 			pageDots        : false,
-			prevNextButtons : true,
+			prevNextButtons : is_arrows,
 			wrapAround      : true,
 			setGallerySize  : true,
 			resize          : false,
