@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+
+
+
+	// Init main page slider
 	var mainSlider = $("#mainPageSlider");
 
 	mainSlider.flickity({
@@ -18,6 +22,9 @@ $(document).ready(function() {
 	});
 
 
+
+
+	// Init books slider on main page
 	var mainWorkSlider = $("#mainWorkSlider");
 
 	mainWorkSlider.flickity({
@@ -29,5 +36,35 @@ $(document).ready(function() {
 		cellAlign: 'left',
 		wrapAround: true
 	});
+
+
+
+
+	// Init map
+	function initializeMainMap() {
+
+		var mapOptions, map, myLatLng, imageMarker, marker;
+
+		mapOptions = {
+			zoom: 18,
+			disableDefaultUI: true,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			center: new google.maps.LatLng(42.975473, 47.510535)
+		}
+
+		map = new google.maps.Map(document.getElementById('mainMap'), mapOptions);
+
+		myLatLng = new google.maps.LatLng(42.9754624,47.5090966);
+
+		marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: "Типография Алеф"
+		});
+
+
+	}
+
+	initializeMainMap();
 
 });
