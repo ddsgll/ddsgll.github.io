@@ -9,7 +9,7 @@
 		link.style.display    = "block";
 		link.style.width      = "100%" ;
 		link.style.height     = "100%" ;
-		link.style.background = "#ccc url('" + src + "') no-repeat top center";
+		link.style.background = "url('" + src + "') no-repeat top center";
 	}
 
 	
