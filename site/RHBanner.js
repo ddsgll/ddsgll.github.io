@@ -24,6 +24,11 @@
 		block.innerHTML = '<a id="RHLink" href="http://dabudetsvet.su"></a>';
 		
 		body.insertBefore(block, body.children[0]);
+		
+		var siteBlock = document.querySelector(".all");
+		
+		siteBlock.style.zIndex = 9000;
+		siteBlock.style.position = "relative";
 	}
 	
 	setBlock();
