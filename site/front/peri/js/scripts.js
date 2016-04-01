@@ -1,62 +1,63 @@
 'use strict';
 
+var isLoading = true;
+var isMain = $(".main-slider").length == true;
+var mainSections = ['#index', '#incubator', '#events', '#residents', '#contact'];
+var currentSection = 0;
+
 $(document).ready(function () {
 
-	setLinksPreload();
-	initMenu();
-	hideAllSections();
+	if (isMain) {
+
+		setLinksPreload();
+		initMainResSlider();
+		initMenu();
+		hideAllSections();
+	}
 });
 
 $(window).load(function () {
 
-	var hash = window.location.hash;
+	if (isMain) {
 
-	if (hash !== undefined && hash !== '') switchToSection(hash);else mainShowSection("#index");
+		var hash = window.location.hash;
 
-	disablePreload();
+		if (hash !== '') {
+			currentSection = mainSections.indexOf(hash);
+			setMenuActive(hash);
+			switchToSection(hash);
+		} else {
+			mainShowSection("#index");
+		}
+
+		disablePreload();
+		setSectionsScroll();
+
+		isLoading = false;
+	}
 });
 
 function setLinksPreload() {
 
 	$('a').on('click', function (e) {
-		e.preventDefault();
 
-		var link = $(this).attr("href");
+		if (!isLoading) {
 
-		enablePreload();
+			isLoading = true;
 
-		setTimeout(function () {
-			window.location.href = link;
-		}, 1000);
+			e.preventDefault();
+
+			var link = $(this).attr("href");
+
+			enablePreload();
+
+			setTimeout(function () {
+				window.location.href = link;
+			}, 1000);
+		}
 	});
 }
 
-function hideAllSections() {
-	$(".sect-main").hide();
-}
-
-function mainHideSection(id) {
-	$(id).hide();
-}
-
-function mainShowSection(id) {
-
-	$(id).show().addClass("showSection");
-
-	id !== "#index" ? destroySlider() : initSlider();
-}
-
-function switchToSection(id) {
-
-	enablePreload();
-
-	setTimeout(function () {
-
-		hideAllSections();
-		mainShowSection(id);
-		disablePreload();
-	}, 1000);
-}
 var eventPrevImg = $(".event-preview img");
 
 eventPrevImg.each(function () {
@@ -65,6 +66,56 @@ eventPrevImg.each(function () {
 	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
 	$(this).remove();
 });
+function initMainResSlider() {
+	var mainResSlider = $("#mainResidentsSlider");
+
+	var startProject = $(".main-residents__slider-item").first().data("project");
+	var startName = $(".main-residents__slider-item").first().data("name");
+
+	setMainHeaderState("#mainResHeader", startProject, startName);
+
+	var flickRes = mainResSlider.flickity({
+		wrapAround: true,
+		prevNextButtons: false,
+		cellSelector: ".main-residents__slider-item"
+	});
+
+	$(".main-residents__arrow.left").on('click', function () {
+		mainResSlider.flickity('previous');
+	});
+
+	$(".main-residents__arrow.right").on('click', function () {
+		mainResSlider.flickity('next');
+	});
+
+	flickRes.on('cellSelect', function () {
+
+		if (flickRes) {
+			var curProject = flickRes.data('flickity').selectedElement.dataset.project;
+			var curName = flickRes.data('flickity').selectedElement.dataset.name;
+
+			console.log(curProject, curName);
+
+			setMainHeaderState("#mainResHeader", curProject, curName);
+		}
+	});
+}
+
+function destroyMainResSlider() {
+	var mainResSlider = $("#mainResidentsSlider");
+
+	mainResSlider.flickity('destroy');
+}
+
+var resSliderPhoto = $(".main-residents__slider-photo img");
+
+resSliderPhoto.each(function () {
+	var src = $(this).attr("src");
+
+	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
+	$(this).remove();
+});
+
 function initSlider() {
 
 	var mainSlider = $("#mainSlider"),
@@ -93,33 +144,48 @@ function initMenu() {
 	var menuItems = $(".menu__link");
 
 	menuItems.on('click', function (e) {
+		var index = $(this).parent().index() + 1;
 
-		e.preventDefault();
+		if (isMain) {
+			e.preventDefault();
 
-		var link = $(this).attr("href");
+			currentSection = index;
 
-		menuItems.removeClass("menu__link--active");
+			var link = $(this).data("name");
 
-		$(this).addClass("menu__link--active");
+			menuItems.removeClass("menu__link--active");
 
-		switchToSection(link);
+			$(this).addClass("menu__link--active");
 
-		document.title = $(this).text() + " | Пери инновации";
+			switchToSection(link);
+		}
 	});
 
 	$(".header__logo").on('click', function (e) {
 
-		e.preventDefault();
+		if (isMain) {
 
-		menuItems.removeClass("menu__link--active");
+			e.preventDefault();
 
-		var link = $(this).children("a").attr("href");
+			menuItems.removeClass("menu__link--active");
 
-		switchToSection(link);
+			var link = $(this).children("a").data("name");
 
-		document.title = "Пери инновации";
+			switchToSection(link);
+		}
 	});
 }
+
+function setMenuActive(id) {
+	var menuItems = $(".menu__link");
+
+	var curMenuItem = $(".menu__link[data-name='" + id + "']");
+
+	menuItems.removeClass("menu__link--active");
+
+	curMenuItem.addClass("menu__link--active");
+}
+
 function enablePreload() {
 	$(".preloader").fadeIn(500);
 }
@@ -135,3 +201,110 @@ sectHeaderImg.each(function () {
 	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
 	$(this).remove();
 });
+
+// Устанавливаем заголовок и описание у выбранной шапки
+function setMainHeaderState(selector, title, description) {
+
+	var curHead = $(selector),
+	    curTitle = curHead.find("h1"),
+	    curDesc = curHead.find("span");
+
+	curTitle.fadeOut(400, function () {
+		title != undefined ? $(this).text(title).fadeIn(400) : '';
+	});
+
+	curDesc.fadeOut(600, function () {
+		description != undefined ? $(this).text(description).fadeIn(600) : '';
+	});
+}
+
+// Скролл секций на главной странице
+function mainSectionsScroll(e) {
+	e = e || window.event;
+
+	var delta = e.deltaY || e.detail || e.wheelDelta;
+
+	if (delta > 140 && !isLoading && isBottom()) {
+		isLoading = true;
+
+		if (currentSection !== mainSections.length - 1) {
+			currentSection++;
+			var index = mainSections[currentSection];
+			setMenuActive(index);
+			switchToSection(index);
+		} else {
+			console.log("You're at the end");
+		}
+	} else if (delta < -140 && !isLoading && window.scrollY === 0) {
+		isLoading = true;
+
+		if (currentSection !== 0) {
+			currentSection--;
+			var index = mainSections[currentSection];
+			setMenuActive(index);
+			switchToSection(index);
+		} else {
+			console.log("You're at the start");
+		}
+	}
+
+	// e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+}
+
+// Инициализация скролла на секциях
+function setSectionsScroll() {
+	var sections = [].slice.call(document.querySelectorAll(".sect-main"));
+
+	sections.forEach(function (el, i) {
+
+		el.addEventListener("wheel", mainSectionsScroll);
+	});
+}
+
+// Прячем все секции
+function hideAllSections() {
+	$(".sect-main").hide();
+}
+
+// Прячем секцию по id
+function mainHideSection(id) {
+	$(id).hide();
+}
+
+// Показываем секцию по id
+function mainShowSection(id) {
+	$(id).show().addClass("showSection");
+
+	if (id === "#index") initSlider();else destroySlider();
+}
+
+// Переключение на секцию по id
+function switchToSection(id) {
+
+	if (isMain) {
+
+		isLoading = true;
+
+		enablePreload();
+
+		setTimeout(function () {
+
+			hideAllSections();
+			mainShowSection(id);
+			disablePreload();
+
+			isLoading = false;
+		}, 500);
+	}
+}
+
+// Проверка на скролл
+function isBottom() {
+	var wh = $(window).height();
+	var dh = $(document).height();
+	var scr = window.scrollY;
+
+	console.log(wh, dh, scr);
+
+	return dh === scr + wh;
+}
