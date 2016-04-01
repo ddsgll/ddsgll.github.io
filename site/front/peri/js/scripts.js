@@ -1,6 +1,5 @@
 'use strict';
 
-<<<<<<< HEAD
 var isLoading = true;
 var isMain = $(".main-slider").length == true;
 var mainSections = ['#index', '#incubator', '#events', '#residents', '#contact'];
@@ -15,18 +14,10 @@ $(document).ready(function () {
 		initMenu();
 		hideAllSections();
 	}
-=======
-$(document).ready(function () {
-
-	setLinksPreload();
-	initMenu();
-	hideAllSections();
->>>>>>> 1100ce857497c46517323fed33cd902dd5feb604
 });
 
 $(window).load(function () {
 
-<<<<<<< HEAD
 	if (isMain) {
 
 		var hash = window.location.hash;
@@ -44,19 +35,11 @@ $(window).load(function () {
 
 		isLoading = false;
 	}
-=======
-	var hash = window.location.hash;
-
-	if (hash !== undefined && hash !== '') switchToSection(hash);else mainShowSection("#index");
-
-	disablePreload();
->>>>>>> 1100ce857497c46517323fed33cd902dd5feb604
 });
 
 function setLinksPreload() {
 
 	$('a').on('click', function (e) {
-<<<<<<< HEAD
 
 		if (!isLoading) {
 
@@ -127,58 +110,12 @@ function destroyMainResSlider() {
 var resSliderPhoto = $(".main-residents__slider-photo img");
 
 resSliderPhoto.each(function () {
-=======
-		e.preventDefault();
-
-		var link = $(this).attr("href");
-
-		enablePreload();
-
-		setTimeout(function () {
-			window.location.href = link;
-		}, 1000);
-	});
-}
-
-function hideAllSections() {
-	$(".sect-main").hide();
-}
-
-function mainHideSection(id) {
-	$(id).hide();
-}
-
-function mainShowSection(id) {
-
-	$(id).show().addClass("showSection");
-
-	id !== "#index" ? destroySlider() : initSlider();
-}
-
-function switchToSection(id) {
-
-	enablePreload();
-
-	setTimeout(function () {
-
-		hideAllSections();
-		mainShowSection(id);
-		disablePreload();
-	}, 1000);
-}
-var eventPrevImg = $(".event-preview img");
-
-eventPrevImg.each(function () {
->>>>>>> 1100ce857497c46517323fed33cd902dd5feb604
 	var src = $(this).attr("src");
 
 	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
 	$(this).remove();
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> 1100ce857497c46517323fed33cd902dd5feb604
 function initSlider() {
 
 	var mainSlider = $("#mainSlider"),
@@ -207,7 +144,6 @@ function initMenu() {
 	var menuItems = $(".menu__link");
 
 	menuItems.on('click', function (e) {
-<<<<<<< HEAD
 		var index = $(this).parent().index() + 1;
 
 		if (isMain) {
@@ -223,25 +159,10 @@ function initMenu() {
 
 			switchToSection(link);
 		}
-=======
-
-		e.preventDefault();
-
-		var link = $(this).attr("href");
-
-		menuItems.removeClass("menu__link--active");
-
-		$(this).addClass("menu__link--active");
-
-		switchToSection(link);
-
-		document.title = $(this).text() + " | Пери инновации";
->>>>>>> 1100ce857497c46517323fed33cd902dd5feb604
 	});
 
 	$(".header__logo").on('click', function (e) {
 
-<<<<<<< HEAD
 		if (isMain) {
 
 			e.preventDefault();
@@ -265,19 +186,6 @@ function setMenuActive(id) {
 	curMenuItem.addClass("menu__link--active");
 }
 
-=======
-		e.preventDefault();
-
-		menuItems.removeClass("menu__link--active");
-
-		var link = $(this).children("a").attr("href");
-
-		switchToSection(link);
-
-		document.title = "Пери инновации";
-	});
-}
->>>>>>> 1100ce857497c46517323fed33cd902dd5feb604
 function enablePreload() {
 	$(".preloader").fadeIn(500);
 }
@@ -292,7 +200,6 @@ sectHeaderImg.each(function () {
 
 	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
 	$(this).remove();
-<<<<<<< HEAD
 });
 
 // Устанавливаем заголовок и описание у выбранной шапки
@@ -401,6 +308,3 @@ function isBottom() {
 
 	return dh === scr + wh;
 }
-=======
-});
->>>>>>> 1100ce857497c46517323fed33cd902dd5feb604
