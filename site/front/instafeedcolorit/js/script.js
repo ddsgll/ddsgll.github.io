@@ -37,7 +37,7 @@ if ( $("#instafeed").length )
         accessToken: '2325935473.1677ed0.60e7653a64ff4f4db0d48fa5a8541425',
         template: instTemplate,
         get: 'tagged',
-        tagName: 'colorit2016',
+        tagName: 'cats',
         limit: 6,
 		resolution: 'standard_resolution',
 		sortBy: 'most-recent',
