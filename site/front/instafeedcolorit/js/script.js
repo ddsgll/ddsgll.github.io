@@ -16,6 +16,8 @@ if ( $("#instafeed").length )
     	'</div>' +
 	'</div>');
 
+    var sortType = 'most-recent';
+
     var lastId = 0;
 
     var feed = new Instafeed({
@@ -24,8 +26,8 @@ if ( $("#instafeed").length )
         get: 'tagged',
         tagName: 'colorit2016',
         limit: 6,
-    		resolution: 'standard_resolution',
-    		sortBy: 'most-recent',
+		resolution: 'standard_resolution',
+		sortBy: 'most-recent',
         mock: true,
 
         success: function(data) {
