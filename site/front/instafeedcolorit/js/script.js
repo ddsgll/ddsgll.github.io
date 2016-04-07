@@ -22,7 +22,7 @@ if ( $("#instafeed").length )
         clientId: 'd84a51bb3706437991713e4f58f37cdc',
         accessToken: '2325935473.1677ed0.60e7653a64ff4f4db0d48fa5a8541425',
         get: 'tagged',
-        tagName: 'selfie',
+        tagName: 'colorit2016',
         limit: 6,
     		resolution: 'standard_resolution',
     		sortBy: 'most-recent',
