@@ -32,3 +32,12 @@
 	background-size: 100%;
 	margin-right: 10px;
 }
+
+.centered {
+    display: block;
+    text-align: center;
+}
+
+.winners .inst-item {
+    opacity: 1;
+}

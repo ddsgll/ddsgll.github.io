@@ -23,40 +23,10 @@ if ( $("#instafeed").length )
         accessToken: '2325935473.1677ed0.60e7653a64ff4f4db0d48fa5a8541425',
         get: 'tagged',
         tagName: 'colorit2016',
-    		resolution: 'standard_resolution',
-    		sortBy: 'most-recent',
-        mock: true,
-
-        success: function(data) {
-
-            var array = data.data;
-            var maxLikes = 0;
-
-            _.each(array, function(el, i) {
-                var curLikesCount = el.likes.count;
-
-                if (maxLikes < curLikesCount) {
-                    maxLikes = curLikesCount;
-                }
-
-            });
-
-            console.log(maxLikes);
-
-        },
-
-        after: function() {
-            $("#instafeed").find(".inst-item").each(function() {
-                $(this).animate({opacity: 1}, 200);
-            });
-        }
+        limit: 1,
+    	resolution: 'standard_resolution',
+    	sortBy: 'most-liked',
     });
 
     feed.run();
-
-    function showWinner(winner) {
-
-
-
-    }
 }
