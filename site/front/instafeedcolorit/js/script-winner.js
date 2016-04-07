@@ -25,8 +25,9 @@ if ( $("#instafeed").length )
         get: 'tagged',
         template: templateInst,
         tagName: 'colorit2016',
-		resolution: 'standard_resolution',
+		resolution: 'low_resolution',
 		sortBy: 'most-liked',
+        limit: 999999,
         success: function(data) {
             console.log(data)
         },
