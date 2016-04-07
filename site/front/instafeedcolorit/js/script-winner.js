@@ -24,9 +24,49 @@ if ( $("#instafeed").length )
         get: 'tagged',
         tagName: 'colorit2016',
         limit: 1,
-    	resolution: 'standard_resolution',
-    	sortBy: 'most-liked',
+    		resolution: 'standard_resolution',
+    		sortBy: 'most-liked',
+        mock: true,
+
+        success: function(data) {
+            curId = data.data[0].id;
+
+            isNoNews = lastId === curId;
+
+            if(isNoNews === false) {
+                lastId = curId;
+                updatePhotos(data.data);
+            }
+        },
+
+        after: function() {
+            $("#instafeed").find(".inst-item").each(function() {
+                $(this).animate({opacity: 1}, 200);
+            });
+        }
     });
 
     feed.run();
+
+    window.setInterval(function() {
+        feed.run();
+    }, 3000);
+
+    function updatePhotos(data) {
+
+        var instaHTML = '';
+
+        _.each(data, function(el, i, arr) {
+
+            var htmlString = template(el);
+
+            instaHTML += htmlString;
+
+        });
+
+        var htmlContent = $("#instafeed").html();
+
+        $("#instafeed").html(instaHTML);
+
+    }
 }
