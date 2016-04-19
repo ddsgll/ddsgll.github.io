@@ -1,1 +1,277 @@
-"use strict";function setLinksPreload(){$("a:not(.menu__link)").on("click",function(e){e.preventDefault();var n=$(this).attr("href");enablePreload(),setTimeout(function(){window.location.href=n},1e3)})}function initMainResSlider(){var e=$("#mainResidentsSlider"),n=$(".main-residents__slider-item").first().data("project"),i=$(".main-residents__slider-item").first().data("name");setMainHeaderState("#mainResHeader",n,i);var t=e.flickity({wrapAround:!0,prevNextButtons:!1,cellSelector:".main-residents__slider-item"});$(".main-residents__arrow.left").on("click",function(){e.flickity("previous")}),$(".main-residents__arrow.right").on("click",function(){e.flickity("next")}),t.on("cellSelect",function(){if(t){var e=t.data("flickity").selectedElement.dataset.project,n=t.data("flickity").selectedElement.dataset.name;setMainHeaderState("#mainResHeader",e,n)}})}function initSlider(){var e=$("#mainSlider"),n=$(".main-slider__item-image img");n.each(function(){var e=$(this).attr("src");$(this).parent().css("background","transparent url('"+e+"') no-repeat center"),$(this).remove()}),e.flickity({wrapAround:!0,prevNextButtons:!1,cellSelector:".main-slider__item"})}function setMenuActive(e){if($(".menu__link").removeClass("menu__link--active"),e>=2){var n=$(".menu__link:eq("+(e-2)+")");n.addClass("menu__link--active")}}function enablePreload(){$(".preloader").fadeIn(500)}function disablePreload(){$(".preloader").fadeOut(500)}function setMainHeaderState(e,n,i){var t=$(e),a=t.find("h1"),r=t.find("span");a.fadeOut(400,function(){void 0!==n?$(this).text(n).fadeIn(400):""}),r.fadeOut(600,function(){void 0!==i?$(this).text(i).fadeIn(600):""})}function initOPS(){var e={easing:"cubic-bezier(.8,0,.2,1)",pagination:!0};$(window).width()<768&&(e={easing:"linear",pagination:!0}),onePageScroll(".mainOnePage",{easing:e.easing,animationTime:1e3,pagination:e.pagination,updateURL:!1,beforeMove:function(e){setMenuActive(e)},afterMove:function(e){},loop:!1,keyboard:!0})}function OPSGoTo(e){moveTo(".mainOnePage",e)}$(document).ready(function(){setLinksPreload(),$(".main-slider").length&&(initOPS(),initMainResSlider(),initSlider())}),$(window).load(disablePreload);var eventPrevImg=$(".event-preview img");eventPrevImg.each(function(){var e=$(this).attr("src");$(this).parent().css("background","transparent url('"+e+"') no-repeat center"),$(this).remove()});var resSliderPhoto=$(".main-residents__slider-photo img");resSliderPhoto.each(function(){var e=$(void 0).attr("src");$(void 0).parent().css("background","transparent url('"+e+"') no-repeat center"),$(void 0).remove()}),$(".menu__link").on("click",function(){var e=$(this).parent().index();OPSGoTo(e+2)});var sectHeaderImg=$(".sect-header img");sectHeaderImg.each(function(){var e=$(this).attr("src");$(this).parent().css("background","transparent url('"+e+"') no-repeat center"),$(this).remove()}),$(".header__logo").on("click",function(){return OPSGoTo(1)});
+'use strict';
+
+$(document).ready(function () {
+
+	setLinksPreload();
+
+	if ($(".main-slider").length) {
+
+		initOPS();
+		initMainResSlider();
+		initSlider();
+	}
+
+	initTabber();
+});
+
+$(window).load(disablePreload);
+
+function setLinksPreload() {
+
+	$('a:not(.ops_link)').on('click', function (e) {
+
+		e.preventDefault();
+
+		var link = $(this).attr("href");
+
+		enablePreload();
+
+		setTimeout(function () {
+			window.location.href = link;
+		}, 1000);
+	});
+}
+
+var eventPrevImg = $(".event-preview img");
+
+eventPrevImg.each(function () {
+	var src = $(this).attr("src");
+
+	$(this).parent().css("background", 'transparent url(\'' + src + '\') no-repeat center');
+	$(this).remove();
+});
+
+// .footer scripts goes here
+//======================================================================
+//
+// Инициализация слайдера с резидентами на главной странице
+
+function initMainResSlider() {
+
+	var mainResSlider = $("#mainResidentsSlider"),
+	    startProject = $(".main-residents__slider-item").first().data("project"),
+	    startName = $(".main-residents__slider-item").first().data("name");
+
+	setMainHeaderState("#mainResHeader", startProject, startName);
+
+	var flickRes = mainResSlider.flickity({
+		wrapAround: true,
+		prevNextButtons: false,
+
+		cellSelector: ".main-residents__slider-item"
+	});
+
+	$(".main-residents__arrow.left").on('click', function () {
+		mainResSlider.flickity('previous');
+	});
+
+	$(".main-residents__arrow.right").on('click', function () {
+		mainResSlider.flickity('next');
+	});
+
+	flickRes.on('cellSelect', function () {
+
+		if (flickRes) {
+			var curProject = flickRes.data('flickity').selectedElement.dataset.project;
+			var curName = flickRes.data('flickity').selectedElement.dataset.name;
+
+			setMainHeaderState("#mainResHeader", curProject, curName);
+		}
+	});
+}
+
+$(".main-residents__slider-photo img").each(function () {
+	var src = $(this).attr("src");
+
+	$(this).parent().css("background", 'transparent url(\'' + src + '\') no-repeat center');
+	$(this).remove();
+});
+
+//
+//======================================================================
+
+function initSlider() {
+
+	var mainSlider = $("#mainSlider"),
+	    sliderImages = $(".main-slider__item-image img");
+
+	sliderImages.each(function () {
+		var src = $(this).attr("src");
+
+		$(this).parent().css("background", 'transparent url(\'' + src + '\') no-repeat center');
+		$(this).remove();
+	});
+
+	mainSlider.flickity({
+		wrapAround: true,
+		prevNextButtons: false,
+
+		cellSelector: '.main-slider__item'
+	});
+}
+
+// .mentor scripts goes here
+
+function initMentorSlider() {
+
+	var isMoreThanThree = $(".mentor").length > 3;
+
+	if (window.innerWidth > 768) {
+
+		var mentorSlider = $("#mentorSlider").flickity({
+			wrapAround: isMoreThanThree,
+			prevNextButtons: false,
+			setGallerySize: false,
+			contain: true,
+			cellSelector: '.mentor'
+		});
+
+		$(".mentor__slide-arrow.left").on('click', function () {
+			$("#mentorSlider").flickity('previous');
+		});
+
+		$(".mentor__slide-arrow.right").on('click', function () {
+			$("#mentorSlider").flickity('next');
+		});
+	}
+}
+
+$(document).ready(function () {
+	initMentorSlider();
+});
+function setMenuActive(i) {
+
+	$(".menu__link").removeClass("menu__link--active");
+
+	if (i >= 2) {
+		var curLink = $('.menu__link:eq(' + (i - 2) + ')');
+
+		curLink.addClass("menu__link--active");
+	}
+}
+
+$(".menu__link").on('click', function () {
+	var index = $(this).parent().index();
+	OPSGoTo(index + 2);
+});
+
+function enablePreload() {
+	$(".preloader").fadeIn(500);
+}
+
+function disablePreload() {
+	$(".preloader").fadeOut(500);
+}
+var sectHeaderImg = $(".sect-header img");
+
+sectHeaderImg.each(function () {
+	var src = $(this).attr("src");
+
+	$(this).parent().css("background", 'transparent url(\'' + src + '\') no-repeat center');
+	$(this).remove();
+});
+
+// Устанавливаем заголовок и описание у выбранной шапки
+function setMainHeaderState(selector, title, description) {
+
+	var curHead = $(selector),
+	    curTitle = curHead.find("h1"),
+	    curDesc = curHead.find("span");
+
+	curTitle.fadeOut(400, function () {
+		title !== undefined ? $(this).text(title).fadeIn(400) : '';
+	});
+
+	curDesc.fadeOut(600, function () {
+		description !== undefined ? $(this).text(description).fadeIn(600) : '';
+	});
+}
+
+//======================================================================
+//
+// Инициализация библиотеки OnePageScroll
+function initOPS() {
+
+	// Настраиваемые параметры плагина
+	var opsOpts = {
+		easing: "cubic-bezier(.8,0,.2,1)",
+		pagination: true
+	};
+
+	// Меняем параметры плагина для оптимизации на мобильных
+	if ($(window).width() < 768) {
+
+		opsOpts = {
+			easing: "linear",
+			pagination: true
+		};
+	}
+
+	// Запуск плагина с настройками
+	onePageScroll(".mainOnePage", {
+		easing: opsOpts.easing,
+		animationTime: 1000,
+		pagination: opsOpts.pagination,
+		updateURL: false,
+		beforeMove: function beforeMove(index) {
+			setMenuActive(index);
+		},
+		afterMove: function afterMove(index) {},
+		loop: false,
+		keyboard: true
+	});
+}
+
+// Переход к указанному слайду
+function OPSGoTo(index) {
+	moveTo(".mainOnePage", index);
+}
+
+// При клике по логотипу скроллим в начало страницы
+$(".header__logo").on('click', function () {
+	return OPSGoTo(1);
+});
+
+//
+//======================================================================
+var tabItem = $(".tabber__tab");
+var tabPane = $(".tabber__panel");
+
+function initTabber() {
+
+	setTabActive(0);
+
+	tabItem.on('click', function () {
+		setTabActive($(this).index());
+	});
+
+	function setTabActive(index) {
+		tabItem.removeClass("active");
+		tabPane.removeClass("active");
+
+		$(".tabber__tab:eq(" + index + ")").addClass("active");
+		$(".tabber__panel:eq(" + index + ")").addClass("active");
+	}
+}
+$(".teammate:eq(0)").addClass("active");
+
+$(".teammate__desc:eq(0)").addClass("active");
+
+$(".teammate").on('click', function () {
+
+	$(".teammate").removeClass("active");
+
+	$(this).addClass("active");
+
+	var index = $(this).index();
+
+	$(".teammate__desc").removeClass("active");
+
+	$(".teammate__desc:eq(" + index + ")").addClass("active");
+
+	var scrollSpeed = window.innerWidth > 768 ? 0 : 400;
+
+	$("body,html").animate({
+		scrollTop: $(".teammate__desc").offset().top
+	}, scrollSpeed);
+});
