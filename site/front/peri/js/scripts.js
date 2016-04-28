@@ -42,6 +42,19 @@ eventPrevImg.each(function () {
 });
 
 // .footer scripts goes here
+// .faq scripts goes here
+function initFAQ() {
+
+	var faq = $(".faq");
+
+	faq.on('click', function () {
+		faq.removeClass("active");
+
+		$(this).toggleClass("active");
+	});
+}
+
+initFAQ();
 //======================================================================
 //
 // Инициализация слайдера с резидентами на главной странице
@@ -257,7 +270,15 @@ $(".teammate:eq(0)").addClass("active");
 
 $(".teammate__desc:eq(0)").addClass("active");
 
+$(".team__container").flickity({
+	cellSelector: '.teammate',
+	wrapAround: true
+});
+
 $(".teammate").on('click', function () {
+
+	var tmi = $(this).index();
+	$(".team__container").flickity('select', tmi);
 
 	$(".teammate").removeClass("active");
 
@@ -268,10 +289,4 @@ $(".teammate").on('click', function () {
 	$(".teammate__desc").removeClass("active");
 
 	$(".teammate__desc:eq(" + index + ")").addClass("active");
-
-	var scrollSpeed = window.innerWidth > 768 ? 0 : 400;
-
-	$("body,html").animate({
-		scrollTop: $(".teammate__desc").offset().top
-	}, scrollSpeed);
 });
