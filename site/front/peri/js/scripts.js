@@ -278,8 +278,7 @@ function teamSliderInit() {
 
 	$(".team__container").flickity({
 		cellSelector: '.teammate',
-		wrapAround: true,
-		setGallerySize: false
+		wrapAround: true
 	});
 
 	$(".teammate").on('click', function () {
