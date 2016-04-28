@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 $(document).ready(function () {
 
@@ -9,6 +9,10 @@ $(document).ready(function () {
 		initOPS();
 		initMainResSlider();
 		initSlider();
+	}
+
+	if ($(".team__container").length) {
+		teamSliderInit();
 	}
 
 	initTabber();
@@ -37,11 +41,10 @@ var eventPrevImg = $(".event-preview img");
 eventPrevImg.each(function () {
 	var src = $(this).attr("src");
 
-	$(this).parent().css("background", 'transparent url(\'' + src + '\') no-repeat center');
+	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
 	$(this).remove();
 });
 
-// .footer scripts goes here
 // .faq scripts goes here
 function initFAQ() {
 
@@ -55,6 +58,7 @@ function initFAQ() {
 }
 
 initFAQ();
+// .footer scripts goes here
 //======================================================================
 //
 // Инициализация слайдера с резидентами на главной странице
@@ -96,7 +100,7 @@ function initMainResSlider() {
 $(".main-residents__slider-photo img").each(function () {
 	var src = $(this).attr("src");
 
-	$(this).parent().css("background", 'transparent url(\'' + src + '\') no-repeat center');
+	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
 	$(this).remove();
 });
 
@@ -111,7 +115,7 @@ function initSlider() {
 	sliderImages.each(function () {
 		var src = $(this).attr("src");
 
-		$(this).parent().css("background", 'transparent url(\'' + src + '\') no-repeat center');
+		$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
 		$(this).remove();
 	});
 
@@ -157,7 +161,7 @@ function setMenuActive(i) {
 	$(".menu__link").removeClass("menu__link--active");
 
 	if (i >= 2) {
-		var curLink = $('.menu__link:eq(' + (i - 2) + ')');
+		var curLink = $(".menu__link:eq(" + (i - 2) + ")");
 
 		curLink.addClass("menu__link--active");
 	}
@@ -180,7 +184,7 @@ var sectHeaderImg = $(".sect-header img");
 sectHeaderImg.each(function () {
 	var src = $(this).attr("src");
 
-	$(this).parent().css("background", 'transparent url(\'' + src + '\') no-repeat center');
+	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
 	$(this).remove();
 });
 
@@ -266,27 +270,30 @@ function initTabber() {
 		$(".tabber__panel:eq(" + index + ")").addClass("active");
 	}
 }
-$(".teammate:eq(0)").addClass("active");
+function teamSliderInit() {
 
-$(".teammate__desc:eq(0)").addClass("active");
+	$(".teammate:eq(0)").addClass("active");
 
-$(".team__container").flickity({
-	cellSelector: '.teammate',
-	wrapAround: true
-});
+	$(".teammate__desc:eq(0)").addClass("active");
 
-$(".teammate").on('click', function () {
+	$(".team__container").flickity({
+		cellSelector: '.teammate',
+		wrapAround: true
+	});
 
-	var tmi = $(this).index();
-	$(".team__container").flickity('select', tmi);
+	$(".teammate").on('click', function () {
 
-	$(".teammate").removeClass("active");
+		var tmi = $(this).index();
+		$(".team__container").flickity('select', tmi);
 
-	$(this).addClass("active");
+		$(".teammate").removeClass("active");
 
-	var index = $(this).index();
+		$(this).addClass("active");
 
-	$(".teammate__desc").removeClass("active");
+		var index = $(this).index();
 
-	$(".teammate__desc:eq(" + index + ")").addClass("active");
-});
+		$(".teammate__desc").removeClass("active");
+
+		$(".teammate__desc:eq(" + index + ")").addClass("active");
+	});
+}
