@@ -39,6 +39,15 @@ function setLinksPreload() {
 	});
 }
 
+var eventPrevImg = $(".event-preview img");
+
+eventPrevImg.each(function () {
+	var src = $(this).attr("src");
+
+	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
+	$(this).remove();
+});
+
 // .faq scripts goes here
 function initFAQ() {
 	var faq = $(".faq");
@@ -51,15 +60,6 @@ function initFAQ() {
 }
 
 initFAQ();
-var eventPrevImg = $(".event-preview img");
-
-eventPrevImg.each(function () {
-	var src = $(this).attr("src");
-
-	$(this).parent().css("background", "transparent url('" + src + "') no-repeat center");
-	$(this).remove();
-});
-
 // .footer scripts goes here
 function footerCheck() {
 
@@ -169,7 +169,7 @@ function initMentorSlider() {
 		slider.flickity({
 			wrapAround: isMoreThanThree,
 			prevNextButtons: false,
-			setGallerySize: true,
+			setGallerySize: false,
 			contain: true,
 			cellSelector: '.mentor'
 		});
@@ -187,6 +187,7 @@ function initMentorSlider() {
 			prevNextButtons: false,
 			setGallerySize: false,
 			contain: true,
+			pageDots: false,
 			cellSelector: '.mentor'
 		});
 

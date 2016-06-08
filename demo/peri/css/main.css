@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,100,500,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,100,500,700&subset=latin,cyrillic");
 
 @-webkit-keyframes underlineIn {
     0% {
@@ -1560,7 +1560,6 @@ section[data-index="1"] {
 }
 
 .teammate__desc.active {
-    margin: 1rem 0;
     height: auto;
 }
 
@@ -2438,12 +2437,12 @@ section[data-index="1"] {
 
 @media (max-width: 768px) {
     .mentor__slide-arrow.left {
-        left: 0;
+        left: -3rem;
         margin-top: -80px;
     }
 
     .mentor__slide-arrow.right {
-        right: 0;
+        right: -3rem;
         margin-top: -80px;
     }
 }
@@ -2537,7 +2536,7 @@ section[data-index="1"] {
 
     .main-inc {
         display: block;
-        padding-top: 4rem;
+        padding: 4rem 0;
         height: auto;
     }
 
@@ -2691,6 +2690,10 @@ section[data-index="1"] {
         display: block;
     }
 
+    .partners__container {
+        margin: 0;
+    }
+
     .partners__item {
         width: 100%;
     }
@@ -2709,9 +2712,19 @@ section[data-index="1"] {
         height: auto;
     }
 
+    .tabber__nav {
+        text-align: center;
+    }
+
+    .tabber__tab {
+        display: inline-block;
+        width: 48%;
+        margin: 0 0 1rem 0;
+    }
+
     .teammate {
-        width: 80%;
-        margin: 0 10px;
+        width: 70%;
+        margin: 0 2rem;
         padding: 0.5rem;
         padding-bottom: 1rem;
         display: inline-block;
@@ -2728,14 +2741,16 @@ section[data-index="1"] {
 
     .team__slide-arrow.left {
         left: 0;
+        margin-top: 0px;
     }
 
     .team__slide-arrow.right {
         right: 0;
+        margin-top: 0px;
     }
 
     .teammate__info {
-        height: auto;
+        height: 3rem;
     }
 
     .teammate__info span {
