@@ -21,7 +21,10 @@ $(document).ready(function () {
 	initTabber();
 });
 
-$(window).load(disablePreload);
+$(window).load(function () {
+	disablePreload();
+	$(".bodywrapper").addClass("appear");
+});
 
 function setLinksPreload() {
 
@@ -67,11 +70,7 @@ function footerCheck() {
 
 	if ($(".footer").length) {
 
-		footer.removeClass('footer--sticked');
-
-		var isFooterAbove = footer.offset().top + footer.height() <= $(window).height();
-
-		isFooterAbove ? footer.addClass('footer--sticked') : '';
+		$(".bodywrapper").css("padding-bottom", footer.height() + "px");
 	}
 }
 
@@ -233,6 +232,7 @@ burger.on('click', function () {
 
 	$(this).toggleClass('active').parent().toggleClass('active');
 });
+// .notfound scripts goes here
 function enablePreload() {
 	$(".preloader").fadeIn(500);
 }
@@ -351,6 +351,7 @@ function initTeamSlider() {
 		wrapAround: true,
 		draggable: false,
 		pageDots: false,
+		setGallerySize: false,
 		prevNextButtons: false
 	});
 
