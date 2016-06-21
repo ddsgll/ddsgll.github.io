@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>Новый Дагестан</title>
+    <link rel="stylesheet" href="css/flickity.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+  </head>
+  <body>
+    <div class="more"><img src="img/logo.png" alt=""/>
+      <div class="more__close"></div>
+      <div class="more__container">
+        <h2>Памятник русской учительнице</h2><img src="img/photo/big1.png" alt=""/>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+          
+          
+          
+        </p>
+      </div>
+    </div>
+    <!-- Блок-->
+    <div class="compare">
+      <!-- Переключаетли локаций (блок .item-arrow)	-->
+      <div class="item-arrow arrow-prev"></div>
+      <div class="item-arrow arrow-next"></div>
+      <!-- Ползунок-->
+      <div class="compare__dragger">
+        <!-- Разделитель ползунка-->
+        <div class="compare__dragger--line"></div>
+        <!-- Рукоятка ползунка-->
+        <div class="compare__dragger--circle"></div>
+      </div>
+      <!-- Контейнер для изображения До-->
+      <div class="compare__image image-before">
+        <div class="image-content"></div>
+      </div>
+      <!--Контейнер для изображения После-->
+      <div class="compare__image image-after">
+        <div class="image-content"></div>
+      </div>
+    </div>
+    <!-- Боковое меню-->
+    <div class="menu">
+      <div class="menu__title">Контакты</div>
+      <div class="menu__contact"><span>Тел.:</span><span>+7 989 123-45-67</span></div>
+      <div class="menu__contact"><span>E-Mail:</span><span>info@newdag.ru</span></div>
+      <div class="menu__title">О проекте</div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        
+      </p>
+    </div>
+    <!-- Весь gui-->
+    <div class="gui">
+      <!-- Верхняя линия меню, логотипом и кнопкой режима просмотра-->
+      <div class="gui__line">
+        <!-- Бургер собственной персоной-->
+        <div class="menu__burger"></div>
+        <div class="logo"><img src="img/logo.png" alt="Новый Дагестан"/></div>
+        <!-- Переключалка режима просмотра-->
+        <div class="gui__switcher"></div>
+      </div>
+      <!-- Нижняя линия с информацией о текущей локации и кнопкой превьюшек-->
+      <div class="gui__line">
+        <div class="info">
+          <div class="info__title">Название объекта</div>
+          <div class="info__location">г. Махачкала, ул Азизова</div>
+          <div class="info__date">2011 / 2015</div><a href="" class="more__open">Подробнее</a>
+          <div class="racurse"><span>Выберитие ракурс</span></div>
+        </div>
+        <!-- Переключалка в режим превьюшек-->
+        <div>
+          <!-- Счетчик-->
+          <div class="gridview__counter">1 / 18</div>
+          <!-- Переключатель-->
+          <div class="gridview__switcher"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Блок превьюшек-->
+    <!-- Сюда выводятся все локации-->
+    <div class="gridview">
+      <!-- Слайдер для превьюшек-->
+      <div id="gridSlider" class="gridview__slider"></div>
+    </div>
+    <script src="js/jquery-2.min.js"></script>
+    <script src="js/draggabilly.pkgd.min.js"></script>
+    <script src="js/flickity.pkgd.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
