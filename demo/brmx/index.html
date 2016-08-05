@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ru"></html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Байрамикс</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="css/flickity.min.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+  <header class="header">
+    <div class="header__topline">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-3 col-xs-5"><i class="icon icon-user"></i><a href="">Авторизация</a>
+          </div>
+          <div class="col-md-5 col-sm-4 col-xs-7"><i class="icon icon-delivery"></i><span>Доставка по всей России</span>
+          </div>
+          <div class="col-md-4 col-sm-5 col-xs-12">
+            <nav class="header__nav">
+              <ul>
+                <li><a href="">Помощь</a></li>
+                <li><a href="">Доставка</a></li>
+                <li><a href="">Способы оплаты</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-sm-offset-3 col-md-offset-0"><a class="header__logo" href="/"><span>Продукция Байрамикс<br/>от официального дистрибьютора</span></a></div>
+          <div class="col-md-6 col-sm-9">
+            <div class="header__contacts">
+              <div class="header__contact"><i class="icon icon-call"></i><a href="">+7 (495) 661-20-18</a><br/><i class="icon icon-time"></i><span>Пн.-Пт.: 9:00 – 18:00</span>
+              </div><a class="button">
+                <div class="button__icon icon-call"></div>
+                <div class="button__text">Заказать звонок</div></a>
+            </div>
+          </div>
+          <div class="col-xs-8 col-sm-3 col-md-2 col-xs-offset-2 col-sm-offset-0">
+            <div class="cart-icons">
+              <div class="cart__icon icon-cart"><i>5</i></div>
+              <div class="cart__icon icon-fav"><i>0</i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="menu-cont">
+    <div class="container">
+      <nav>
+        <input class="menu__mobile-switcher" type="checkbox"/>
+        <ul class="menu">
+          <li><span class="menu__item">Каталог</span></li>
+          <li><a class="menu__item" href="">Фасадные материалы</a></li>
+          <li><a class="menu__item" href="">Продукция Bayramix</a></li>
+          <li><a class="menu__item" href="">Продукция Prorab</a></li>
+          <li><a class="menu__item" href="">Продукция Decorazza</a></li>
+          <li><a class="menu__item" href="">Жидкие обои</a></li>
+          <li><a class="menu__item" href="">Инструменты</a></li>
+          <li><a class="menu__item" href="">Блог</a></li>
+          <li><a class="menu__item" href="">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="distribute">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>Официальный дистрибьютор<br /> торговых марок <a href="">Bayramix</a>, <a href="">Prorab</a> и <a href="">Decorazza</a> предлагает</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="distribute__offers offers--privates">
+            <div class="distribute__title">
+              <h3>Частным покупателям</h3>
+            </div>
+            <div class="distribute__list">
+              <ul>
+                <li>Сертифицированные строительные материалы</li>
+                <li>Покупку в кредит</li>
+                <li>Отделочные работы</li>
+                <li><a href="">Зарегистрируйтесь</a> на сайте<br />и получите <b>скидку 5%</b><br />на мраморную штукатурку</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="distribute__offers offers--prorabs">
+            <div class="distribute__title">
+              <h3>Прорабам и дизайнерам</h3>
+            </div>
+            <div class="distribute__list">
+              <ul>
+                <li>Доставку в течение суток<br />при наличии товара</li>
+                <li>Консультацию специалиста</li>
+                <li>Образцы метариалов</li>
+                <li>Систему скидок<br />и бонусные программы</li>
+                <li>Отсрочку платежа<br />для постоянных клиентов</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="distribute__buttons">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-sm-offset-0 col-md-offset-2 col-lg-offset-3 tar"><a class="button button--link" href="#">
+              <div class="button__icon icon-works"></div>
+              <div class="button__text">Наши работы</div></a>
+          </div>
+          <div class="col-xs-12prorab col-sm-6 col-md-4 col-lg-3"><a class="button--right button button--link" href="#">
+              <div class="button__icon icon-clients"></div>
+              <div class="button__text">Наши клиенты</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Ассортимент продукции</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-sm-4 col-md-2"><a class="assort__item" href="">
+          <div class="assort__image"><img src="http://placehold.it/400x300" alt=""/>
+            <div class="assort__num"><span>500 товаров</span></div>
+          </div>
+          <div class="assort__title">Штукатурка</div></a>
+      </div>
+      <div class="col-xs-6 col-sm-4 col-md-2"><a class="assort__item" href="">
+          <div class="assort__image"><img src="http://placehold.it/400x300" alt=""/>
+            <div class="assort__num"><span>500 товаров</span></div>
+          </div>
+          <div class="assort__title">Обои</div></a>
+      </div>
+      <div class="col-xs-6 col-sm-4 col-md-2"><a class="assort__item" href="">
+          <div class="assort__image"><img src="http://placehold.it/400x300" alt=""/>
+            <div class="assort__num"><span>500 товаров</span></div>
+          </div>
+          <div class="assort__title">Лаки</div></a>
+      </div>
+      <div class="col-xs-6 col-sm-4 col-md-2"><a class="assort__item" href="">
+          <div class="assort__image"><img src="http://placehold.it/400x300" alt=""/>
+            <div class="assort__num"><span>500 товаров</span></div>
+          </div>
+          <div class="assort__title">Краски</div></a>
+      </div>
+      <div class="col-xs-6 col-sm-4 col-md-2"><a class="assort__item" href="">
+          <div class="assort__image"><img src="http://placehold.it/400x300" alt=""/>
+            <div class="assort__num"><span>500 товаров</span></div>
+          </div>
+          <div class="assort__title">Клей</div></a>
+      </div>
+      <div class="col-xs-6 col-sm-4 col-md-2"><a class="assort__item" href="">
+          <div class="assort__image"><img src="http://placehold.it/400x300" alt=""/>
+          </div>
+          <div class="assort__title">Прочее</div></a>
+      </div>
+    </div>
+  </div>
+  <div class="advantages">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>Преимущества продукции <a href="">Bayramix</a>, <a href="">Prorab</a> и <a href="">Decorazza</a></h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <div class="advantages__item"><img src="../img/icons/adv-time.png" alt="Долговечность"/>
+            <h4>Долговечность</h4>
+            <p>Наша продукция устойчива к воздействию перепадов температур, влажности, ультрафиолетовому излучению, благодаря чему максимально долго держится, не меняя при этом своего оттенка</p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="advantages__item"><img src="../img/icons/adv-price.png" alt="Экономичность"/>
+            <h4>Экономичность</h4>
+            <p>Покупая российскую продукцию, вы избегаете дополнительных затрат без потери в качестве</p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="advantages__item"><img src="../img/icons/adv-safe.png" alt="Безопасность"/>
+            <h4>Безопасность</h4>
+            <p>Все наши продукты проходят <a href="">государственную регистрацию</a> поэтому безопасны для внутренней и наружной отделки помещений.<br />В том числе для дошкольных и лечебно- оздоровительных помещений</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="heading">
+          <div class="heading__title">Популярные товары</div>
+        </div>
+        <div class="heading__helper">
+          <div id="sl-popular-arrows">
+            <div class="sl-arrow arrow-left"></div>
+            <div class="sl-arrow arrow-right"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row slider-popular">
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <hr/>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="heading">
+          <div class="heading__title">Новые товары</div>
+        </div>
+        <div class="heading__helper">
+          <div id="sl-new-arrows">
+            <div class="sl-arrow arrow-left"></div>
+            <div class="sl-arrow arrow-right"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row slider-new">
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 row-slider__item">
+        <div class="dummy-vert"><a class="button button--link" href="#">
+            <div class="button__icon icon-cart"></div>
+            <div class="button__text">В корзину</div></a>
+          <div class="item-label"><span>-10%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Почему именно мы?</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="whywe__item">
+          <div class="whywe__image"><img src="img/whywe/complex.png"/></div>
+          <div class="whywe__title">Комплекс товаров</div>
+          <div class="whywe__text">Отдел комплектации строительных объектов поможет подобрать необходимую продукцию для решения Вашей задачи</div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="whywe__item">
+          <div class="whywe__image"><img src="img/whywe/specialist.png"/></div>
+          <div class="whywe__title">Выезд специалиста</div>
+          <div class="whywe__text">Отдел комплектации строительных объектов поможет подобрать необходимую продукцию для решения Вашей задачи</div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="whywe__item">
+          <div class="whywe__image"><img src="img/whywe/delivery.png"/></div>
+          <div class="whywe__title">Быстрая доставка</div>
+          <div class="whywe__text">Отдел комплектации строительных объектов поможет подобрать необходимую продукцию для решения Вашей задачи</div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="whywe__item">
+          <div class="whywe__image"><img src="img/whywe/works.png"/></div>
+          <div class="whywe__title">Отделочные работы</div>
+          <div class="whywe__text">Отдел комплектации строительных объектов поможет подобрать необходимую продукцию для решения Вашей задачи</div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="whywe__item">
+          <div class="whywe__image"><img src="img/whywe/guarantee.png"/></div>
+          <div class="whywe__title">Гарантия на товар</div>
+          <div class="whywe__text">Отдел комплектации строительных объектов поможет подобрать необходимую продукцию для решения Вашей задачи</div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="whywe__item">
+          <div class="whywe__image"><img src="img/whywe/sales.png"/></div>
+          <div class="whywe__title">Скидки</div>
+          <div class="whywe__text">Отдел комплектации строительных объектов поможет подобрать необходимую продукцию для решения Вашей задачи</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="heading">
+              <div class="heading__title">Новости</div>
+            </div>
+            <div class="heading__helper"><a href="#">Все новости</a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="news-preview"><a href="#">
+                <div class="news-preview__image"><img src="http://placehold.it/640x360" alt="В Москве ликвидирован нелегальный рынок строительных материалов"/></div></a>
+              <div class="news-preview__time">23.09.2016</div>
+              <div class="news-preview__link"><a href="#">В Москве ликвидирован нелегальный рынок строительных материалов</a></div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="news-preview"><a href="#">
+                <div class="news-preview__image"><img src="http://placehold.it/640x360" alt="Москва вошла в мировой ТОП-3 лидеров строительного рынка"/></div></a>
+              <div class="news-preview__time">23.09.2016</div>
+              <div class="news-preview__link"><a href="#">Москва вошла в мировой ТОП-3 лидеров строительного рынка</a></div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="news-preview"><a href="#">
+                <div class="news-preview__image"><img src="http://placehold.it/640x360" alt="Борьба с граффити на фасадах"/></div></a>
+              <div class="news-preview__time">23.09.2016</div>
+              <div class="news-preview__link"><a href="#">Борьба с граффити на фасадах</a></div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="news-preview"><a href="#">
+                <div class="news-preview__image"><img src="http://placehold.it/640x360" alt="Москва вошла в мировой ТОП-3 лидеров строительного рынка"/></div></a>
+              <div class="news-preview__time">23.09.2016</div>
+              <div class="news-preview__link"><a href="#">Москва вошла в мировой ТОП-3 лидеров строительного рынка</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="heading">
+              <div class="heading__title">Полезные статьи</div>
+            </div>
+            <div class="heading__helper"><a href="#">Все статьи</a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="news-preview"><a href="#">
+                <div class="news-preview__image"><img src="http://placehold.it/640x360" alt="В Москве ликвидирован нелегальный рынок строительных материалов"/></div></a>
+              <div class="news-preview__time">23.09.2016</div>
+              <div class="news-preview__link"><a href="#">В Москве ликвидирован нелегальный рынок строительных материалов</a></div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="news-preview"><a href="#">
+                <div class="news-preview__image"><img src="http://placehold.it/640x360" alt="Москва вошла в мировой ТОП-3 лидеров строительного рынка"/></div></a>
+              <div class="news-preview__time">23.09.2016</div>
+              <div class="news-preview__link"><a href="#">Москва вошла в мировой ТОП-3 лидеров строительного рынка</a></div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="news-preview"><a href="#">
+                <div class="news-preview__image"><img src="http://placehold.it/640x360" alt="Борьба с граффити на фасадах"/></div></a>
+              <div class="news-preview__time">23.09.2016</div>
+              <div class="news-preview__link"><a href="#">Борьба с граффити на фасадах</a></div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="news-preview"><a href="#">
+                <div class="news-preview__image"><img src="http://placehold.it/640x360" alt="Москва вошла в мировой ТОП-3 лидеров строительного рынка"/></div></a>
+              <div class="news-preview__time">23.09.2016</div>
+              <div class="news-preview__link"><a href="#">Москва вошла в мировой ТОП-3 лидеров строительного рынка</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Нужна консультация?</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <div class="consultation"><span>Звоните +7 (495) 123-45-67 или</span><span class="consultation__button">Закажите звонок</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="main-map" id="mainmap"></div>
+  <script>
+    function initMainMap() {
+    
+      var map = new google.maps.Map(document.getElementById('mainmap'), {
+        center: {lat: 55.675143, lng: 37.434921},
+        zoom: 17,
+        zoomControl: true,
+        scaleControl: false,
+        scrollwheel: false,
+        disableDoubleClickZoom: false,
+      });
+    
+      var marker = new google.maps.Marker({
+        position: {lat: 55.675143, lng: 37.434921},
+        map: map
+      });
+    
+    }
+    
+  </script>
+  <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgtOL2MbAvvg3CM8d82RxAMok9QVT6UpI&amp;callback=initMainMap"></script>
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-4">
+          <nav class="footer__menu">
+            <h4>Продукция</h4>
+            <ul>
+              <li><a href="#">Фасадные материалы</a></li>
+              <li><a href="#">Жидкие обои</a></li>
+              <li><a href="#">Краски</a></li>
+              <li><a href="#">Инструменты</a></li>
+              <li><a href="#">Продукция Bayramix</a></li>
+              <li><a href="#">Продукция Prorab</a></li>
+              <li><a href="#">Продукция Decorazza</a></li>
+              <li><a href="#">Продукция Quatra Parete</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-md-3 col-sm-4">
+          <nav class="footer__menu">
+            <h4>Покупателю</h4>
+            <ul>
+              <li><a href="#">Мои заказы</a></li>
+              <li><a href="#">Примеры работ</a></li>
+              <li><a href="#">Серитификаты</a></li>
+              <li><a href="#">Гарантия на товар</a></li>
+              <li><a href="#">Обучение</a></li>
+              <li><a href="#">Кредит</a></li>
+              <li><a href="#">Заказ отделочных работ</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-md-2 col-sm-4">
+          <nav class="footer__menu">
+            <h4>О компании</h4>
+            <ul>
+              <li><a href="#">О компании</a></li>
+              <li><a href="#">Блог</a></li>
+              <li><a href="#">Новости</a></li>
+              <li><a href="#">Акции</a></li>
+              <li><a href="#">Контакты</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="footer__social">
+            <ul>
+              <li><a class="social--vk" href="#"></a></li>
+              <li><a class="social--insta" href="#"></a></li>
+              <li><a class="social--youtube" href="#"></a></li>
+              <li><a class="social--ok" href="#"></a></li>
+              <li><a class="social--fb" href="#"></a></li>
+              <li><a class="social--tw" href="#"></a></li>
+            </ul>
+          </div>
+          <div class="footer__description">
+            <p><strong>Bayramix.su</strong> - продукция от официального дистрибьютора</p>
+          </div>
+          <div class="footer__description">
+            <address>
+              <p><b>г. Москва, ул. Рябиновая 44, оф.501</b> <br /> Пн-Пт с 9.00 до 18.00</p>
+            </address>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6"><span>© 2016 — </span><a href="/">bayramix.su</a></div>
+          <div class="col-xs-12 col-sm-6 tar"><span>Разработка и продвижение: </span><a targe="_blank" href="http://color-it.ru">Color-IT</a></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/flickity.pkgd.min.js"></script>
+  <script src="js/new-main.js"></script>
+</body>
