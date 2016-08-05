@@ -475,6 +475,14 @@ h2 {
     border-top: 1px solid #ddd;
   }
 }
+@media (min-width: 992px) {
+  .footer__social {
+    margin-bottom: 48px;
+    margin-top: 0;
+    padding-top: 0;
+    border: none;
+  }
+}
 .footer__social ul {
   margin: 0;
   padding: 0;
