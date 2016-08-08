@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
   <link rel="stylesheet" href="css/flickity.min.css"/>
   <link rel="stylesheet" href="css/main.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 </head>
 <body>
@@ -17,7 +19,7 @@
           </div>
           <div class="col-md-5 col-sm-4 col-xs-7"><i class="icon icon-delivery"></i><span>Доставка по всей России</span>
           </div>
-          <div class="col-md-4 col-sm-5 col-xs-12">
+          <div class="col-md-4 col-sm-5 col-xs-12 hidden-xs">
             <nav class="header__nav">
               <ul>
                 <li><a href="">Помощь</a></li>
@@ -29,7 +31,8 @@
         </div>
       </div>
     </div>
-    <div>
+
+    <div class="header_main_d hidden-xs">
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-sm-6 col-sm-offset-3 col-md-offset-0"><a class="header__logo" href="/"><span>Продукция Байрамикс<br/>от официального дистрибьютора</span></a></div>
@@ -46,6 +49,27 @@
               <div class="cart__icon icon-cart"><i>5</i></div>
               <div class="cart__icon icon-fav"><i>0</i></div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="header_main_m hidden-lg hidden-md">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-3"><a class="header__logo" href="/"></a></div>
+          <div class="col-xs-9">
+            <div class="header__contacts">
+              <div class="header__contact"><a href="">+7 (495) 661-20-18</a><br/><i class="icon icon-time"></i><span>Пн.-Пт.: 9:00 – 18:00</span>
+              </div>
+              <div class="cart-icons">
+                <div class="cart__icon icon-cart"><i>5</i></div>
+                <div class="cart__icon icon-fav"><i>0</i></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-8 col-sm-3 col-md-2 col-xs-offset-2 col-sm-offset-0">
+            
           </div>
         </div>
       </div>
@@ -73,10 +97,49 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h2>Официальный дистрибьютор<br /> торговых марок <a href="">Bayramix</a>, <a href="">Prorab</a> и <a href="">Decorazza</a> предлагает</h2>
+          <h2>Официальный дистрибьютор<br /> торговых марок <a href="">Bayramix</a>, <a href="">Prorab</a> и <a href="">Decorazza</a> предлагает <a data-toggle="collapse" data-parent="#collapse-group" class="hidden-lg hidden-md dotted_link" href="#el1">частным покупателям</a> и <a data-toggle="collapse" data-parent="#collapse-group" class="hidden-lg hidden-md dotted_link" href="#el2">прорабам</a></h2>
         </div>
       </div>
-      <div class="row">
+
+      <div class="row hidden-lg hidden-md">
+        <div class="col-sm-12 col-md-6">    
+          <div class="panel-group" id="collapse-group">
+             <div class="panel panel-default">
+                <div id="el1" class="panel-collapse collapse">
+                   <div class="panel-body">
+                      <div class="distribute__list">
+                        <ul>
+                          <li>Сертифицированные строительные материалы</li>
+                          <li>Покупку в кредит</li>
+                          <li>Отделочные работы</li>
+                          <li><a href="">Зарегистрируйтесь</a> на сайте<br />и получите <b>скидку 5%</b><br />на мраморную штукатурку</li>
+                        </ul>
+                        <hr>
+                        <p><a href="">Наши работы</a></p>
+                      </div>
+                   </div>
+                </div>
+                <div id="el2" class="panel-collapse collapse">
+                   <div class="panel-body">
+                      <div class="distribute__list">
+                        <ul>
+                          <li>Доставку в течение суток<br />при наличии товара</li>
+                          <li>Консультацию специалиста</li>
+                          <li>Образцы метариалов</li>
+                          <li>Систему скидок<br />и бонусные программы</li>
+                          <li>Отсрочку платежа<br />для постоянных клиентов</li>
+                        </ul>
+                        <hr>
+                        <p><a href="">Наши клиенты</a></p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row hidden-xs">
         <div class="col-sm-12 col-md-6">
           <div class="distribute__offers offers--privates">
             <div class="distribute__title">
@@ -109,7 +172,8 @@
           </div>
         </div>
       </div>
-      <div class="distribute__buttons">
+
+      <div class="distribute__buttons hidden-xs">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-sm-offset-0 col-md-offset-2 col-lg-offset-3 tar"><a class="button button--link" href="#">
               <div class="button__icon icon-works"></div>
@@ -121,6 +185,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
   <div class="container">
@@ -174,7 +239,6 @@
           <h2>Преимущества продукции <a href="">Bayramix</a>, <a href="">Prorab</a> и <a href="">Decorazza</a></h2>
         </div>
       </div>
-      
       <div class="row">
         <div class="col-xs-12 col-sm-4">
           <div class="advantages__item"><img src="img/icons/adv-time.png" alt="Долговечность"/>

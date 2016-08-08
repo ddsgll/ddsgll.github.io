@@ -286,10 +286,16 @@ h2 {
   .distribute__buttons .tar {
     text-align: center;
   }
+  .distribute__buttons::before{
+    display: none;
+  }
 }
 @media (max-width: 767px) {
   .distribute__buttons {
     text-align: center;
+  }
+  .distribute h2{
+    margin-bottom: 0;
   }
 }
 .distribute__buttons .button {
@@ -570,7 +576,7 @@ h2 {
 @media (max-width: 767px) {
   .header__topline {
     font-size: 12px;
-    height: 48px;
+    height: auto;
     line-height: 24px;
   }
 }
@@ -631,6 +637,40 @@ h2 {
   height: 96px;
   background: url("../img/logo.png") no-repeat 0px 0px;
 }
+
+.header_main_m .header__logo{
+  background: url("../img/logo_mob.png") no-repeat 0px 0px;
+  width: 74px;
+  height: 97px;
+  float: left;
+  margin: 0;
+}
+
+.header_main_m .cart-icons{
+    display: block;
+    height: auto;
+    width: 138px;
+    margin: 0 auto;
+}
+
+.header_main_m .cart__icon.icon-cart,
+.header_main_m .cart__icon.icon-fav{
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  float: left;
+  margin-right: 50px;
+}
+
+.header_main_m .cart__icon:nth-child(2){
+  margin-right: 0;
+}
+
+.header_main_m .cart__icon i{
+  bottom: 3px;
+  left: 40px;
+}
+
 @media (max-width: 767px) {
   .header__logo {
     margin-bottom: 24px;
@@ -693,6 +733,7 @@ h2 {
     height: auto;
     border: none;
     text-align: center;
+    padding: 0;
   }
 }
 @media (max-width: 767px) {
@@ -976,6 +1017,12 @@ i.icon.icon-time {
   .news-preview__link {
     height: auto;
   }
+  .distribute{
+    margin: 0;
+  }
+  .distribute__buttons{
+    display: none;
+  }
 }
 .news-preview__image {
   border: 1px solid #f5f5f5;
@@ -1039,6 +1086,10 @@ i.icon.icon-time {
   left: auto;
   right: 4.800000000000001px;
 }
+.slider-popular,
+.slider-new {
+  overflow: hidden;
+}
 .whywe {
   display: block;
 }
@@ -1060,4 +1111,22 @@ i.icon.icon-time {
   font-weight: normal;
   line-height: 24px;
   padding: 0 24px;
+}
+
+.panel-default>.panel-heading{
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+}
+
+.panel-default{
+  border:none;
+}
+
+.panel-group{
+  margin: 0;
+}
+
+.dotted_link{
+  border-bottom: 1px dashed #d93a96;
 }
